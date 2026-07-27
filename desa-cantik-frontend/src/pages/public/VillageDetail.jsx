@@ -433,7 +433,7 @@ export default function VillageDetail() {
       <VillageDetailNavbar activeSection={activeSection} scrollToSection={scrollToSection} village={village} />
 
       {/* HERO SECTION */}
-      <section className="relative min-h-[560px] flex items-center justify-center text-white overflow-hidden py-16">
+      <section className="relative h-[100vh] min-h-[600px] flex items-center justify-center text-white overflow-hidden py-16">
         <div className="absolute inset-0 bg-gradient-to-br from-[#154D71] via-[#1C6EA4] to-[#33A1E0]">
           {village.image_url && <img src={village.image_url} className="w-full h-full object-cover opacity-25 mix-blend-overlay" alt="Background" />}
         </div>
@@ -477,6 +477,17 @@ export default function VillageDetail() {
             )}
           </div>
 
+        </div>
+
+        {/* SCROLL DOWN INDICATOR */}
+        <div 
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20"
+          onClick={() => scrollToSection('tentang')}
+        >
+          <span className="text-xs tracking-widest uppercase font-semibold text-white/80">Jelajahi</span>
+          <svg className="w-5 h-5 text-white" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
         </div>
       </section>
 

@@ -62,21 +62,22 @@ export default function SidebarPerangkatDesa({ isCollapsed, setIsCollapsed }) {
               </li>
             );
           })}
+          {/* LOGOUT BUTTON DIRECTLY UNDER THE MENU ITEMS */}
+          <li className="pt-2 border-t border-gray-200 mt-2">
+            <Button
+              variant="ghost"
+              onClick={handleLogout}
+              className={`w-full flex justify-start items-center gap-3 text-red-600 hover:text-red-700 hover:bg-red-50 ${
+                isCollapsed ? "px-0 justify-center" : ""
+              }`}
+              title={isCollapsed ? "Logout" : undefined}
+            >
+              <LogOut className="h-5 w-5 shrink-0" />
+              {!isCollapsed && <span className="text-sm">Logout</span>}
+            </Button>
+          </li>
         </ul>
       </nav>
-
-      {/* LOGOUT — FIX: Now properly calls logout function */}
-      <div className="border-t border-gray-200 p-3">
-        <Button
-          variant="outline"
-          onClick={handleLogout}
-          className={`w-full ${isCollapsed ? "px-0" : ""}`}
-          title={isCollapsed ? "Logout" : undefined}
-        >
-          <LogOut className="h-5 w-5" />
-          {!isCollapsed && <span className="ml-2">Logout</span>}
-        </Button>
-      </div>
 
       {/* COLLAPSE BUTTON */}
       <button

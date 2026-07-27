@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
-import { Loader2, AlertCircle, Download, Share2 } from "lucide-react";
+import { Loader2, AlertCircle, Download, Share2, Search } from "lucide-react";
 
 export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
   const [tableData, setTableData] = useState(null);
@@ -8,6 +8,7 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
@@ -194,6 +195,26 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
           else calculatedHeaderRowCount = r + 1;
         }
         calculatedHeaderRowCount = Math.max(1, Math.min(calculatedHeaderRowCount, parsedRows.length));
+
+        // Propagate empty cells downwards (except header rows) for vertical merging support
+        if (parsedRows.length > calculatedHeaderRowCount) {
+          const numCols = parsedRows[calculatedHeaderRowCount].cells.length;
+          for (let c = 0; c < numCols; c++) {
+            let lastVal = "";
+            for (let r = calculatedHeaderRowCount; r < parsedRows.length; r++) {
+              const cell = parsedRows[r].cells[c];
+              if (!cell) continue;
+              const valStr = cell.value?.toString().trim();
+              if (valStr !== "" && valStr !== undefined && valStr !== null) {
+                lastVal = cell.value;
+              } else if (lastVal !== "") {
+                cell.value = lastVal;
+                cell.isAutoFilled = true;
+              }
+            }
+          }
+        }
+
         setHeaderRowCount(calculatedHeaderRowCount);
         setTableData(parsedRows);
       } catch (err) {
@@ -248,11 +269,85 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
     );
   }
 
+  // Filter rows based on search query (preserving header rows)
+  const filteredRows = tableData ? tableData.filter((row, idx) => {
+    if (idx < headerRowCount) return true;
+    return row.cells.some(cell => 
+      cell.value?.toString().toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }) : [];
+
+  // Helper to determine if cells can be merged vertically (same family / same KK in column 0)
+  const canMerge = (rowA, rowB, colIndex) => {
+    const cellA = rowA.cells[colIndex];
+    const cellB = rowB.cells[colIndex];
+    if (!cellA || !cellB) return false;
+    
+    // Ignore already merged/covered cells
+    if (cellA.mergeInfo?.isCovered || cellB.mergeInfo?.isCovered) return false;
+    if (cellA.mergeInfo?.colspan > 1 || cellB.mergeInfo?.colspan > 1) return false;
+    
+    // Must have identical values (and not empty)
+    if (cellA.value !== cellB.value || cellA.value === "") return false;
+    
+    // Column 0 (No KK) is always allowed to merge
+    if (colIndex === 0) return true;
+    
+    // Other columns merge only if they share the same KK in column 0 (family alignment)
+    const kkA = rowA.cells[0]?.value;
+    const kkB = rowB.cells[0]?.value;
+    return kkA === kkB;
+  };
+
+  // Perform vertical merge calculations on filtered rows
+  const getMergedRows = (rows, headerCount) => {
+    // Deep clone rows to avoid modifying state
+    const cloned = JSON.parse(JSON.stringify(rows));
+    if (cloned.length <= headerCount) return cloned;
+    
+    const numCols = cloned[headerCount].cells.length;
+    for (let c = 0; c < numCols; c++) {
+      let lastCell = null;
+      let lastRow = null;
+      for (let r = headerCount; r < cloned.length; r++) {
+        const row = cloned[r];
+        const cell = row.cells[c];
+        if (!cell) continue;
+        
+        if (lastCell && lastRow && canMerge(lastRow, row, c)) {
+          if (!lastCell.mergeInfo) {
+            lastCell.mergeInfo = { rowspan: 1, colspan: 1 };
+          }
+          lastCell.mergeInfo.rowspan = (lastCell.mergeInfo.rowspan || 1) + 1;
+          cell.mergeInfo = { isCovered: true };
+        } else {
+          lastCell = cell;
+          lastRow = row;
+        }
+      }
+    }
+    return cloned;
+  };
+
+  const finalRows = getMergedRows(filteredRows, headerRowCount);
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap gap-4 items-center justify-between">
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-3">
+          {/* SEARCH INPUT */}
+          <div className="relative min-w-[240px] max-w-xs">
+            <input
+              type="text"
+              placeholder="Cari data..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 text-sm bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C6EA4] focus:border-transparent transition-all"
+            />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+          </div>
+
           {/* TOMBOL BAGIKAN — sebelah kiri */}
           <button
             onClick={handleShare}
@@ -279,7 +374,7 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
       <div className="w-full overflow-x-auto shadow-sm border border-slate-200 rounded-xl bg-white p-1">
         <table className="w-full border-collapse text-base text-slate-700 bg-white">
           <tbody>
-            {tableData.map((row, rowIndex) => (
+            {finalRows.map((row, rowIndex) => (
               <tr
                 key={row.rowIndex}
                 className={`hover:bg-slate-50/50 transition-colors ${rowIndex < headerRowCount ? "" : rowIndex % 2 === 0 ? "bg-slate-50/30" : ""
