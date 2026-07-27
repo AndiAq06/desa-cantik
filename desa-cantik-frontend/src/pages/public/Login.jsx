@@ -37,10 +37,12 @@ export default function Login() {
       if (roleName === 'bps_admin') {
         navigate('/admin/dashboard');
       } else if (roleName === 'village_officer') {
-        navigate('/desa-dashboard/dashboard');
+        const slug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, '-') : 'desa';
+        navigate(`/${slug}/dashboard`);
       } else {
         console.warn('Role tidak dikenali:', roleName);
-        navigate('/desa-dashboard/dashboard');
+        const slug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, '-') : 'desa';
+        navigate(`/${slug}/dashboard`);
       }
     } catch (err) {
       console.error('Login Error:', err);

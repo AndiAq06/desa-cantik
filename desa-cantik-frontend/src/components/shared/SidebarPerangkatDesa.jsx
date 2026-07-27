@@ -38,7 +38,9 @@ export default function SidebarPerangkatDesa({ isCollapsed, setIsCollapsed }) {
         <ul className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
-            const isActive = location.pathname.startsWith(item.path);
+            const villageSlug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, "-") : "desa";
+            const dynamicPath = item.path.replace("/desa-dashboard", `/${villageSlug}`);
+            const isActive = location.pathname.startsWith(dynamicPath);
 
             return (
               <li key={item.id}>
@@ -52,7 +54,7 @@ export default function SidebarPerangkatDesa({ isCollapsed, setIsCollapsed }) {
                   }`}
                   title={isCollapsed ? item.label : undefined}
                 >
-                  <Link to={item.path}>
+                  <Link to={dynamicPath}>
                     <Icon className="h-5 w-5" />
                     {!isCollapsed && (
                       <span className="text-sm">{item.label}</span>

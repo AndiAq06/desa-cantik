@@ -118,7 +118,7 @@ function AppRoutes() {
 
         {/* --- 3. Rute Layout Perangkat Desa (Internal) --- */}
         <Route
-          path="/desa-dashboard"
+          path="/:villageSlug"
           element={
             <ProtectedRoute allowedRoles={["village_officer"]}>
               <DashboardLayout />

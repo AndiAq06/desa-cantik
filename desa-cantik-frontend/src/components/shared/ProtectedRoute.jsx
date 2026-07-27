@@ -26,7 +26,8 @@ export default function ProtectedRoute({ children, allowedRoles = [] }) {
     if (userRole === "bps_admin") {
       return <Navigate to="/admin/dashboard" replace />;
     } else if (userRole === "village_officer") {
-      return <Navigate to="/desa-dashboard/dashboard" replace />;
+      const slug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, '-') : 'desa';
+      return <Navigate to={`/${slug}/dashboard`} replace />;
     }
     return <Navigate to="/login" replace />;
   }
