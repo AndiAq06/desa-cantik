@@ -118,7 +118,7 @@ function AppRoutes() {
 
         {/* --- 3. Rute Layout Perangkat Desa (Internal) --- */}
         <Route
-          path={subdomain ? "/" : "/:villageSlug"}
+          path={subdomain ? "" : "/:villageSlug"}
           element={
             <ProtectedRoute allowedRoles={["village_officer"]}>
               <DashboardLayout />
@@ -136,7 +136,7 @@ function AppRoutes() {
           <Route path="pengaduan" element={<PengaduanDesa />} />
           <Route path="buku-tamu" element={<BukuTamuDesa />} />
           <Route path="ubah-password" element={<UbahPasswordPerangkatDesa />} />
-          <Route index element={<DashboardDesa />} />
+          {!subdomain && <Route index element={<DashboardDesa />} />}
         </Route>
       </Routes>
     </Router>
