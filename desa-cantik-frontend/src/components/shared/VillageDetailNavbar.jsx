@@ -21,7 +21,53 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function VillageDetailNavbar({ activeSection, scrollToSection, village }) {
-  const { slug: villageId } = useParams();
+  const getSubdomain = () => {
+    const hostname = window.location.hostname;
+    if (/^[0-9.]+$/.test(hostname)) {
+      return null;
+    }
+    const parts = hostname.split('.');
+    const isTwoPartTld = parts[parts.length - 2] === 'co' || parts[parts.length - 2] === 'web' || parts[parts.length - 2] === 'go';
+    const minPartsForSubdomain = isTwoPartTld ? 4 : 3;
+
+    if (parts.length < minPartsForSubdomain || parts[0] === 'www' || parts[0] === 'api') {
+      return null;
+    }
+    return parts[0];
+  };
+
+  const { slug: paramSlug } = useParams();
+  const villageId = paramSlug || getSubdomain();
+
+  const getLinkTarget = (section) => {
+    const hostname = window.location.hostname;
+    const isLocalOrIp = /^[0-9.]+$/.test(hostname) || hostname === 'localhost';
+    
+    if (isLocalOrIp) {
+      return section === 'desa' ? `/desa/${villageId}` : `/desa/${villageId}#${section}`;
+    }
+
+    const parts = hostname.split('.');
+    const isTwoPartTld = parts[parts.length - 2] === 'co' || parts[parts.length - 2] === 'web' || parts[parts.length - 2] === 'go';
+    const minPartsForSubdomain = isTwoPartTld ? 4 : 3;
+    
+    if (parts.length >= minPartsForSubdomain && parts[0] !== 'www' && parts[0] !== 'api') {
+      return section === 'desa' ? `/` : `/#${section}`;
+    }
+    
+    return section === 'desa' ? `/desa/${villageId}` : `/desa/${villageId}#${section}`;
+  };
+
+  const getHomeUrl = () => {
+    const hostname = window.location.hostname;
+    if (/^[0-9.]+$/.test(hostname) || hostname === 'localhost') {
+      return '/';
+    }
+    const protocol = window.location.protocol;
+    const parts = hostname.split('.');
+    const baseDomain = parts.slice(-3).join('.');
+    return `${protocol}//${baseDomain}/`;
+  };
 
   const getActiveClass = (section) =>
     activeSection === section
@@ -41,7 +87,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
 
     if (!scrollToSection) {
       return (
-        <Link to={`/desa/${villageId}#${section}`}>
+        <Link to={getLinkTarget(section)}>
           {content}
         </Link>
       );
@@ -69,7 +115,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
     return (
       <SheetClose asChild>
         <Link
-          to={section === 'desa' ? `/desa/${villageId}` : `/desa/${villageId}#${section}`}
+          to={getLinkTarget(section)}
           className="text-lg font-medium text-gray-700 hover:text-[#1C6EA4] text-left w-full block"
         >
           {label}
@@ -84,7 +130,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
         <div className="flex items-center justify-between h-20">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
+          <a href={getHomeUrl()} className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               {/* Logo BPS */}
               <div className="bg-white p-1 rounded-full shadow-md w-10 h-10 flex items-center justify-center hover:scale-105 transition-transform">
@@ -100,7 +146,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
               <h1 className="text-white text-base font-bold">Desa Cantik</h1>
               <p className="text-[#FFF9AF] text-xs font-semibold">Cinta Statistik</p>
             </div>
-          </Link>
+          </a>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-1.5">
@@ -116,7 +162,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                 Desa
               </Button>
             ) : (
-              <Link to={`/desa/${villageId}`}>
+              <Link to={getLinkTarget('desa')}>
                 <Button
                   variant="ghost"
                   className={`text-sm px-4 py-1.5 transition-all ${getActiveClass('desa')}`}

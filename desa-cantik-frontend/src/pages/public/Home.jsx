@@ -15,6 +15,18 @@ const AUTO_DELAY = 5000;
 const CARD_GAP = 20; // px, harus sama dengan gap di CSS
 
 export default function Home() {
+  const getVillageUrl = (name) => {
+    const slug = name.toLowerCase().replace(/\s+/g, "-");
+    const hostname = window.location.hostname;
+    if (/^[0-9.]+$/.test(hostname) || hostname === 'localhost') {
+      return `/desa/${slug}`;
+    }
+    const protocol = window.location.protocol;
+    const parts = hostname.split('.');
+    const baseDomain = parts.slice(-3).join('.');
+    return `${protocol}//${slug}.${baseDomain}`;
+  };
+
   const villagesRef = useRef(null);
   const [villages, setVillages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -259,13 +271,13 @@ export default function Home() {
                         <p className="text-gray-600 text-sm leading-relaxed line-clamp-3 flex-1">
                           {village.name} adalah desa yang terletak di {village.district}, {village.regency}. Desa ini merupakan bagian dari program Desa Cinta Statistik.
                         </p>
-                        <Link
-                          to={`/desa/${village.name.toLowerCase().replace(/\s+/g, "-")}`}
+                        <a
+                          href={getVillageUrl(village.name)}
                           className="mt-2 w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] hover:from-[#1C6EA4] hover:to-[#154D71] text-white text-sm font-semibold px-4 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all group/btn"
                         >
                           Lihat Detail
                           <ArrowRight className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   ))}

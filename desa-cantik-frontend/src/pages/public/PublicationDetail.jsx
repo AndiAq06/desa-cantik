@@ -384,9 +384,18 @@ export default function PublicationDetail() {
                     <div className="mt-8 pt-6 border-t">
                       <Button
                         variant="outline"
-                        onClick={() =>
-                          navigate(`/desa/${publication.village.name.toLowerCase().replace(/\s+/g, "-")}`)
-                        }
+                        onClick={() => {
+                          const slug = publication.village.name.toLowerCase().replace(/\s+/g, "-");
+                          const hostname = window.location.hostname;
+                          if (/^[0-9.]+$/.test(hostname) || hostname === 'localhost') {
+                            navigate(`/desa/${slug}`);
+                            return;
+                          }
+                          const protocol = window.location.protocol;
+                          const parts = hostname.split('.');
+                          const baseDomain = parts.slice(-3).join('.');
+                          window.location.href = `${protocol}//${slug}.${baseDomain}`;
+                        }}
                         className="gap-2 border-[#154D71] text-[#154D71] hover:bg-[#154D71] hover:text-white"
                       >
                         <MapPin className="w-4 h-4" />
