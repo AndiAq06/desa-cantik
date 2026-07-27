@@ -450,4 +450,19 @@ export const dataApi = {
     const res = await apiClient.get(`/villages/${villageId}/layanan-online/admin/buku-tamu`);
     return handleResponse(res);
   },
+
+  async adminDeleteSuratPengantar(villageId, id) {
+    const res = await apiClient.delete(`/villages/${villageId}/layanan-online/admin/surat-pengantar/${id}`);
+    return handleResponse(res);
+  },
+
+  async adminDeletePengaduan(villageId, id) {
+    const res = await apiClient.delete(`/villages/${villageId}/layanan-online/admin/pengaduan/${id}`);
+    return handleResponse(res);
+  },
+
+  async adminDeleteBukuTamu(villageId, id) {
+    const res = await apiClient.delete(`/villages/${villageId}/layanan-online/admin/buku-tamu/${id}`);
+    return handleResponse(res);
+  },
 };

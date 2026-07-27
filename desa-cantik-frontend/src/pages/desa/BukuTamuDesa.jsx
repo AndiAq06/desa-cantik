@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { Loader2, Users, Download } from "lucide-react";
+import { Loader2, Users, Download, Trash2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -29,6 +29,22 @@ export default function BukuTamuDesa() {
   useEffect(() => {
     loadData();
   }, [activeVillageId]);
+
+  const handleDeleteClick = async (id) => {
+    if (!activeVillageId) return;
+    if (!window.confirm("Apakah Anda yakin ingin menghapus catatan buku tamu ini?")) return;
+    
+    try {
+      setLoading(true);
+      await dataApi.adminDeleteBukuTamu(activeVillageId, id);
+      toast.success("Catatan buku tamu berhasil dihapus");
+      loadData();
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message || "Gagal menghapus catatan buku tamu");
+      setLoading(false);
+    }
+  };
 
   const downloadCSV = () => {
     if (items.length === 0) return;
@@ -104,6 +120,7 @@ export default function BukuTamuDesa() {
                     <TableHead className="font-semibold text-slate-700">Asal Instansi & Jabatan</TableHead>
                     <TableHead className="font-semibold text-slate-700">Keperluan</TableHead>
                     <TableHead className="font-semibold text-slate-700 text-center">Tanda Tangan</TableHead>
+                    <TableHead className="font-semibold text-slate-700 text-center">Aksi</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -139,6 +156,16 @@ export default function BukuTamuDesa() {
                         ) : (
                           <span className="text-xs text-slate-400">Tidak ada TTD</span>
                         )}
+                      </TableCell>
+                      <TableCell className="text-center py-2.5">
+                        <Button
+                          variant="destructive"
+                          onClick={() => handleDeleteClick(item.id)}
+                          className="text-xs h-8 px-3 rounded-lg flex items-center justify-center gap-1 mx-auto"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                          Hapus
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}

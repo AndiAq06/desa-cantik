@@ -410,4 +410,55 @@ class OnlineServiceController extends Controller
             'data' => $items
         ]);
     }
+
+    public function adminDestroySuratPengantar($villageId, $id): JsonResponse
+    {
+        $village = Village::findOrFail($villageId);
+        $surat = SuratPengantar::where('village_id', $village->id)->findOrFail($id);
+        
+        if ($surat->file_hasil_path) {
+            Storage::disk('public')->delete($surat->file_hasil_path);
+        }
+        
+        $surat->delete();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Permohonan surat pengantar berhasil dihapus'
+        ]);
+    }
+
+    public function adminDestroyPengaduan($villageId, $id): JsonResponse
+    {
+        $village = Village::findOrFail($villageId);
+        $pengaduan = Pengaduan::where('village_id', $village->id)->findOrFail($id);
+        
+        if ($pengaduan->lampiran_path) {
+            Storage::disk('public')->delete($pengaduan->lampiran_path);
+        }
+        
+        $pengaduan->delete();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Pengaduan berhasil dihapus'
+        ]);
+    }
+
+    public function adminDestroyBukuTamu($villageId, $id): JsonResponse
+    {
+        $village = Village::findOrFail($villageId);
+        $bukuTamu = BukuTamu::where('village_id', $village->id)->findOrFail($id);
+        
+        if ($bukuTamu->tanda_tangan_path) {
+            Storage::disk('public')->delete($bukuTamu->tanda_tangan_path);
+        }
+        
+        $bukuTamu->delete();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Catatan buku tamu berhasil dihapus'
+        ]);
+    }
 }

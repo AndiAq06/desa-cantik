@@ -121,9 +121,12 @@ Route::group([], function () {
             // Layanan Online (Internal/Admin)
             Route::get('villages/{village}/layanan-online/admin/surat-pengantar', [OnlineServiceController::class, 'adminListSuratPengantar']);
             Route::put('villages/{village}/layanan-online/admin/surat-pengantar/{id}', [OnlineServiceController::class, 'adminUpdateSuratPengantar']);
+            Route::delete('villages/{village}/layanan-online/admin/surat-pengantar/{id}', [OnlineServiceController::class, 'adminDestroySuratPengantar']);
             Route::get('villages/{village}/layanan-online/admin/pengaduan', [OnlineServiceController::class, 'adminListPengaduan']);
             Route::put('villages/{village}/layanan-online/admin/pengaduan/{id}', [OnlineServiceController::class, 'adminUpdatePengaduan']);
+            Route::delete('villages/{village}/layanan-online/admin/pengaduan/{id}', [OnlineServiceController::class, 'adminDestroyPengaduan']);
             Route::get('villages/{village}/layanan-online/admin/buku-tamu', [OnlineServiceController::class, 'adminListBukuTamu']);
+            Route::delete('villages/{village}/layanan-online/admin/buku-tamu/{id}', [OnlineServiceController::class, 'adminDestroyBukuTamu']);
         });
 
         // Manajemen statistik desa

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { Loader2, MessageSquare, ExternalLink, Eye, ChevronLeft, ChevronRight, Save } from "lucide-react";
+import { Loader2, MessageSquare, ExternalLink, Eye, ChevronLeft, ChevronRight, Save, Trash2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
@@ -86,6 +86,22 @@ export default function PengaduanDesa() {
       toast.error(err.message || "Gagal menyimpan tanggapan pengaduan");
     } finally {
       setIsUpdating(false);
+    }
+  };
+
+  const handleDeleteClick = async (id) => {
+    if (!activeVillageId) return;
+    if (!window.confirm("Apakah Anda yakin ingin menghapus pengaduan ini?")) return;
+    
+    try {
+      setLoading(true);
+      await dataApi.adminDeletePengaduan(activeVillageId, id);
+      toast.success("Pengaduan berhasil dihapus");
+      loadData(pagination.currentPage);
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message || "Gagal menghapus pengaduan");
+      setLoading(false);
     }
   };
 
@@ -175,13 +191,23 @@ export default function PengaduanDesa() {
                       </TableCell>
                       <TableCell className="text-center">{getStatusBadge(item.status)}</TableCell>
                       <TableCell className="text-center py-2.5">
-                        <Button
-                          onClick={() => handleReviewClick(item)}
-                          className="bg-[#1C6EA4] hover:bg-[#154D71] text-white text-xs h-8 rounded-lg flex items-center justify-center gap-1 mx-auto"
-                        >
-                          <Eye className="h-4 w-4" />
-                          Tanggapi
-                        </Button>
+                        <div className="flex items-center justify-center gap-2">
+                          <Button
+                            onClick={() => handleReviewClick(item)}
+                            className="bg-[#1C6EA4] hover:bg-[#154D71] text-white text-xs h-8 rounded-lg flex items-center justify-center gap-1"
+                          >
+                            <Eye className="h-4 w-4" />
+                            Tanggapi
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            onClick={() => handleDeleteClick(item.id)}
+                            className="text-xs h-8 px-3 rounded-lg flex items-center justify-center gap-1"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                            Hapus
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
