@@ -433,7 +433,7 @@ export default function VillageDetail() {
       <VillageDetailNavbar activeSection={activeSection} scrollToSection={scrollToSection} village={village} />
 
       {/* HERO SECTION */}
-      <section className="relative h-[100vh] min-h-[600px] flex items-center justify-center text-white overflow-hidden py-16">
+      <section className="relative h-[calc(100vh-80px)] min-h-[600px] flex items-center justify-center text-white overflow-hidden py-16">
         <div className="absolute inset-0 bg-gradient-to-br from-[#154D71] via-[#1C6EA4] to-[#33A1E0]">
           {village.image_url && <img src={village.image_url} className="w-full h-full object-cover opacity-25 mix-blend-overlay" alt="Background" />}
         </div>

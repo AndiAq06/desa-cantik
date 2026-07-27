@@ -103,7 +103,7 @@ export default function Home() {
       <Navbar scrollToVillages={scrollToVillages} />
 
       {/* Hero Section */}
-      <section className="relative h-[100vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[calc(100vh-80px)] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={background} alt="Latar belakang desa" className="w-full h-full object-cover" onError={(e) => (e.target.src = "https://placehold.co/1920x600/1c6ea4/ffffff?text=Desa+Cantik")} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-white/30" />
