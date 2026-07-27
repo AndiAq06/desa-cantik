@@ -604,7 +604,7 @@ export default function DataStatistikDesa() {
                       <ExcelTableViewer
                         fileUrl={indicatorData[0].file_name.startsWith('http') 
                           ? indicatorData[0].file_name 
-                          : `http://localhost:8000/storage/statistics/${indicatorData[0].file_name}`}
+                          : `${(import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api").replace(/\/api$/, "")}/storage/statistics/${indicatorData[0].file_name}`}
                         title={selectedIndicator}
                         leftActions={
                           <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 shrink-0">

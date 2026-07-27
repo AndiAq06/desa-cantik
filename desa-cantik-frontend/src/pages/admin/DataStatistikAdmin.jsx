@@ -676,7 +676,7 @@ export default function DataStatistikAdmin() {
                       <ExcelTableViewer
                         fileUrl={indicatorData[0].file_name.startsWith('http') 
                           ? indicatorData[0].file_name 
-                          : `http://localhost:8000/storage/statistics/${indicatorData[0].file_name}`}
+                          : `${(import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api").replace(/\/api$/, "")}/storage/statistics/${indicatorData[0].file_name}`}
                         title={selectedIndicator}
                       />
                     ) : (

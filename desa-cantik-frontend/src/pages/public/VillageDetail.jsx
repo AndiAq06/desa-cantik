@@ -613,7 +613,7 @@ export default function VillageDetail() {
                         <ExcelTableViewer
                           fileUrl={currentTable.file_name.startsWith('http')
                             ? currentTable.file_name
-                            : `http://localhost:8000/storage/statistics/${currentTable.file_name}`}
+                            : `${(import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api").replace(/\/api$/, "")}/storage/statistics/${currentTable.file_name}`}
                           title={currentTable.title}
                         />
                       ) : (
