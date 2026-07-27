@@ -59,12 +59,29 @@ const Placeholder = ({ pageName }) => (
   </div>
 );
 
+const getSubdomain = () => {
+  const hostname = window.location.hostname;
+  if (/^[0-9.]+$/.test(hostname)) {
+    return null;
+  }
+  const parts = hostname.split('.');
+  const isTwoPartTld = parts[parts.length - 2] === 'co' || parts[parts.length - 2] === 'web' || parts[parts.length - 2] === 'go';
+  const minPartsForSubdomain = isTwoPartTld ? 4 : 3;
+
+  if (parts.length < minPartsForSubdomain || parts[0] === 'www' || parts[0] === 'api') {
+    return null;
+  }
+  return parts[0];
+};
+
 function AppRoutes() {
+  const subdomain = getSubdomain();
+
   return (
     <Router>
       <Routes>
-        {/* --- Rute Publik (Tetap sama) --- */}
-        <Route path="/" element={<Home />} />
+        {/* --- Rute Publik --- */}
+        <Route path="/" element={subdomain ? <VillageDetail /> : <Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/tentang" element={<Tentang />} />
         <Route path="/desa/:slug" element={<VillageDetail />} />
