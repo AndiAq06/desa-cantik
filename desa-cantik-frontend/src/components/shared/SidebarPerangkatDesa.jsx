@@ -38,8 +38,22 @@ export default function SidebarPerangkatDesa({ isCollapsed, setIsCollapsed }) {
         <ul className="space-y-1">
           {menuItems.map((item) => {
             const Icon = item.icon;
+            
+            const getSubdomain = () => {
+              const hostname = window.location.hostname;
+              if (/^[0-9.]+$/.test(hostname)) return null;
+              const parts = hostname.split('.');
+              const isTwoPartTld = parts[parts.length - 2] === 'co' || parts[parts.length - 2] === 'web' || parts[parts.length - 2] === 'go';
+              const minPartsForSubdomain = isTwoPartTld ? 4 : 3;
+              if (parts.length < minPartsForSubdomain || parts[0] === 'www' || parts[0] === 'api') return null;
+              return parts[0];
+            };
+
+            const subdomain = getSubdomain();
             const villageSlug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, "-") : "desa";
-            const dynamicPath = item.path.replace("/desa-dashboard", `/${villageSlug}`);
+            const dynamicPath = subdomain
+              ? item.path.replace("/desa-dashboard", "")
+              : item.path.replace("/desa-dashboard", `/${villageSlug}`);
             const isActive = location.pathname.startsWith(dynamicPath);
 
             return (

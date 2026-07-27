@@ -26,8 +26,23 @@ export default function ProtectedRoute({ children, allowedRoles = [] }) {
     if (userRole === "bps_admin") {
       return <Navigate to="/admin/dashboard" replace />;
     } else if (userRole === "village_officer") {
-      const slug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, '-') : 'desa';
-      return <Navigate to={`/${slug}/dashboard`} replace />;
+      const getSubdomain = () => {
+        const hostname = window.location.hostname;
+        if (/^[0-9.]+$/.test(hostname)) return null;
+        const parts = hostname.split('.');
+        const isTwoPartTld = parts[parts.length - 2] === 'co' || parts[parts.length - 2] === 'web' || parts[parts.length - 2] === 'go';
+        const minPartsForSubdomain = isTwoPartTld ? 4 : 3;
+        if (parts.length < minPartsForSubdomain || parts[0] === 'www' || parts[0] === 'api') return null;
+        return parts[0];
+      };
+
+      const subdomain = getSubdomain();
+      if (subdomain) {
+        return <Navigate to="/dashboard" replace />;
+      } else {
+        const slug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, '-') : 'desa';
+        return <Navigate to={`/${slug}/dashboard`} replace />;
+      }
     }
     return <Navigate to="/login" replace />;
   }

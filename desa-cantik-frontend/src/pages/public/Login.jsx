@@ -34,15 +34,35 @@ export default function Login() {
       toast.success(`Selamat datang, ${user?.full_name || 'User'}!`);
 
       // Navigate based on role
+      const getSubdomain = () => {
+        const hostname = window.location.hostname;
+        if (/^[0-9.]+$/.test(hostname)) return null;
+        const parts = hostname.split('.');
+        const isTwoPartTld = parts[parts.length - 2] === 'co' || parts[parts.length - 2] === 'web' || parts[parts.length - 2] === 'go';
+        const minPartsForSubdomain = isTwoPartTld ? 4 : 3;
+        if (parts.length < minPartsForSubdomain || parts[0] === 'www' || parts[0] === 'api') return null;
+        return parts[0];
+      };
+
+      const subdomain = getSubdomain();
+
       if (roleName === 'bps_admin') {
         navigate('/admin/dashboard');
       } else if (roleName === 'village_officer') {
-        const slug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, '-') : 'desa';
-        navigate(`/${slug}/dashboard`);
+        if (subdomain) {
+          navigate('/dashboard');
+        } else {
+          const slug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, '-') : 'desa';
+          navigate(`/${slug}/dashboard`);
+        }
       } else {
         console.warn('Role tidak dikenali:', roleName);
-        const slug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, '-') : 'desa';
-        navigate(`/${slug}/dashboard`);
+        if (subdomain) {
+          navigate('/dashboard');
+        } else {
+          const slug = user?.village?.name ? user.village.name.toLowerCase().replace(/\s+/g, '-') : 'desa';
+          navigate(`/${slug}/dashboard`);
+        }
       }
     } catch (err) {
       console.error('Login Error:', err);
