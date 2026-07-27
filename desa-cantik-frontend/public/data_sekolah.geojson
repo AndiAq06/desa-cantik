@@ -1,0 +1,13 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "nama": "SDN 1 Rantepao" },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [119.898, -2.975]
+      }
+    }
+  ]
+}

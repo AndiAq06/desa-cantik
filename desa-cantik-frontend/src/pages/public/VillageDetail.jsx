@@ -1,0 +1,882 @@
+import React, { useEffect, useState, useMemo } from "react";
+import { useParams, Link } from "react-router-dom";
+import { MapContainer, TileLayer, GeoJSON, Popup, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
+import { MapPin, Users, Layers, CalendarDays, ArrowRight, Landmark, Download, Eye, FileText, BarChart3, ExternalLink, Loader2, ChevronDown, ChevronRight, ChevronUp, GraduationCap, Heart, DollarSign, Coins, Leaf, Heading2 } from "lucide-react";
+
+// KOMPONEN UI
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
+
+import { Card, CardContent, CardHeader, CardTitle, CardFooter, CardDescription } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+
+// LAYANAN
+import { villageService } from "@/services/villageService";
+import { geoService } from "@/services/geoService";
+import { publicationService } from "@/services/publicationService";
+import { statisticService } from "@/services/statisticService";
+import { documentationService } from "@/services/documentationService";
+
+// KOMPONEN BERSAMA
+import VillageDetailNavbar from "@/components/shared/VillageDetailNavbar";
+import Footer from "@/components/shared/Footer";
+import ExcelTableViewer from "@/components/shared/ExcelTableViewer";
+import logoSangkutu from "@/assets/images/logo_sangkutu.png";
+
+const monthOptions = [
+  { value: "all", label: "Semua Bulan" },
+  { value: "1", label: "Januari" },
+  { value: "2", label: "Februari" },
+  { value: "3", label: "Maret" },
+  { value: "4", label: "April" },
+  { value: "5", label: "Mei" },
+  { value: "6", label: "Juni" },
+  { value: "7", label: "Juli" },
+  { value: "8", label: "Agustus" },
+  { value: "9", label: "September" },
+  { value: "10", label: "Oktober" },
+  { value: "11", label: "November" },
+  { value: "12", label: "Desember" },
+];
+
+const currentYear = new Date().getFullYear();
+const yearOptions = ["All", ...Array.from({ length: 5 }, (_, i) => (currentYear - i).toString())];
+
+const getCategoryIcon = (categoryName) => {
+  const name = (categoryName || "").toLowerCase();
+  if (name.includes("wilayah") || name.includes("pemerintah")) {
+    return Landmark;
+  }
+  if (name.includes("penduduk") || name.includes("kependudukan")) {
+    return Users;
+  }
+  if (name.includes("didik") || name.includes("sekolah") || name.includes("pendidikan")) {
+    return GraduationCap;
+  }
+  if (name.includes("sehat") || name.includes("kesehatan") || name.includes("medis")) {
+    return Heart;
+  }
+  if (name.includes("ekonomi") || name.includes("keuangan") || name.includes("usaha")) {
+    return DollarSign;
+  }
+  return BarChart3;
+};
+
+const getCategoryIconBg = (categoryName) => {
+  const name = (categoryName || "").toLowerCase();
+  if (name.includes("wilayah") || name.includes("pemerintah")) {
+    return "bg-[#4eaf47]"; // Green
+  }
+  if (name.includes("penduduk") || name.includes("kependudukan")) {
+    return "bg-[#038fcb]"; // Blue
+  }
+  if (name.includes("didik") || name.includes("sekolah") || name.includes("pendidikan")) {
+    return "bg-[#9b51e0]"; // Purple
+  }
+  if (name.includes("sehat") || name.includes("kesehatan") || name.includes("medis")) {
+    return "bg-[#e05151]"; // Red/Rose
+  }
+  if (name.includes("ekonomi") || name.includes("keuangan") || name.includes("usaha")) {
+    return "bg-[#f37021]"; // Orange
+  }
+  return "bg-gray-500";
+};
+
+// KOMPONEN MAP CONTROLLER UNTUK FIT BOUNDS
+const MapController = ({ data, visibility }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!data || data.length === 0) return;
+
+    const visibleLayers = data.filter((l) => visibility[l.id] && l.geometry);
+    if (visibleLayers.length === 0) return;
+
+    try {
+      const geoJsonData = visibleLayers.map((l) => l.geometry);
+      const group = window.L.geoJSON(geoJsonData);
+
+      if (group.getLayers().length > 0) {
+        const bounds = group.getBounds();
+        if (bounds.isValid()) {
+          map.fitBounds(bounds, { padding: [50, 50] });
+        }
+      }
+    } catch (err) {
+      console.warn("Gagal mengatur zoom otomatis:", err);
+    }
+  }, [data, visibility, map]);
+
+  return null;
+};
+
+export default function VillageDetail() {
+  const { slug } = useParams();
+
+  // The identifier parameter is now the village name slug directly
+  const id = slug;
+
+  // Status Data Utama
+  const [village, setVillage] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [activeSection, setActiveSection] = useState("tentang");
+
+  // Status Peta
+  const [mapData, setMapData] = useState([]);
+  const [localLayerVisibility, setLocalLayerVisibility] = useState({});
+
+  // Accordion state for sidebar details
+  const [openAccordion, setOpenAccordion] = useState({
+    luas: true,
+    jarak: false,
+    topografi: false,
+    dusun: false,
+  });
+
+  const toggleAccordion = (section) => {
+    setOpenAccordion((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
+  // Status Publikasi
+  const [publications, setPublications] = useState([]);
+  const [selectedYear, setSelectedYear] = useState("All");
+  const [selectedMonth, setSelectedMonth] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 4;
+
+  // Status Statistik
+  const [subjectGroups, setSubjectGroups] = useState([]);
+  const [allTables, setAllTables] = useState({});
+  const [activeSubjectId, setActiveSubjectId] = useState("");
+  const [activeTableId, setActiveTableId] = useState("");
+  const [activeDomainId, setActiveDomainId] = useState("");
+
+  // Status Dokumentasi
+  const [documentation, setDocumentation] = useState([]);
+  const [loadingDocs, setLoadingDocs] = useState(true);
+
+  // 1. Muat Data Desa
+  useEffect(() => {
+    const loadData = async () => {
+      if (!id) return;
+      try {
+        setLoading(true);
+        const data = await villageService.getVillageById(id);
+        setVillage(data);
+      } catch (err) {
+        console.error("Gagal memuat data desa:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, [id]);
+
+  // 2. Muat Peta
+  useEffect(() => {
+    const loadMapData = async () => {
+      if (!id) return;
+      try {
+        const allMaps = await geoService.getLayersByVillage(id);
+
+        const combinedData = allMaps.map((map) => {
+          const config = map.layer_config || {};
+          const color = config.color || map.color || "#3388ff";
+
+          let geometry = map.features || map.geojson_data || map.geometry;
+
+          if (typeof geometry === "string") {
+            try {
+              geometry = JSON.parse(geometry);
+            } catch (e) {
+              console.error("Failed to parse geometry:", e);
+              geometry = null;
+            }
+          }
+
+          return {
+            id: map.id,
+            name: map.layer_name || map.map_name || map.theme_name || map.name || "Layer Tanpa Nama",
+            description: map.description || "",
+            type: map.map_type || "thematic",
+            geometry: geometry,
+            color: color,
+            is_visible: map.is_active !== undefined ? Boolean(map.is_active) : true,
+            geometry_type: map.geometry_type,
+          };
+        });
+
+        const visibleLayers = combinedData.filter((layer) => layer.is_visible && layer.geometry);
+
+        setMapData(visibleLayers);
+
+        const initialVisibility = {};
+        visibleLayers.forEach((layer) => {
+          initialVisibility[layer.id] = true;
+        });
+        setLocalLayerVisibility(initialVisibility);
+      } catch (err) {
+        console.error("Gagal memuat peta:", err);
+      }
+    };
+    loadMapData();
+  }, [id]);
+
+  // 3. Muat Publikasi
+  useEffect(() => {
+    const loadPublications = async () => {
+      if (!id) return;
+      try {
+        const data = await publicationService.getPublications(id);
+        const list = Array.isArray(data) ? data : data.data || [];
+        const formatted = list.map((item) => ({
+          id: item.id,
+          title: item.title,
+          subject: item.category || "Umum",
+          date: new Date(item.created_at).toLocaleDateString("id-ID"),
+          year: new Date(item.created_at).getFullYear().toString(),
+          month: (new Date(item.created_at).getMonth() + 1).toString(),
+          description: item.description,
+          imageUrl: item.cover_url || item.thumbnail_url || "https://placehold.co/300x400/f1f5f9/94a3b8?text=Dokumen",
+          fileUrl: item.file_url,
+        }));
+        setPublications(formatted);
+      } catch (err) {
+        console.error("Gagal memuat publikasi:", err);
+      }
+    };
+    loadPublications();
+  }, [id]);
+
+  // 4. Muat Statistik
+  useEffect(() => {
+    const loadStats = async () => {
+      if (!id) return;
+      try {
+        const rawStats = await statisticService.getStatisticsByVillage(id);
+        const allStats = Array.isArray(rawStats) ? rawStats : rawStats.data || [];
+
+        const listStats = allStats.filter((s) => {
+          const statusOk = s.status && s.status.trim() === "Terverifikasi";
+          const moduleOk = s.module ? s.module.is_active : true;
+          return statusOk && moduleOk;
+        });
+
+        const groups = {};
+        const tables = {};
+
+        listStats.forEach((stat) => {
+          const typeName = stat.module?.module_name || stat.type?.category || stat.statistic_type?.category || "Lainnya";
+          const typeId = `subject-${typeName.replace(/\s+/g, "-").toLowerCase()}`;
+
+          if (!groups[typeId]) {
+            groups[typeId] = {
+              id: typeId,
+              name: typeName,
+              tables: [],
+            };
+          }
+
+          const indicatorName = stat.name || stat.indicator_name || "Data Statistik";
+          const tableId = `table-${typeId}-${indicatorName.replace(/\s+/g, "-").toLowerCase()}`;
+
+          if (!groups[typeId].tables.find((t) => t.id === tableId)) {
+            groups[typeId].tables.push({ id: tableId, title: indicatorName });
+          }
+
+          if (!tables[tableId]) {
+            tables[tableId] = {
+              title: indicatorName,
+              source: stat.source || "BPS / Desa",
+              updatedAt: stat.updated_at,
+              file_name: stat.file_name,
+              data: {
+                headers: ["Tahun", "Sumber Data", "File Spreadsheet"],
+                rows: [],
+              },
+            };
+          }
+
+          tables[tableId].data.rows.push([stat.year || "-", stat.source || "Kantor Lembang", stat.file_name || "-"]);
+        });
+
+        const subjectGroupsArray = Object.values(groups);
+        Object.values(tables).forEach((tbl) => {
+          tbl.data.rows.sort((a, b) => b[0] - a[0]);
+        });
+
+        setSubjectGroups(subjectGroupsArray);
+        setAllTables(tables);
+
+        if (subjectGroupsArray.length > 0) {
+          setActiveSubjectId(subjectGroupsArray[0].id);
+          if (subjectGroupsArray[0].tables.length > 0) {
+            setActiveTableId(subjectGroupsArray[0].tables[0].id);
+          }
+        }
+      } catch (err) {
+        console.error("Gagal memuat statistik:", err);
+      }
+    };
+    loadStats();
+  }, [id]);
+
+  // 5. Muat Dokumentasi Kegiatan
+  useEffect(() => {
+    const loadDocs = async () => {
+      if (!village?.id) return;
+      try {
+        setLoadingDocs(true);
+        const data = await documentationService.getVillageDocumentation(village.id);
+        const list = Array.isArray(data) ? data : data.data || [];
+        setDocumentation(list);
+      } catch (err) {
+        console.error("Gagal memuat dokumentasi:", err);
+      } finally {
+        setLoadingDocs(false);
+      }
+    };
+    loadDocs();
+  }, [village?.id]);
+
+  // Fungsi UI & Logika Pembantu
+  const handleLocalLayerToggle = (layerId) => {
+    setLocalLayerVisibility((prev) => ({ ...prev, [layerId]: !prev[layerId] }));
+  };
+
+  const scrollToSection = (sectionId) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+
+  // FIX 2: Reset currentPage ke 1 setiap kali filter berubah
+  const handleYearChange = (val) => {
+    setSelectedYear(val);
+    setCurrentPage(1);
+  };
+
+  const handleMonthChange = (val) => {
+    setSelectedMonth(val);
+    setCurrentPage(1);
+  };
+
+  const filteredPublications = useMemo(() => {
+    return publications.filter((pub) => {
+      const matchYear = selectedYear === "All" || pub.year === selectedYear;
+      const matchMonth = selectedMonth === "all" || pub.month === selectedMonth;
+      return matchYear && matchMonth;
+    });
+  }, [publications, selectedYear, selectedMonth]);
+
+  // FIX 3: Pastikan currentPage tidak melebihi totalPages setelah filter berubah
+  const totalPages = Math.ceil(filteredPublications.length / ITEMS_PER_PAGE);
+  const safePage = Math.min(currentPage, totalPages || 1);
+  const currentPublications = filteredPublications.slice((safePage - 1) * ITEMS_PER_PAGE, safePage * ITEMS_PER_PAGE);
+
+  const currentTable = allTables[activeTableId];
+  const activeSubject = subjectGroups.find((s) => s.id === activeSubjectId);
+  const categoryTables = activeSubject ? activeSubject.tables : [];
+
+  const docImages = documentation.map((d) => d.image_url).filter(Boolean);
+  if (docImages.length === 0 && !loadingDocs) {
+    docImages.push("https://placehold.co/800x600/e2e8f0/94a3b8?text=Dokumentasi+1");
+    docImages.push("https://placehold.co/800x600/cbd5e1/64748b?text=Dokumentasi+2");
+  }
+
+  if (loading) return <div className="h-screen flex items-center justify-center text-[#154D71] font-medium animate-pulse">Memuat data desa...</div>;
+  if (!village) return <div className="h-screen flex items-center justify-center text-red-500">Data desa tidak ditemukan.</div>;
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 40s linear infinite;
+        }
+      `}</style>
+
+      <VillageDetailNavbar activeSection={activeSection} scrollToSection={scrollToSection} village={village} />
+
+      {/* HERO SECTION */}
+      <section className="relative min-h-[560px] flex items-center justify-center text-white overflow-hidden py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#154D71] via-[#1C6EA4] to-[#33A1E0]">
+          {village.image_url && <img src={village.image_url} className="w-full h-full object-cover opacity-25 mix-blend-overlay" alt="Background" />}
+        </div>
+
+        {/* Subtle glassmorphic grid background */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+
+        <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+
+          {/* Logo & Branding SANGKUTU (Centered, Transparent & Larger) */}
+          <div className="flex flex-col items-center gap-3 mb-6">
+            <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 flex items-center justify-center hover:scale-105 transition-transform duration-300 filter drop-shadow-xl">
+              <img src={logoSangkutu} alt="Logo Sangkutu" className="w-full h-full object-contain" />
+            </div>
+            <div className="max-w-2xl text-center">
+              <h2 className="text-[#FFF9AF] font-bold text-xl sm:text-2xl tracking-widest uppercase filter drop-shadow">
+                SANGKUTU
+              </h2>
+              <p className="text-blue-100 text-xs sm:text-sm font-medium tracking-wide mt-1 uppercase opacity-90">
+                Satu Data Lembang/Kelurahan Toraja Utara
+              </p>
+            </div>
+          </div>
+
+          {/* Village Main Title (The Absolute Highlight) */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 tracking-tight filter drop-shadow-lg text-white mt-2">
+            {village.name}
+          </h1>
+
+          {/* Location & Population Info */}
+          <div className="flex flex-wrap justify-center gap-4 text-sm sm:text-base font-semibold">
+            <div className="flex items-center gap-2 bg-white/10 border border-white/10 px-5 py-2.5 rounded-full backdrop-blur-md shadow-inner hover:bg-white/15 transition-all">
+              <MapPin className="h-5 w-5 text-[#FFF9AF]" />
+              <span className="tracking-wide">{village.district}, {village.regency}</span>
+            </div>
+            {village.population > 0 && (
+              <div className="flex items-center gap-2 bg-white/10 border border-white/10 px-5 py-2.5 rounded-full backdrop-blur-md shadow-inner hover:bg-white/15 transition-all">
+                <Users className="h-5 w-5 text-[#FFF9AF]" />
+                <span className="tracking-wide">{Number(village.population).toLocaleString("id-ID")} Jiwa</span>
+              </div>
+            )}
+          </div>
+
+        </div>
+      </section>
+
+      {/* TENTANG DESA */}
+      <section id="tentang" className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500"></div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
+                <img
+                  src={village.image_url || village.logo_url || "https://placehold.co/800x600/f1f5f9/94a3b8?text=Foto+Desa"}
+                  alt={village.name}
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+                />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-3 bg-blue-50 rounded-lg">
+                  <FileText className="w-6 h-6 text-[#33A1E0]" />
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71]">Tentang Desa</h2>
+              </div>
+              <p className="text-lg text-gray-600 leading-relaxed mb-8">{village.description || "Belum ada deskripsi detail mengenai desa ini. Silakan hubungi admin untuk informasi lebih lanjut."}</p>
+
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                  <p className="text-sm text-gray-500 mb-1">Luas Wilayah</p>
+                  <p className="text-xl font-bold text-[#154D71]">{village.area || "-"} km²</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                  <p className="text-sm text-gray-500 mb-1">Kode Wilayah</p>
+                  <p className="text-xl font-bold text-[#154D71]">{village.village_code || "-"}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DATA STATISTIK */}
+      <section id="data" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-4">Data Statistik</h2>
+            <p className="text-gray-600">Data statistik resmi yang dihasilkan Desa dan di validasi oleh BPS</p>
+          </div>
+
+          {subjectGroups.length > 0 ? (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Left Column: Filter & List of Indicators */}
+              <div className="lg:col-span-1 space-y-3">
+                <h2 className="text-xl font-bold text-slate-800 tracking-tight pl-1">
+                  Subjek
+                </h2>
+                {subjectGroups.map((s) => {
+                  const isExpanded = activeSubjectId === s.id;
+                  const CategoryIcon = getCategoryIcon(s.name);
+                  const iconBg = getCategoryIconBg(s.name);
+
+                  return (
+                    <div key={s.id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                      {/* Level 1: Category Header Card */}
+
+                      <button
+                        onClick={() => {
+                          if (isExpanded) {
+                            setActiveSubjectId("");
+                          } else {
+                            setActiveSubjectId(s.id);
+                            if (s.tables?.length) {
+                              setActiveTableId(s.tables[0].id);
+                            }
+                          }
+                        }}
+                        className="w-full flex items-center justify-between p-3 bg-white hover:bg-gray-50/50 transition-colors text-left"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className={cn("p-1.5 rounded-md shrink-0 text-white shadow-sm", iconBg)}>
+                            <CategoryIcon className="w-4 h-4" />
+                          </div>
+                          <span className="font-bold text-gray-800 text-sm sm:text-[15px] font-sans leading-snug">
+                            {s.name}
+                          </span>
+                        </div>
+                        {isExpanded ? (
+                          <ChevronUp className="w-4 h-4 text-gray-600 shrink-0 ml-2" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-gray-400 shrink-0 ml-2" />
+                        )}
+                      </button>
+
+                      {/* Level 2: List of Indicators inside Category */}
+                      {isExpanded && s.tables && s.tables.length > 0 && (
+                        <div className="p-2.5 bg-gray-50/40 border-t border-gray-100 space-y-1">
+                          {s.tables.map((t) => {
+                            const isTableActive = activeTableId === t.id;
+
+                            return (
+                              <button
+                                key={t.id}
+                                onClick={() => setActiveTableId(t.id)}
+                                className={cn(
+                                  "w-full text-left text-xs sm:text-sm py-2 px-3 rounded-lg transition-all block leading-snug border-0",
+                                  isTableActive
+                                    ? "bg-[#154D71] text-white shadow-md font-semibold"
+                                    : "bg-transparent text-gray-650 hover:bg-gray-250/50 hover:text-gray-900 font-medium"
+                                )}
+                              >
+                                {t.title}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Right Column: Table details */}
+              <div className="lg:col-span-2">
+                {currentTable ? (
+                  <Card className="border-0 shadow-lg overflow-hidden">
+                    <CardHeader className="bg-white border-b px-6 py-5 flex flex-row items-center justify-between space-y-0">
+                      <div>
+                        <CardTitle className="text-xl text-[#154D71]">{currentTable.title}</CardTitle>
+                        <CardDescription className="mt-1">Update Terakhir: {currentTable.updatedAt ? new Date(currentTable.updatedAt).toLocaleDateString("id-ID") : "-"}</CardDescription>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-4">
+                      {currentTable.file_name ? (
+                        <ExcelTableViewer
+                          fileUrl={currentTable.file_name.startsWith('http')
+                            ? currentTable.file_name
+                            : `http://localhost:8000/storage/statistics/${currentTable.file_name}`}
+                          title={currentTable.title}
+                        />
+                      ) : (
+                        <div className="h-64 flex flex-col items-center justify-center text-gray-400">
+                          File excel/spreadsheet belum diunggah.
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div className="h-64 flex flex-col items-center justify-center bg-white rounded-xl shadow-sm border border-dashed border-gray-300 text-gray-400">
+                    <BarChart3 className="w-12 h-12 mb-3 opacity-20" />
+                    <p>Pilih indikator statistik untuk melihat data</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100">
+              <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <BarChart3 className="w-10 h-10 text-gray-300" />
+              </div>
+              <h3 className="text-xl font-medium text-gray-900 mb-2">Belum Ada Data Statistik</h3>
+              <p className="text-gray-500 max-w-md mx-auto">Data statistik untuk desa ini sedang dalam proses pengumpulan dan verifikasi.</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* PUBLIKASI */}
+      <section id="publikasi" className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-2">Publikasi Desa</h2>
+              <p className="text-gray-600">Dokumen dan laporan resmi desa</p>
+            </div>
+            {/* FIX: Gunakan handler yang reset currentPage */}
+            <div className="flex gap-4 bg-gray-50 p-2 rounded-lg border border-gray-100">
+              <Select value={selectedYear} onValueChange={handleYearChange}>
+                <SelectTrigger className="w-[120px] bg-white border-0 shadow-sm">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {yearOptions.map((y) => (
+                    <SelectItem key={y} value={y}>
+                      {y}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select value={selectedMonth} onValueChange={handleMonthChange}>
+                <SelectTrigger className="w-[140px] bg-white border-0 shadow-sm">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {monthOptions.map((m) => (
+                    <SelectItem key={m.value} value={m.value}>
+                      {m.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          {currentPublications.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-6">
+              {currentPublications.map((pub) => (
+                <Link key={pub.id} to={`/publikasi/${pub.id}`} className="group bg-white border border-gray-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 flex gap-6 items-start cursor-pointer">
+                  <div className="w-24 h-32 shrink-0 bg-gray-100 rounded-lg overflow-hidden shadow-sm relative">
+                    <img src={pub.imageUrl} className="w-full h-full object-cover" alt="Cover" />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                  </div>
+                  <div className="flex-1 py-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="secondary" className="text-[10px] bg-blue-50 text-blue-600 hover:bg-blue-100">
+                        {pub.subject}
+                      </Badge>
+                      <span className="text-xs text-gray-400 flex items-center gap-1">
+                        <CalendarDays className="w-3 h-3" /> {pub.date}
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-[#154D71] text-lg leading-tight mb-2 line-clamp-2 group-hover:text-[#33A1E0] transition-colors">{pub.title}</h3>
+                    <p className="text-sm text-gray-500 line-clamp-2 mb-4">{pub.description}</p>
+                    <div className="inline-flex items-center text-sm font-medium text-[#33A1E0] group-hover:text-[#154D71]">
+                      Lihat Detail <ArrowRight className="w-4 h-4 ml-1" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+              <p className="text-gray-500">Tidak ada publikasi ditemukan.</p>
+            </div>
+          )}
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mt-10 flex justify-center">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} className={cn("cursor-pointer", safePage === 1 && "pointer-events-none opacity-50")} />
+                  </PaginationItem>
+                  <span className="mx-4 text-sm text-gray-500 self-center">
+                    Halaman {safePage} dari {totalPages}
+                  </span>
+                  <PaginationItem>
+                    <PaginationNext onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} className={cn("cursor-pointer", safePage === totalPages && "pointer-events-none opacity-50")} />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* PETA TEMATIK */}
+      <section id="peta" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-3">Peta Digital</h2>
+            <p className="text-gray-600 max-w-2xl">Eksplorasi data geospasial dan tematik wilayah desa.</p>
+          </div>
+
+          <div className="relative w-full rounded-2xl shadow-xl overflow-hidden border-4 border-white group h-[360px] sm:h-[420px] md:h-[520px] lg:h-[600px] max-h-[80vh]">
+            {/* FLOATING FILTER POPUP */}
+            {id !== "nonongan-selatan" && (
+              <div className="absolute top-4 right-4 z-[1000]">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button className="bg-white text-[#154D71] hover:bg-gray-100 shadow-lg gap-2 border border-gray-200 font-medium">
+                      <Layers className="w-4 h-4" />
+                      Layer Peta
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-72 p-0 bg-white mr-4 mt-2 shadow-2xl border-gray-200 z-[1001]" align="end" sideOffset={5}>
+                    <div className="p-3 border-b border-gray-100 bg-gray-50/50">
+                      <h4 className="font-semibold text-[#154D71] text-sm flex items-center gap-2">
+                        <Layers className="w-3 h-3" /> Layer Aktif
+                      </h4>
+                    </div>
+                    <div className="p-2 max-h-64 overflow-y-auto custom-scrollbar">
+                      {mapData.length === 0 ? (
+                        <div className="p-4 text-center text-xs text-gray-500">Belum ada data peta.</div>
+                      ) : (
+                        mapData.map((layer) => (
+                          <div
+                            key={layer.id}
+                            className={cn("flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer select-none", localLayerVisibility[layer.id] ? "bg-blue-50/50" : "")}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleLocalLayerToggle(layer.id);
+                            }}
+                          >
+                            <Checkbox
+                              id={`layer-${layer.id}`}
+                              checked={localLayerVisibility[layer.id] || false}
+                              onCheckedChange={() => handleLocalLayerToggle(layer.id)}
+                              onClick={(e) => e.stopPropagation()}
+                              className="data-[state=checked]:bg-[#154D71] data-[state=checked]:border-[#154D71]"
+                            />
+                            <div className="grid gap-0.5 leading-none flex-1">
+                              <label htmlFor={`layer-${layer.id}`} className="text-sm font-medium leading-none cursor-pointer text-gray-700" onClick={(e) => e.stopPropagation()}>
+                                {layer.name}
+                              </label>
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full shadow-sm" style={{ backgroundColor: layer.color }}></div>
+                                <span className="text-[10px] text-gray-500 uppercase tracking-wider">{layer.type}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            )}
+
+            {/* MAP CONTAINER */}
+            <div className="z-0 h-full w-full">
+              {id === "nonongan-selatan" ? (
+                <iframe
+                  src="https://www.google.com/maps/d/embed?mid=1TxMpeWTmDzz0BMtCKZhN_hcQKdTOgvo&ehbc=2E312F"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  title="Peta Nonongan Selatan"
+                  allowFullScreen
+                ></iframe>
+              ) : (
+                <MapContainer center={[-2.9739, 119.9045]} zoom={14} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
+                  <TileLayer attribution="&copy; OpenStreetMap contributors" url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                  <MapController data={mapData} visibility={localLayerVisibility} />
+                  {mapData.map(
+                    (layer) =>
+                      localLayerVisibility[layer.id] &&
+                      layer.geometry && (
+                        <GeoJSON
+                          key={layer.id}
+                          data={layer.geometry}
+                          style={{
+                            color: layer.color,
+                            fillColor: layer.color,
+                            weight: 2,
+                            fillOpacity: 0.3,
+                          }}
+                        >
+                          <Popup>
+                            <div className="p-2 min-w-[200px]">
+                              <h4 className="font-bold text-[#154D71] text-sm mb-1">{layer.name}</h4>
+                              <Badge variant="outline" className="text-[10px] px-1 py-0 border-blue-200 text-blue-600 mb-2">
+                                {layer.type}
+                              </Badge>
+                              <p className="text-xs text-gray-600 leading-relaxed">{layer.description || "Tidak ada deskripsi tambahan."}</p>
+                            </div>
+                          </Popup>
+                        </GeoJSON>
+                      ),
+                  )}
+                </MapContainer>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DOKUMENTASI KEGIATAN */}
+      <section id="dokumentasi" className="py-20 bg-white border-t border-gray-100">
+        <div className="container mx-auto px-6">
+          <div className="mb-10 text-left">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-3">Dokumentasi Kegiatan</h2>
+            <p className="text-gray-600 max-w-2xl">Galeri foto pembinaan dan dokumentasi kegiatan Desa Cantik (DesCan).</p>
+          </div>
+
+          {loadingDocs ? (
+            <div className="flex items-center justify-center py-20 text-gray-500">
+              <Loader2 className="h-8 w-8 animate-spin text-[#154D71] mr-2" />
+              <span>Memuat galeri kegiatan...</span>
+            </div>
+          ) : documentation.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {documentation.map((doc) => (
+                <div key={doc.id} className="group relative bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100 aspect-[4/3] hover:shadow-xl transition-all duration-300">
+                  {/* Blurred background */}
+                  <img
+                    src={doc.image_url}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover blur-xl opacity-40 scale-110 pointer-events-none select-none"
+                  />
+                  <div className="absolute inset-0 bg-black/15" />
+
+                  {/* Foreground image */}
+                  <img
+                    src={doc.image_url}
+                    alt={doc.description || doc.title || 'Dokumentasi'}
+                    className="relative z-10 w-full h-full object-contain transition duration-500 group-hover:scale-102"
+                  />
+                  {(doc.description || doc.title) && (
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-5 pt-12 z-20">
+                      <p className="text-white text-sm font-semibold truncate leading-snug">
+                        {doc.description || doc.title}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20 text-gray-400 border-2 border-dashed rounded-xl bg-gray-50/50">
+              Belum ada foto dokumentasi kegiatan untuk desa ini.
+            </div>
+          )}
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}

@@ -1,0 +1,10 @@
+# Root gitignore
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+**/node_modules/
+**/vendor/
+**/.env
+**/dist/
