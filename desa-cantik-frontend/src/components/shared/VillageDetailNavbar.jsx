@@ -192,25 +192,25 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                   <DropdownMenuItem asChild className="hover:bg-slate-50 cursor-pointer rounded-lg">
                     <Link to={`/desa/${villageId}/layanan-online/surat-pengantar`} className="w-full flex items-center py-2 px-3 text-slate-700">
                       <Mail className="mr-2.5 h-4 w-4 text-[#1C6EA4]" />
-                      <span className="text-sm">Surat Pengantar</span>
+                      <span className="text-sm">Permohonan Layanan Administrasi</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="hover:bg-slate-50 cursor-pointer rounded-lg">
                     <Link to={`/desa/${villageId}/layanan-online/status-pengantar`} className="w-full flex items-center py-2 px-3 text-slate-700">
                       <ClipboardCheck className="mr-2.5 h-4 w-4 text-[#1C6EA4]" />
-                      <span className="text-sm">Status Pengantar</span>
+                      <span className="text-sm">Hasil Layanan Administrasi</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="hover:bg-slate-50 cursor-pointer rounded-lg">
                     <Link to={`/desa/${villageId}/layanan-online/pengaduan`} className="w-full flex items-center py-2 px-3 text-slate-700">
                       <MessageSquare className="mr-2.5 h-4 w-4 text-[#1C6EA4]" />
-                      <span className="text-sm">Pengaduan</span>
+                      <span className="text-sm">Pengaduan Masyarakat</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="hover:bg-slate-50 cursor-pointer rounded-lg">
                     <Link to={`/desa/${villageId}/layanan-online/status-pengaduan`} className="w-full flex items-center py-2 px-3 text-slate-700">
                       <AlertCircle className="mr-2.5 h-4 w-4 text-[#1C6EA4]" />
-                      <span className="text-sm">Status Pengaduan</span>
+                      <span className="text-sm">Status Pengaduan Masyarakat</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild className="hover:bg-slate-50 cursor-pointer rounded-lg">
@@ -265,7 +265,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                           className="text-base text-gray-600 hover:text-[#1C6EA4] pl-2 flex items-center gap-2"
                         >
                           <Mail className="h-4 w-4 text-[#1C6EA4]" />
-                          Surat Pengantar
+                          Permohonan Layanan Administrasi
                         </Link>
                       </SheetClose>
                       <SheetClose asChild>
@@ -274,7 +274,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                           className="text-base text-gray-600 hover:text-[#1C6EA4] pl-2 flex items-center gap-2"
                         >
                           <ClipboardCheck className="h-4 w-4 text-[#1C6EA4]" />
-                          Status Pengantar
+                          Hasil Layanan Administrasi
                         </Link>
                       </SheetClose>
                       <SheetClose asChild>
@@ -283,7 +283,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                           className="text-base text-gray-600 hover:text-[#1C6EA4] pl-2 flex items-center gap-2"
                         >
                           <MessageSquare className="h-4 w-4 text-[#1C6EA4]" />
-                          Pengaduan
+                          Pengaduan Masyarakat
                         </Link>
                       </SheetClose>
                       <SheetClose asChild>
@@ -292,7 +292,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                           className="text-base text-gray-600 hover:text-[#1C6EA4] pl-2 flex items-center gap-2"
                         >
                           <AlertCircle className="h-4 w-4 text-[#1C6EA4]" />
-                          Status Pengaduan
+                          Status Pengaduan Masyarakat
                         </Link>
                       </SheetClose>
                       <SheetClose asChild>

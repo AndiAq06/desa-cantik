@@ -75,7 +75,13 @@ class OnlineServiceController extends Controller
         $items = SuratPengantar::where('village_id', $village->id)
             ->where('nik', $nik)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->get()
+            ->map(function ($item) {
+                if ($item->file_hasil_path) {
+                    $item->file_hasil_url = Storage::disk('public')->url($item->file_hasil_path);
+                }
+                return $item;
+            });
 
         return response()->json([
             'success' => true,
@@ -257,9 +263,16 @@ class OnlineServiceController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
+        $data = collect($items->items())->map(function ($item) {
+            if ($item->file_hasil_path) {
+                $item->file_hasil_url = Storage::disk('public')->url($item->file_hasil_path);
+            }
+            return $item;
+        });
+
         return response()->json([
             'success' => true,
-            'data' => $items->items(),
+            'data' => $data,
             'meta' => [
                 'current_page' => $items->currentPage(),
                 'last_page' => $items->lastPage(),
@@ -274,9 +287,14 @@ class OnlineServiceController extends Controller
         $village = Village::findOrFail($villageId);
         $surat = SuratPengantar::where('village_id', $village->id)->findOrFail($id);
 
+        \Illuminate\Support\Facades\Log::debug('adminUpdateSuratPengantar request method: ' . $request->method());
+        \Illuminate\Support\Facades\Log::debug('adminUpdateSuratPengantar request all:', $request->all());
+        \Illuminate\Support\Facades\Log::debug('adminUpdateSuratPengantar request files:', $request->allFiles());
+
         $validator = Validator::make($request->all(), [
             'status' => 'required|string|in:Menunggu Verifikasi,Disetujui,Ditolak',
             'keterangan' => 'nullable|string',
+            'file_hasil' => 'nullable|file|mimes:pdf|max:10240', // max 10MB PDF
         ]);
 
         if ($validator->fails()) {
@@ -287,7 +305,25 @@ class OnlineServiceController extends Controller
             ], 422);
         }
 
-        $surat->update($validator->validated());
+        $data = $validator->validated();
+        unset($data['file_hasil']);
+
+        if ($request->hasFile('file_hasil')) {
+            // Delete old file if it exists
+            if ($surat->file_hasil_path) {
+                Storage::disk('public')->delete($surat->file_hasil_path);
+            }
+            $file = $request->file('file_hasil');
+            $filename = Str::uuid()->toString() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs("results/village_{$village->id}", $filename, 'public');
+            $data['file_hasil_path'] = $path;
+        }
+
+        $surat->update($data);
+
+        if ($surat->file_hasil_path) {
+            $surat->file_hasil_url = Storage::disk('public')->url($surat->file_hasil_path);
+        }
 
         return response()->json([
             'success' => true,

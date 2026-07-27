@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { Loader2, Search, FileText, CheckCircle2, AlertTriangle, XCircle, ArrowRight } from "lucide-react";
+import { Loader2, Search, FileText, CheckCircle2, AlertTriangle, XCircle, ArrowRight, Download } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -85,10 +85,10 @@ export default function StatusPengantarPublic() {
       <main className="flex-1 container mx-auto px-4 py-10 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-slate-800 uppercase tracking-tight">
-            Status Surat Pengantar Online
+            Hasil Layanan Administrasi
           </h1>
           <p className="text-slate-500 mt-2 text-sm max-w-md mx-auto">
-            Masukkan NIK Anda untuk melihat status pengajuan surat warga Desa {village?.name}
+            Masukkan NIK Anda untuk melihat hasil dan status pengajuan layanan administrasi warga Desa {village?.name}
           </p>
         </div>
 
@@ -131,14 +131,14 @@ export default function StatusPengantarPublic() {
         {/* Panduan Visual Alur Status */}
         <div className="border border-slate-200 bg-white rounded-2xl p-6 shadow-md mb-10">
           <h2 className="text-center text-md font-bold text-slate-800 uppercase tracking-wider mb-6">
-            Cek Status Pengajuan Surat Anda
+            Cek Status Pengajuan Layanan Administrasi Anda
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-start gap-3 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
               <CheckCircle2 className="h-8 w-8 text-emerald-600 shrink-0 mt-0.5" />
               <div>
-                <h4 className="font-bold text-emerald-900 text-sm">Surat Disetujui</h4>
-                <p className="text-xs text-emerald-700 mt-1">Warga mengambil berkas fisik / file PDF yang disetujui di kantor desa</p>
+                <h4 className="font-bold text-emerald-900 text-sm">Permohonan Disetujui</h4>
+                <p className="text-xs text-emerald-700 mt-1">Berkas/Dokumen PDF hasil layanan administrasi siap diunduh</p>
               </div>
             </div>
             
@@ -153,7 +153,7 @@ export default function StatusPengantarPublic() {
             <div className="flex items-start gap-3 p-4 bg-rose-50 rounded-xl border border-rose-100">
               <XCircle className="h-8 w-8 text-rose-600 shrink-0 mt-0.5" />
               <div>
-                <h4 className="font-bold text-rose-900 text-sm">Surat Ditolak</h4>
+                <h4 className="font-bold text-rose-900 text-sm">Permohonan Ditolak</h4>
                 <p className="text-xs text-rose-700 mt-1">Pengajuan ditolak karena persyaratan kurang lengkap atau data tidak valid</p>
               </div>
             </div>
@@ -165,7 +165,7 @@ export default function StatusPengantarPublic() {
           <Card className="border-slate-200 shadow-lg rounded-2xl bg-white mb-10 overflow-hidden">
             <CardHeader className="bg-slate-50 border-b border-slate-100">
               <CardTitle className="text-slate-800 text-md">Hasil Pengecekan NIK: <span className="font-bold text-[#1C6EA4]">{nik}</span></CardTitle>
-              <CardDescription>Ditemukan {results.length} pengajuan surat</CardDescription>
+              <CardDescription>Ditemukan {results.length} pengajuan layanan administrasi</CardDescription>
             </CardHeader>
             <CardContent className="p-0">
               {results.length > 0 ? (
@@ -177,6 +177,7 @@ export default function StatusPengantarPublic() {
                         <TableHead className="font-semibold text-slate-600">Jenis Surat</TableHead>
                         <TableHead className="font-semibold text-slate-600">Nama Pemohon</TableHead>
                         <TableHead className="font-semibold text-slate-600">Status</TableHead>
+                        <TableHead className="font-semibold text-slate-600">Dokumen Hasil</TableHead>
                         <TableHead className="font-semibold text-slate-600 pr-6">Keterangan / Alasan</TableHead>
                       </TableRow>
                     </TableHeader>
@@ -195,6 +196,21 @@ export default function StatusPengantarPublic() {
                           <TableCell className="font-semibold text-sm text-slate-900">{item.jenis_surat}</TableCell>
                           <TableCell className="text-sm">{item.nama_lengkap}</TableCell>
                           <TableCell>{getStatusBadge(item.status)}</TableCell>
+                          <TableCell>
+                            {item.file_hasil_url ? (
+                              <a
+                                href={item.file_hasil_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-2.5 py-1.5 rounded-lg shadow-sm transition-colors"
+                              >
+                                <Download className="h-3.5 w-3.5" />
+                                Unduh PDF
+                              </a>
+                            ) : (
+                              <span className="text-xs text-slate-400 italic">Belum tersedia</span>
+                            )}
+                          </TableCell>
                           <TableCell className="text-xs text-slate-500 max-w-[200px] truncate pr-6" title={item.keterangan}>
                             {item.keterangan || "-"}
                           </TableCell>
@@ -205,7 +221,7 @@ export default function StatusPengantarPublic() {
                 </div>
               ) : (
                 <div className="p-10 text-center text-slate-400 text-sm">
-                  Tidak ada data pengajuan surat untuk NIK tersebut.
+                  Tidak ada data pengajuan layanan administrasi untuk NIK tersebut.
                 </div>
               )}
             </CardContent>

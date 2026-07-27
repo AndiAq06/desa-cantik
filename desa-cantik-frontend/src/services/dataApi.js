@@ -427,6 +427,11 @@ export const dataApi = {
   },
 
   async adminUpdateSuratPengantar(villageId, id, payload) {
+    const isFormData = payload instanceof FormData;
+    if (isFormData) {
+      const res = await apiClient.post(`/villages/${villageId}/layanan-online/admin/surat-pengantar/${id}`, payload);
+      return handleResponse(res);
+    }
     const res = await apiClient.put(`/villages/${villageId}/layanan-online/admin/surat-pengantar/${id}`, payload);
     return handleResponse(res);
   },

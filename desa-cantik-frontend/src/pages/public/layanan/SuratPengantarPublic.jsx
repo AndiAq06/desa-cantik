@@ -82,7 +82,7 @@ export default function SuratPengantarPublic() {
       }
 
       await dataApi.createSuratPengantar(village.id, payload);
-      toast.success("Permohonan surat pengantar berhasil dikirim!");
+      toast.success("Permohonan layanan administrasi berhasil dikirim!");
       
       // Reset form
       setFormData({
@@ -103,7 +103,7 @@ export default function SuratPengantarPublic() {
       });
     } catch (err) {
       console.error(err);
-      toast.error(err.message || "Gagal mengirim permohonan surat");
+      toast.error(err.message || "Gagal mengirim permohonan layanan administrasi");
     } finally {
       setSubmitting(false);
     }

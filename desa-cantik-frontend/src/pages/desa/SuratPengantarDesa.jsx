@@ -35,6 +35,7 @@ export default function SuratPengantarDesa() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [status, setStatus] = useState("");
   const [keterangan, setKeterangan] = useState("");
+  const [fileHasil, setFileHasil] = useState(null);
 
   const loadData = async (page = 1) => {
     if (!activeVillageId) return;
@@ -65,6 +66,7 @@ export default function SuratPengantarDesa() {
     setSelectedSurat(surat);
     setStatus(surat.status);
     setKeterangan(surat.keterangan || "");
+    setFileHasil(null);
     setIsModalOpen(true);
   };
 
@@ -74,10 +76,22 @@ export default function SuratPengantarDesa() {
 
     try {
       setIsUpdating(true);
-      await dataApi.adminUpdateSuratPengantar(activeVillageId, selectedSurat.id, {
-        status,
-        keterangan,
-      });
+      
+      let payload;
+      if (fileHasil) {
+        payload = new FormData();
+        payload.append("status", status);
+        payload.append("keterangan", keterangan);
+        payload.append("file_hasil", fileHasil);
+        payload.append("_method", "PUT");
+      } else {
+        payload = {
+          status,
+          keterangan,
+        };
+      }
+
+      await dataApi.adminUpdateSuratPengantar(activeVillageId, selectedSurat.id, payload);
       toast.success("Status permohonan berhasil diperbarui");
       setIsModalOpen(false);
       loadData(pagination.currentPage);
@@ -303,6 +317,31 @@ export default function SuratPengantarDesa() {
                     placeholder="Tuliskan keterangan pengambilan surat atau alasan jika permohonan ditolak..."
                     className="rounded-xl border-slate-300 focus-visible:ring-slate-400 min-h-[90px]"
                   />
+                </div>
+
+                <div className="grid gap-2">
+                  <Label className="text-sm font-semibold text-slate-700">Upload PDF Hasil / Feedback Lembang</Label>
+                  <div className="flex flex-col gap-2">
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => setFileHasil(e.target.files[0] || null)}
+                      className="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-[#1C6EA4] hover:file:bg-blue-100 cursor-pointer"
+                    />
+                    {selectedSurat?.file_hasil_url && (
+                      <div className="text-xs text-slate-500 flex items-center gap-1.5 mt-1">
+                        <span>File saat ini:</span>
+                        <a
+                          href={selectedSurat.file_hasil_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold text-blue-600 hover:underline flex items-center gap-1"
+                        >
+                          Lihat PDF hasil sebelumnya
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 

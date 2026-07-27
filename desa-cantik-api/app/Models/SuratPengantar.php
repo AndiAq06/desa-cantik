@@ -30,6 +30,7 @@ class SuratPengantar extends Model
         'jenis_kegiatan',
         'status',
         'keterangan',
+        'file_hasil_path',
     ];
 
     protected $casts = [

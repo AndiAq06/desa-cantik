@@ -335,76 +335,7 @@ export default function BukuTamuPublic() {
           </CardContent>
         </Card>
 
-        {/* Tabel Daftar Pengunjung */}
-        <Card className="border-slate-200 shadow-xl rounded-2xl overflow-hidden bg-white">
-          <CardContent className="p-0">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border-b border-slate-100 bg-slate-50/50 gap-4">
-              <div>
-                <h3 className="font-bold text-slate-800 text-md flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-[#1C6EA4]" />
-                  Daftar Pengunjung Desa
-                </h3>
-                <p className="text-xs text-slate-500 mt-1">Daftar riwayat kunjungan tamu di kantor desa</p>
-              </div>
-              <Button
-                onClick={downloadCSV}
-                disabled={results.length === 0}
-                className="bg-[#4eaf47] hover:bg-[#439e3d] text-white text-xs font-semibold rounded-lg shadow h-9 flex items-center gap-1.5"
-              >
-                <Download className="h-4 w-4" />
-                Download Data
-              </Button>
-            </div>
 
-            {loadingTable ? (
-              <div className="p-10 text-center text-slate-400 flex items-center justify-center gap-2">
-                <Loader2 className="h-5 w-5 animate-spin text-[#1C6EA4]" />
-                <span>Memuat data pengunjung...</span>
-              </div>
-            ) : results.length > 0 ? (
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-slate-100">
-                      <TableHead className="w-[60px] text-center font-semibold text-slate-600">No</TableHead>
-                      <TableHead className="font-semibold text-slate-600">Tanggal Kunjungan</TableHead>
-                      <TableHead className="font-semibold text-slate-600">Nama</TableHead>
-                      <TableHead className="font-semibold text-slate-600">Asal Instansi</TableHead>
-                      <TableHead className="font-semibold text-slate-600">Jabatan</TableHead>
-                      <TableHead className="font-semibold text-slate-600">Keperluan</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {results.map((item, index) => (
-                      <TableRow key={item.id} className="border-slate-100 hover:bg-slate-50/50 text-slate-700">
-                        <TableCell className="text-center font-medium">{index + 1}</TableCell>
-                        <TableCell className="text-xs">
-                          {new Date(item.tanggal_kunjungan).toLocaleDateString("id-ID", {
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                            hour: "2-digit",
-                            minute: "2-digit"
-                          })}
-                        </TableCell>
-                        <TableCell className="font-semibold text-sm text-slate-900">{item.nama_lengkap}</TableCell>
-                        <TableCell className="text-sm">{item.asal_instansi}</TableCell>
-                        <TableCell className="text-sm">{item.jabatan}</TableCell>
-                        <TableCell className="text-xs text-slate-500 max-w-[200px] truncate" title={item.keperluan}>
-                          {item.keperluan}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            ) : (
-              <div className="p-10 text-center text-slate-400 text-sm">
-                Belum ada pengunjung yang tercatat hari ini.
-              </div>
-            )}
-          </CardContent>
-        </Card>
       </main>
 
       <Footer />
