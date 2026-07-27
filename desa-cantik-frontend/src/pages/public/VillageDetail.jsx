@@ -444,15 +444,15 @@ export default function VillageDetail() {
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
 
           {/* Logo & Branding SANGKUTU (Centered, Transparent & Larger) */}
-          <div className="flex flex-col items-center gap-3 mb-6">
-            <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 flex items-center justify-center hover:scale-105 transition-transform duration-300 filter drop-shadow-xl">
+          <div className="flex flex-col items-center gap-4 mb-8">
+            <div className="w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center hover:scale-105 transition-transform duration-300 filter drop-shadow-xl">
               <img src={logoSangkutu} alt="Logo Sangkutu" className="w-full h-full object-contain" />
             </div>
-            <div className="max-w-2xl text-center">
-              <h2 className="text-[#FFF9AF] font-bold text-xl sm:text-2xl tracking-widest uppercase filter drop-shadow">
+            <div className="max-w-3xl text-center">
+              <h2 className="text-[#FFF9AF] font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-lg">
                 SANGKUTU
               </h2>
-              <p className="text-blue-100 text-xs sm:text-sm font-medium tracking-wide mt-1 uppercase opacity-90">
+              <p className="text-blue-100 text-sm sm:text-base md:text-lg font-semibold tracking-wide mt-2 uppercase opacity-95 filter drop-shadow">
                 Satu Data Lembang/Kelurahan Toraja Utara
               </p>
             </div>
