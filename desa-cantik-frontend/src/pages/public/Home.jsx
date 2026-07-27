@@ -103,7 +103,7 @@ export default function Home() {
       <Navbar scrollToVillages={scrollToVillages} />
 
       {/* Hero Section */}
-      <section className="relative min-h-[400px] sm:min-h-[500px] md:min-h-[600px] max-h-[90vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[100vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img src={background} alt="Latar belakang desa" className="w-full h-full object-cover" onError={(e) => (e.target.src = "https://placehold.co/1920x600/1c6ea4/ffffff?text=Desa+Cantik")} />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-white/30" />
@@ -127,10 +127,21 @@ export default function Home() {
             </Button>
           </div>
         </div>
+
+        {/* SCROLL DOWN INDICATOR */}
+        <div 
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20"
+          onClick={() => document.getElementById("tentang-section")?.scrollIntoView({ behavior: "smooth" })}
+        >
+          <span className="text-xs tracking-widest uppercase font-semibold text-white/80">Jelajahi</span>
+          <svg className="w-5 h-5 text-white" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </div>
       </section>
 
       {/* Tentang Desa Cantik Section */}
-      <section className="relative w-full min-h-screen overflow-hidden py-20">
+      <section id="tentang-section" className="relative w-full min-h-screen overflow-hidden py-20">
         <div className="absolute inset-0 bg-gradient-to-br from-[#4BADE4] via-[#33A1E0] to-[#1C6EA4]" />
         <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center">
           <div className="max-w-7xl mx-auto">
