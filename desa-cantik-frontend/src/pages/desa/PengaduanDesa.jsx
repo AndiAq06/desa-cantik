@@ -145,7 +145,7 @@ export default function PengaduanDesa() {
                 <TableHeader className="bg-slate-50/50">
                   <TableRow className="border-slate-100">
                     <TableHead className="font-semibold text-slate-700">Tanggal Pengaduan</TableHead>
-                    <TableHead className="font-semibold text-slate-700">Subjek Laporan</TableHead>
+                    <TableHead className="font-semibold text-slate-700">Kategori Laporan</TableHead>
                     <TableHead className="font-semibold text-slate-700">Nama Pengirim</TableHead>
                     <TableHead className="font-semibold text-slate-700">Lampiran</TableHead>
                     <TableHead className="font-semibold text-slate-700 text-center">Status</TableHead>

@@ -167,7 +167,7 @@ const ModulDesaAdmin = () => {
               Pilih Desa
             </CardTitle>
             <div className="text-sm text-slate-500">
-              Pilih desa terlebih dahulu untuk melihat dan mengelola modul desa.
+              Pilih desa terlebih dahulu untuk melihat dan mengelola kategori desa.
             </div>
           </CardHeader>
           <CardContent>
@@ -202,14 +202,14 @@ const ModulDesaAdmin = () => {
             </h3>
             <p className="text-slate-500 max-w-sm text-center mt-1">
               Silakan pilih desa pada menu dropdown di atas untuk mulai mengelola
-              modul desa.
+              kategori desa.
             </p>
           </div>
         ) : (
           <section className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
-                <h3 className="text-2xl font-semibold text-slate-900">Edit Modul Desa - {villages.find(v => String(v.id) === selectedVillage)?.name}</h3>
+                <h3 className="text-2xl font-semibold text-slate-900">Edit Kategori Desa - {villages.find(v => String(v.id) === selectedVillage)?.name}</h3>
               </div>
               <ModuleDialog
                 mode="add"
@@ -221,7 +221,7 @@ const ModulDesaAdmin = () => {
 
             <Card className="border-slate-200 shadow-lg w-full overflow-hidden">
               <CardHeader className="sr-only">
-                <CardTitle>Edit Modul Desa</CardTitle>
+                <CardTitle>Edit Kategori Desa</CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <div className="overflow-x-auto">
@@ -233,7 +233,7 @@ const ModulDesaAdmin = () => {
                             No
                           </TableHead>
                           <TableHead className="font-semibold text-slate-600">
-                            Nama Modul
+                            Nama Kategori
                           </TableHead>
                           <TableHead className="font-semibold text-slate-600">
                             Deskripsi
@@ -382,7 +382,7 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
     }
   }, [open, module]);
 
-  const title = mode === 'add' ? 'Tambah Modul Desa' : 'Edit Modul Desa';
+  const title = mode === 'add' ? 'Tambah Kategori Desa' : 'Edit Kategori Desa';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -410,10 +410,10 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
 
       await onSuccess?.();
       setOpen(false);
-      toast.success(mode === 'add' ? 'Modul berhasil ditambahkan' : 'Modul berhasil diperbarui');
+      toast.success(mode === 'add' ? 'Kategori berhasil ditambahkan' : 'Kategori berhasil diperbarui');
     } catch (error) {
-      console.error('Gagal menyimpan modul:', error);
-      const msg = error.response?.data?.message || error.message || 'Gagal menyimpan modul.';
+      console.error('Gagal menyimpan kategori:', error);
+      const msg = error.response?.data?.message || error.message || 'Gagal menyimpan kategori.';
       toast.error(msg);
     } finally {
       setSubmitting(false);
@@ -433,10 +433,10 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
       await onSuccess?.();
       setOpen(false);
       setShowDeleteConfirm(false);
-      toast.success('Modul berhasil dihapus');
+      toast.success('Kategori berhasil dihapus');
     } catch (error) {
-      console.error('Gagal menghapus modul:', error);
-      const msg = error.response?.data?.message || error.message || 'Gagal menghapus modul.';
+      console.error('Gagal menghapus kategori:', error);
+      const msg = error.response?.data?.message || error.message || 'Gagal menghapus kategori.';
       toast.error(msg);
       setShowDeleteConfirm(false);
     } finally {
@@ -483,7 +483,7 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
               value={formValues.name}
               onChange={handleChange}
               className="rounded-xl border-slate-300 focus-visible:ring-slate-300"
-              placeholder="Masukkan nama modul"
+              placeholder="Masukkan nama kategori"
               required
             />
           </div>
@@ -496,7 +496,7 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
               value={formValues.description}
               onChange={handleChange}
               className="rounded-xl border-slate-300 focus-visible:ring-slate-300"
-              placeholder="Masukkan deskripsi modul"
+              placeholder="Masukkan deskripsi kategori"
               rows={3}
               required
             />
@@ -543,7 +543,7 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
               </DialogTitle>
             </DialogHeader>
             <div className="py-2 text-sm text-slate-600">
-              Apakah Anda yakin ingin menghapus modul <b>{formValues.name}</b>?
+              Apakah Anda yakin ingin menghapus kategori <b>{formValues.name}</b>?
               <br />
               Tindakan ini tidak dapat dibatalkan.
             </div>

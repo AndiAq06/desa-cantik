@@ -113,8 +113,8 @@ const ModulDesaPerangkatDesa = () => {
                 <section className="space-y-4">
                     <div className="flex flex-wrap items-center justify-between gap-4">
                         <div>
-                            <h3 className="text-2xl font-semibold text-slate-900">Kelola Modul Desa</h3>
-                            <p className="text-sm text-slate-500">Kelola daftar modul yang tampil di profil desa Anda.</p>
+                            <h3 className="text-2xl font-semibold text-slate-900">Kelola Kategori Desa</h3>
+                            <p className="text-sm text-slate-500">Kelola daftar kategori yang tampil di profil desa Anda.</p>
                         </div>
                         <ModuleDialog
                             mode="add"
@@ -126,7 +126,7 @@ const ModulDesaPerangkatDesa = () => {
 
                     <Card className="border-slate-200 shadow-lg w-full overflow-hidden">
                         <CardHeader className="sr-only">
-                            <CardTitle>Kelola Modul Desa</CardTitle>
+                            <CardTitle>Kelola Kategori Desa</CardTitle>
                         </CardHeader>
                         <CardContent className="p-0">
                             <div className="overflow-x-auto">
@@ -138,7 +138,7 @@ const ModulDesaPerangkatDesa = () => {
                                                     No
                                                 </TableHead>
                                                 <TableHead className="font-semibold text-slate-600">
-                                                    Nama Modul
+                                                    Nama Kategori
                                                 </TableHead>
                                                 <TableHead className="font-semibold text-slate-600">
                                                     Deskripsi
@@ -160,14 +160,14 @@ const ModulDesaPerangkatDesa = () => {
                                                     <TableCell colSpan={6} className="h-24 text-center">
                                                         <div className="flex flex-col items-center justify-center text-slate-500">
                                                             <Loader2 className="h-8 w-8 animate-spin mb-2" />
-                                                            <p>Memuat modul...</p>
+                                                            <p>Memuat kategori...</p>
                                                         </div>
                                                     </TableCell>
                                                 </TableRow>
                                             ) : modules.length === 0 ? (
                                                 <TableRow>
                                                     <TableCell colSpan={6} className="h-24 text-center text-slate-500">
-                                                        Modul belum tersedia.
+                                                        Kategori belum tersedia.
                                                     </TableCell>
                                                 </TableRow>
                                             ) : modules.map((module, index) => (
@@ -301,7 +301,7 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
         }
     }, [open, module]);
 
-    const title = mode === 'add' ? 'Tambah Modul Desa' : 'Edit Modul Desa';
+    const title = mode === 'add' ? 'Tambah Kategori Desa' : 'Edit Kategori Desa';
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -326,10 +326,10 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
 
             await onSuccess?.();
             setOpen(false);
-            toast.success(mode === 'add' ? 'Modul berhasil ditambahkan' : 'Modul berhasil diperbarui');
+            toast.success(mode === 'add' ? 'Kategori berhasil ditambahkan' : 'Kategori berhasil diperbarui');
         } catch (error) {
-            console.error('Gagal menyimpan modul:', error);
-            const msg = error.response?.data?.message || 'Gagal menyimpan modul.';
+            console.error('Gagal menyimpan kategori:', error);
+            const msg = error.response?.data?.message || 'Gagal menyimpan kategori.';
             toast.error(msg);
         } finally {
             setSubmitting(false);
@@ -349,10 +349,10 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
             await onSuccess?.();
             setOpen(false);
             setShowDeleteConfirm(false);
-            toast.success('Modul berhasil dihapus');
+            toast.success('Kategori berhasil dihapus');
         } catch (error) {
-            console.error('Gagal menghapus modul:', error);
-            toast.error('Gagal menghapus modul.');
+            console.error('Gagal menghapus kategori:', error);
+            toast.error('Gagal menghapus kategori.');
             setShowDeleteConfirm(false);
         } finally {
             setDeleting(false);
@@ -398,7 +398,7 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
                             value={formValues.name}
                             onChange={handleChange}
                             className="rounded-xl border-slate-300 focus-visible:ring-slate-300"
-                            placeholder="Masukkan nama modul"
+                            placeholder="Masukkan nama kategori"
                             required
                         />
                     </div>
@@ -411,7 +411,7 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
                             value={formValues.description}
                             onChange={handleChange}
                             className="rounded-xl border-slate-300 focus-visible:ring-slate-300"
-                            placeholder="Masukkan deskripsi modul"
+                            placeholder="Masukkan deskripsi kategori"
                             rows={3}
                             required
                         />
@@ -457,7 +457,7 @@ const ModuleDialog = ({ mode, module, selectedVillage, disabled = false, onSucce
                             </DialogTitle>
                         </DialogHeader>
                         <div className="py-2 text-sm text-slate-600">
-                            Apakah Anda yakin ingin menghapus modul <b>{formValues.name}</b>?
+                            Apakah Anda yakin ingin menghapus kategori <b>{formValues.name}</b>?
                             <br />
                             Tindakan ini tidak dapat dibatalkan.
                         </div>

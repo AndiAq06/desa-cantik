@@ -542,7 +542,7 @@ export default function VillageDetail() {
               {/* Left Column: Filter & List of Indicators */}
               <div className="lg:col-span-1 space-y-3">
                 <h2 className="text-xl font-bold text-slate-800 tracking-tight pl-1">
-                  Subjek
+                  Kategori
                 </h2>
                 {subjectGroups.map((s) => {
                   const isExpanded = activeSubjectId === s.id;

@@ -106,7 +106,7 @@ function AppRoutes() {
           <Route path="dashboard" element={<DashboardAdmin />} />
           <Route path="perangkat-desa" element={<PerangkatDesaAdmin pageName="Admin: Perangkat Desa" />} />
           <Route path="daftar-desa" element={<DaftarDesaAdmin pageName="Admin: Daftar Desa" />} />
-          <Route path="modul-desa" element={<ModulDesaAdmin pageName="Admin: Modul Desa" />} />
+          <Route path="kategori-desa" element={<ModulDesaAdmin pageName="Admin: Kategori Desa" />} />
           <Route path="data-statistik" element={<DataStatistikAdmin />} />
           <Route path="publikasi" element={<PublikasiDesaAdmin pageName="Admin: Publikasi" />} />
           <Route path="peta-tematik" element={<PetaTematikAdmin />} />
@@ -128,7 +128,7 @@ function AppRoutes() {
           <Route path="dashboard" element={<DashboardDesa />} />
           <Route path="profil-umum" element={<ProfilUmumDesa pageName="Desa: Profil Umum" />} />
           <Route path="publikasi" element={<PublikasiDesa pageName="Desa: Publikasi" />} />
-          <Route path="modul-desa" element={<ModulDesaPerangkatDesa pageName="Desa: Modul Desa" />} />
+          <Route path="kategori-desa" element={<ModulDesaPerangkatDesa pageName="Desa: Kategori Desa" />} />
           <Route path="data-statistik" element={<DataStatistikDesa pageName="Desa: Data Statistik" />} />
           <Route path="peta-tematik" element={<PetaTematikDesa />} />
           <Route path="dokumentasi" element={<DokumentasiDesa />} />

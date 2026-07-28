@@ -240,7 +240,7 @@ export default function PublikasiDesa() {
 
     try {
       if (!formState.title || !formState.subject) {
-        toast.error("Mohon lengkapi Judul dan Subjek.");
+        toast.error("Mohon lengkapi Judul dan Kategori.");
         return;
       }
 
@@ -338,7 +338,7 @@ export default function PublikasiDesa() {
                       Judul Publikasi
                     </TableHead>
                     <TableHead className="font-semibold text-slate-600">
-                      Subjek
+                      Kategori
                     </TableHead>
                     <TableHead className="font-semibold text-slate-600">
                       Tanggal Rilis
@@ -492,16 +492,16 @@ export default function PublikasiDesa() {
               />
             </div>
 
-            {/* Subjek */}
+            {/* Kategori */}
             <div className="space-y-2">
-              <Label htmlFor="subject">Subjek</Label>
+              <Label htmlFor="subject">Kategori</Label>
               <Select
                 name="subject"
                 value={formState.subject}
                 onValueChange={(value) => handleSelectChange("subject", value)}
               >
                 <SelectTrigger id="subject">
-                  <SelectValue placeholder="Pilih subjek" />
+                  <SelectValue placeholder="Pilih kategori" />
                 </SelectTrigger>
                 <SelectContent>
                   {subjectOptions.map((s, i) => (

@@ -556,7 +556,7 @@ export default function DataStatistikAdmin() {
                   Kategori & Indikator
                 </CardTitle>
                 <CardDescription className="text-xs">
-                  Modul data aktif untuk desa binaan terpilih
+                  Kategori data aktif untuk desa binaan terpilih
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-4 space-y-4 max-h-[75vh] overflow-y-auto">
@@ -567,7 +567,7 @@ export default function DataStatistikAdmin() {
                   </div>
                 ) : statisticModules.length === 0 ? (
                   <div className="text-center py-8 text-slate-400 text-sm">
-                    Tidak ada modul aktif di desa ini.
+                    Tidak ada kategori aktif di desa ini.
                   </div>
                 ) : (
                   statisticModules.map((mod) => {
@@ -715,7 +715,7 @@ export default function DataStatistikAdmin() {
                 <FileText className="w-10 h-10 mb-3 opacity-30 text-slate-500" />
                 <h4 className="text-sm font-semibold text-slate-600">Pilih Indikator Terlebih Dahulu</h4>
                 <p className="text-xs text-slate-400 max-w-sm text-center mt-1">
-                  Pilih salah satu subjek indikator pada kolom kiri untuk melakukan verifikasi, pengisian manual, atau impor.
+                  Pilih salah satu kategori indikator pada kolom kiri untuk melakukan verifikasi, pengisian manual, atau impor.
                 </p>
               </Card>
             )}
@@ -742,7 +742,7 @@ export default function DataStatistikAdmin() {
           <div className="grid gap-4 py-3 text-sm">
             {/* Subject (Kategori/Module) */}
             <div className="space-y-1.5">
-              <Label className="text-xs font-semibold text-slate-600">Subjek Kategori (Modul)</Label>
+              <Label className="text-xs font-semibold text-slate-600">Kategori Desa</Label>
               <Select
                 name="subject"
                 value={formState.subject}
