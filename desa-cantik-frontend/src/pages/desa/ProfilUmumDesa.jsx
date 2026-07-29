@@ -127,30 +127,37 @@ export default function ProfilUmumDesa() {
     try {
       let payload;
 
-      // Sanitize numeric inputs
-      const sanitizedPopulation = parseInt(editFormData.population?.toString().replace(/[^\d]/g, "") || "0", 10) || 0;
-      const sanitizedArea = parseFloat(editFormData.area?.toString().replace(",", ".") || "0") || 0;
+      // Sanitize numeric inputs (allow null for blank values)
+      const populationInput = editFormData.population?.toString().trim();
+      const sanitizedPopulation = populationInput ? (parseInt(populationInput.replace(/[^\d]/g, ""), 10) || 0) : null;
+
+      const areaInput = editFormData.area?.toString().trim();
+      const sanitizedArea = areaInput ? (parseFloat(areaInput.replace(",", ".")) || 0) : null;
 
       // If image is uploaded, use FormData
       if (uploadedImage) {
         payload = new FormData();
         payload.append("_method", "PUT"); // Required for Laravel to recognize PUT with file uploads
         payload.append("logo", uploadedImage);
-        payload.append("description", editFormData.description);
-        payload.append("population", sanitizedPopulation.toString());
-        payload.append("district", editFormData.district);
-        payload.append("regency", editFormData.regency);
-        payload.append("area", sanitizedArea.toString());
-        payload.append("code", editFormData.villageCode);
+        payload.append("description", editFormData.description || "");
+        if (sanitizedPopulation !== null) {
+          payload.append("population", sanitizedPopulation.toString());
+        }
+        payload.append("district", editFormData.district || "");
+        payload.append("regency", editFormData.regency || "");
+        if (sanitizedArea !== null) {
+          payload.append("area", sanitizedArea.toString());
+        }
+        payload.append("code", editFormData.villageCode || "");
       } else {
         // Otherwise use regular JSON
         payload = {
-          description: editFormData.description,
+          description: editFormData.description || null,
           population: sanitizedPopulation,
-          district: editFormData.district,
-          regency: editFormData.regency,
+          district: editFormData.district || null,
+          regency: editFormData.regency || null,
           area: sanitizedArea,
-          code: editFormData.villageCode,
+          code: editFormData.villageCode || null,
         };
       }
 

@@ -125,20 +125,20 @@ class VillageProfileController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'name' => 'sometimes|string',
-            'description' => 'sometimes|string',
-            'vision' => 'sometimes|string',
-            'mission' => 'sometimes|array',
-            'area' => 'sometimes|numeric|min:0',
-            'population' => 'sometimes|integer|min:0',
-            'address' => 'sometimes|string',
+            'name' => 'sometimes|nullable|string',
+            'description' => 'sometimes|nullable|string',
+            'vision' => 'sometimes|nullable|string',
+            'mission' => 'sometimes|nullable|array',
+            'area' => 'sometimes|nullable|numeric|min:0',
+            'population' => 'sometimes|nullable|integer|min:0',
+            'address' => 'sometimes|nullable|string',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email',
             'logo_url' => 'nullable|url',
             'logo' => 'nullable|file|mimes:jpeg,jpg,png,webp|max:2048',
-            'district' => 'sometimes|string|max:255',
-            'regency' => 'sometimes|string|max:255',
-            'code' => 'sometimes|string|max:50',
+            'district' => 'sometimes|nullable|string|max:255',
+            'regency' => 'sometimes|nullable|string|max:255',
+            'code' => 'sometimes|nullable|string|max:50',
         ]);
 
         if ($validator->fails()) {
