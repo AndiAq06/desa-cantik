@@ -27,25 +27,25 @@ export default function Navbar({ scrollToVillages }) {
 
             <div className="hidden md:block">
               <h1 className="text-white text-lg font-bold">Desa Cantik</h1>
-              <p className="text-blue-200 text-xs font-semibold">Desa Cinta Statistik</p>
+              <p className="text-[#FFF9AF] text-xs font-semibold">Desa Cinta Statistik</p>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1.5">
-            <Button asChild variant="ghost" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-white hover:text-blue-200 hover:bg-white/10 text-base px-4 py-1.5 transition-all">
+            <Button asChild variant="ghost" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-white hover:text-[#FFF9AF] hover:bg-white/10 text-base px-4 py-1.5 transition-all">
               <Link to="/">Home</Link>
             </Button>
 
-            <Button asChild variant="ghost" onClick={scrollToVillages} className="text-white hover:text-blue-200 hover:bg-white/10 text-base px-4 py-1.5 transition-all">
+            <Button asChild variant="ghost" onClick={scrollToVillages} className="text-white hover:text-[#FFF9AF] hover:bg-white/10 text-base px-4 py-1.5 transition-all">
               <Link to="/">Desa Cantik</Link>
             </Button>
 
-            <Button asChild variant="ghost" className="text-white hover:text-blue-200 hover:bg-white/10 text-base px-4 py-1.5 transition-all" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+            <Button asChild variant="ghost" className="text-white hover:text-[#FFF9AF] hover:bg-white/10 text-base px-4 py-1.5 transition-all" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
               <Link to="/tentang">Tentang</Link>
             </Button>
 
-            <Button asChild className="bg-blue-100 hover:bg-blue-200 text-[#154D71] text-base px-6 py-1.5 ml-3 transition-all shadow-md hover:shadow-lg">
+            <Button asChild className="bg-[#FFF9AF] hover:bg-[#154D71] text-[#154D71] hover:text-white text-base px-6 py-1.5 ml-3 transition-all shadow-md hover:shadow-lg">
               <Link to="/login">Login</Link>
             </Button>
           </div>

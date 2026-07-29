@@ -225,7 +225,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
 
             <Button
               asChild
-              className="bg-blue-100 hover:bg-blue-200 text-[#154D71] text-sm px-5 py-1.5 ml-2 shadow"
+              className="bg-[#FFF9AF] hover:bg-[#154D71] text-[#154D71] hover:text-white text-sm px-5 py-1.5 ml-2 shadow"
             >
               <Link to="/login">Login</Link>
             </Button>
