@@ -127,25 +127,29 @@ export default function ProfilUmumDesa() {
     try {
       let payload;
 
+      // Sanitize numeric inputs
+      const sanitizedPopulation = parseInt(editFormData.population?.toString().replace(/[^\d]/g, "") || "0", 10) || 0;
+      const sanitizedArea = parseFloat(editFormData.area?.toString().replace(",", ".") || "0") || 0;
+
       // If image is uploaded, use FormData
       if (uploadedImage) {
         payload = new FormData();
         payload.append("_method", "PUT"); // Required for Laravel to recognize PUT with file uploads
         payload.append("logo", uploadedImage);
         payload.append("description", editFormData.description);
-        payload.append("population", editFormData.population.toString());
+        payload.append("population", sanitizedPopulation.toString());
         payload.append("district", editFormData.district);
         payload.append("regency", editFormData.regency);
-        payload.append("area", editFormData.area.toString());
+        payload.append("area", sanitizedArea.toString());
         payload.append("code", editFormData.villageCode);
       } else {
         // Otherwise use regular JSON
         payload = {
           description: editFormData.description,
-          population: editFormData.population,
+          population: sanitizedPopulation,
           district: editFormData.district,
           regency: editFormData.regency,
-          area: editFormData.area,
+          area: sanitizedArea,
           code: editFormData.villageCode,
         };
       }
@@ -171,7 +175,8 @@ export default function ProfilUmumDesa() {
       toast.success("Profil desa berhasil diperbarui!");
     } catch (e) {
       console.error("Gagal menyimpan profil:", e);
-      toast.error("Gagal menyimpan profil. Silakan coba lagi.");
+      const errorMsg = e.response?.data?.message || e.response?.data?.error || "Gagal menyimpan profil. Silakan coba lagi.";
+      toast.error(errorMsg);
     } finally {
       setSaving(false);
     }
