@@ -374,23 +374,26 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
                   if (cell.mergeInfo?.isCovered) return null;
                   const colSpan = cell.mergeInfo?.colspan || 1;
                   const rowSpan = cell.mergeInfo?.rowspan || 1;
-                  const isHeader = rowIndex < headerRowCount;
-                  const isTotalRow = row.cells.some(c => {
-                    const val = c.value?.toString().trim().toUpperCase() || "";
-                    return val === "JUMLAH" || val === "TOTAL" || val === "SUBTOTAL";
-                  });
-                  const baseClass = "border border-slate-200 px-3 py-2 text-center align-middle";
-                  let cellClass = baseClass;
-                  if (isHeader) {
-                    cellClass = "bg-[#154D71] text-white border border-[#236691] font-bold px-3 py-2.5 text-center align-middle";
-                  } else {
-                    if (cellIndex === 0) {
-                      cellClass += " text-left font-medium text-slate-800";
-                    }
-                    if (isTotalRow) {
-                      cellClass += " font-bold bg-slate-50 text-slate-900";
-                    }
-                  }
+                   const isHeader = rowIndex < headerRowCount;
+                   const isTotalRow = row.cells.some(c => {
+                     const val = c.value?.toString().trim().toUpperCase() || "";
+                     return val === "JUMLAH" || val === "TOTAL" || val === "SUBTOTAL";
+                   });
+                   const valStr = cell.value?.toString().trim() || "";
+                   const isNumber = valStr !== "" && !isNaN(valStr.replace(/[\.,\-]/g, ""));
+                   const alignClass = (isHeader || isNumber) ? "text-center" : "text-left";
+                   
+                   let cellClass = `border border-slate-200 px-3 py-2 align-middle ${alignClass}`;
+                   if (isHeader) {
+                     cellClass = "bg-[#154D71] text-white border border-[#236691] font-bold px-3 py-2.5 text-center align-middle";
+                   } else {
+                     if (cellIndex === 0) {
+                       cellClass += " font-medium text-slate-800";
+                     }
+                     if (isTotalRow) {
+                       cellClass += " font-bold bg-slate-50 text-slate-900";
+                     }
+                   }
                   return (
                     <td key={cellIndex} colSpan={colSpan} rowSpan={rowSpan} className={cellClass}>
                       {cell.value}
