@@ -201,6 +201,7 @@ class DashboardStatisticsService
         // Query 2: Publications (total, this year, latest update)
         $pubsSummary = DB::table('publications')
             ->where('village_id', $villageId)
+            ->whereNull('deleted_at')
             ->selectRaw("
                 COUNT(*) as total,
                 SUM(CASE WHEN YEAR(published_at) = ? THEN 1 ELSE 0 END) as this_year,
