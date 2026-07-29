@@ -183,12 +183,21 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
           for (let c = 0; c < numCols; c++) {
             let lastVal = "";
             for (let r = calculatedHeaderRowCount; r < parsedRows.length; r++) {
-              const cell = parsedRows[r].cells[c];
+              const row = parsedRows[r];
+              if (!row) continue;
+
+              const isTotalRow = row.cells.some(cellObj => {
+                const val = cellObj?.value?.toString().trim().toUpperCase() || "";
+                return val === "JUMLAH" || val === "TOTAL" || val === "SUBTOTAL";
+              });
+
+              const cell = row.cells[c];
               if (!cell) continue;
+
               const valStr = cell.value?.toString().trim();
               if (valStr !== "" && valStr !== undefined && valStr !== null) {
                 lastVal = cell.value;
-              } else if (lastVal !== "") {
+              } else if (lastVal !== "" && !isTotalRow) {
                 cell.value = lastVal;
                 cell.isAutoFilled = true;
               }
