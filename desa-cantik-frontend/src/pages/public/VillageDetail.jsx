@@ -288,7 +288,8 @@ export default function VillageDetail() {
         const listStats = allStats.filter((s) => {
           const statusOk = s.status && s.status.trim() === "Terverifikasi";
           const moduleOk = s.module ? s.module.is_active : true;
-          return statusOk && moduleOk;
+          const isPublished = s.is_published !== false && s.isPublished !== false;
+          return statusOk && moduleOk && isPublished;
         });
 
         const groups = {};
