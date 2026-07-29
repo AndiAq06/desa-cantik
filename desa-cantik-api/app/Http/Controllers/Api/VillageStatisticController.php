@@ -308,15 +308,26 @@ class VillageStatisticController extends Controller
 
         $statistic = $this->findStatisticOrFail($village, $statistic);
         $snapshot = $statistic->toArray();
+        $indicatorName = $statistic->indicator_name;
 
         ActivityLogger::log(
             'delete',
             $statistic,
-            sprintf('Menghapus data statistik %s', $statistic->indicator_name),
+            sprintf('Menghapus data statistik %s', $indicatorName),
             ['old_data' => $snapshot]
         );
 
-        $statistic->delete();
+        // Fetch and delete all related rows for this indicator in this village (e.g. from Excel imports)
+        $relatedStats = VillageStatistic::where('village_id', $village->id)
+            ->where('indicator_name', $indicatorName)
+            ->get();
+
+        foreach ($relatedStats as $stat) {
+            if ($stat->file_name && !str_starts_with($stat->file_name, 'http')) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete('statistics/' . $stat->file_name);
+            }
+            $stat->delete();
+        }
 
         return $this->success(null, 'Data statistik berhasil dihapus');
     }
