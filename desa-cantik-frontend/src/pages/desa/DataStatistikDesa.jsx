@@ -497,12 +497,12 @@ export default function DataStatistikDesa() {
                     const indicatorNames = Object.keys(indicators);
 
                     return (
-                      <div key={modId} className="space-y-2 border-b border-slate-100 pb-3 last:border-0 last:pb-0">
+                      <div key={modId} className="space-y-1 border-b border-slate-100 pb-2 last:border-0 last:pb-0">
                         <h4 className="font-semibold text-slate-800 text-sm flex items-center gap-2">
                           <FolderOpen className="h-4 w-4 text-blue-500 shrink-0" />
                           {mod.name || mod.module_name}
                         </h4>
-                        <div className="pl-6 space-y-1.5">
+                        <div className="pl-5 space-y-0.5">
                           {indicatorNames.map((indName) => {
                             const isPub = indicators[indName]?.[0]?.is_published !== false;
                             return (
@@ -513,7 +513,7 @@ export default function DataStatistikDesa() {
                                   setSelectedModuleId(modId);
                                 }}
                                 className={cn(
-                                  "w-full text-left text-xs py-1.5 px-2.5 rounded-md transition-all hover:bg-slate-100 hover:text-blue-600 flex items-center justify-between gap-2 leading-snug",
+                                  "w-full text-left text-xs py-1 px-2 rounded-md transition-all hover:bg-slate-100 hover:text-blue-600 flex items-center justify-between gap-2 leading-snug",
                                   selectedIndicator === indName
                                     ? "bg-blue-50 text-blue-700 font-semibold ring-1 ring-blue-700/10"
                                     : "text-slate-600"
@@ -533,7 +533,7 @@ export default function DataStatistikDesa() {
                             variant="ghost"
                             size="sm"
                             onClick={() => handleOpenTambahIndikator(modId)}
-                            className="w-full justify-start text-[11px] text-blue-600 hover:text-blue-700 hover:bg-blue-50/50 mt-1 h-7 px-2"
+                            className="w-full justify-start text-[11px] text-blue-600 hover:text-blue-700 hover:bg-blue-50/50 mt-0.5 h-6 px-2"
                           >
                             <Plus className="h-3.5 w-3.5 mr-1" />
                             Tambah Indikator Baru
