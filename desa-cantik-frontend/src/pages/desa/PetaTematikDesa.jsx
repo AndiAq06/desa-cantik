@@ -835,7 +835,7 @@ export default function PetaTematikDesa() {
                     id="pickerMap"
                     className="h-full w-full z-0 bg-slate-100 flex items-center justify-center text-slate-400"
                   >
-                    {!isLeafletLoaded ? "Memuat Peta..." : ""}
+                    Memuat Peta...
                   </div>
                   {/* Crosshair untuk membantu titik tengah */}
                   {formDataType === "point" && (
