@@ -338,12 +338,7 @@ export default function VillageDetail() {
         setSubjectGroups(subjectGroupsArray);
         setAllTables(tables);
 
-        if (subjectGroupsArray.length > 0) {
-          setActiveSubjectId(subjectGroupsArray[0].id);
-          if (subjectGroupsArray[0].tables.length > 0) {
-            setActiveTableId(subjectGroupsArray[0].tables[0].id);
-          }
-        }
+        // No default active category/table initially as requested by user
       } catch (err) {
         console.error("Gagal memuat statistik:", err);
       }
@@ -636,9 +631,9 @@ export default function VillageDetail() {
                     </CardContent>
                   </Card>
                 ) : (
-                  <div className="h-64 flex flex-col items-center justify-center bg-white rounded-xl shadow-sm border border-dashed border-gray-300 text-gray-400">
-                    <BarChart3 className="w-12 h-12 mb-3 opacity-20" />
-                    <p>Pilih indikator statistik untuk melihat data</p>
+                  <div className="h-64 flex flex-col items-center justify-center bg-white rounded-xl shadow-sm border border-dashed border-gray-300 text-slate-400 p-6 text-center">
+                    <BarChart3 className="w-12 h-12 mb-3 opacity-30 text-[#154D71]" />
+                    <p className="text-sm font-medium text-slate-600 max-w-sm">Buka panel di sebelah kiri, pilih kategori dan indikator untuk menampilkan data.</p>
                   </div>
                 )}
               </div>

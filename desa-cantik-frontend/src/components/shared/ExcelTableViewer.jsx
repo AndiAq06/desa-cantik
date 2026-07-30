@@ -361,7 +361,7 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
         </button>
 
       </div>
-      <div className="w-full overflow-x-auto shadow-sm border border-slate-200 rounded-xl bg-white p-1">
+      <div className="w-full overflow-x-auto bg-white">
         <table className="w-full border-collapse text-base text-slate-700 bg-white">
           <tbody>
             {finalRows.map((row, rowIndex) => (
@@ -385,7 +385,7 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
                    
                    let cellClass = `border border-slate-200 px-3 py-2 align-middle ${alignClass}`;
                    if (isHeader) {
-                     cellClass = "bg-[#154D71] text-white border border-[#236691] font-bold px-3 py-2.5 text-center align-middle";
+                     cellClass = "bg-[#4eaf47] text-white border border-[#439e3d] font-bold px-3 py-2.5 text-center align-middle";
                    } else {
                      if (cellIndex === 0) {
                        cellClass += " font-medium text-slate-800";
