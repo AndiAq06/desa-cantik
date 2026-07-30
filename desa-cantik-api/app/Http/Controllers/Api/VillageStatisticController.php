@@ -45,10 +45,9 @@ class VillageStatisticController extends Controller
     )]
     public function index(Request $request, Village $village): JsonResponse
     {
-        $perPage = (int) $request->query('per_page', 15);
-        $perPage = $perPage > 0 ? min($perPage, 100) : 15;
+        $perPage = $request->query('per_page');
 
-        $statistics = VillageStatistic::query()
+        $query = VillageStatistic::query()
             ->select([
                 'id',
                 'village_id',
@@ -75,13 +74,20 @@ class VillageStatisticController extends Controller
             ->when(!auth()->guard('sanctum')->check(), fn($query) => $query->where('is_published', true))
             ->when($request->filled('year'), fn($query) => $query->where('year', $request->query('year')))
             ->orderByDesc('year')
-            ->orderBy('indicator_name')
-            ->paginate($perPage)
-            ->appends($request->query());
+            ->orderBy('indicator_name');
 
-        $data = VillageStatisticResource::collection($statistics->getCollection())->resolve();
+        if ($perPage === 'all') {
+            $statistics = $query->get();
+            $data = VillageStatisticResource::collection($statistics)->resolve();
+            return $this->success($data);
+        }
 
-        return $this->paginated($statistics, null, $data);
+        $perPageInt = (int) ($perPage ?? 15);
+        $perPageInt = $perPageInt > 0 ? min($perPageInt, 100) : 15;
+        $paginated = $query->paginate($perPageInt)->appends($request->query());
+        $data = VillageStatisticResource::collection($paginated->getCollection())->resolve();
+
+        return $this->paginated($paginated, null, $data);
     }
 
     /**

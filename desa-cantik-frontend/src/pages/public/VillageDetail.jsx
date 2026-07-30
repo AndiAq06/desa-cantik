@@ -282,7 +282,7 @@ export default function VillageDetail() {
     const loadStats = async () => {
       if (!id) return;
       try {
-        const rawStats = await statisticService.getStatisticsByVillage(id);
+        const rawStats = await statisticService.getStatisticsByVillage(id, { per_page: "all" });
         const allStats = Array.isArray(rawStats) ? rawStats : rawStats.data || [];
 
         const listStats = allStats.filter((s) => {
