@@ -750,7 +750,7 @@ export default function VillageDetail() {
 
           <div className="relative w-full rounded-2xl shadow-xl overflow-hidden border-4 border-white group h-[360px] sm:h-[420px] md:h-[520px] lg:h-[600px] max-h-[80vh]">
             {/* FLOATING FILTER POPUP */}
-            {id !== "nonongan-selatan" && (
+            {id !== "nonongan-selatan" && !id?.toLowerCase().includes("sangbua") && (
               <div className="absolute top-4 right-4 z-[1000]">
                 <Popover>
                   <PopoverTrigger asChild>
@@ -805,13 +805,16 @@ export default function VillageDetail() {
 
             {/* MAP CONTAINER */}
             <div className="z-0 h-full w-full">
-              {id === "nonongan-selatan" ? (
+              {id === "nonongan-selatan" || id?.toLowerCase().includes("sangbua") ? (
                 <iframe
-                  src="https://www.google.com/maps/d/embed?mid=1TxMpeWTmDzz0BMtCKZhN_hcQKdTOgvo&ehbc=2E312F"
+                  src={id === "nonongan-selatan"
+                    ? "https://www.google.com/maps/d/embed?mid=1TxMpeWTmDzz0BMtCKZhN_hcQKdTOgvo&ehbc=2E312F"
+                    : "https://www.google.com/maps/d/embed?mid=1b0GodnI7mnWeQJ1_drZiFxiaYWSv3Vk&ehbc=2E312F"
+                  }
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
-                  title="Peta Nonongan Selatan"
+                  title={id === "nonongan-selatan" ? "Peta Nonongan Selatan" : "Peta Sangbua"}
                   allowFullScreen
                 ></iframe>
               ) : (

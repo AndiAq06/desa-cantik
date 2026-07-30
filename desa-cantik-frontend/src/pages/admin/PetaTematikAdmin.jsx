@@ -83,6 +83,8 @@ export default function PetaTematikAdmin() {
 
   const [selectedDesa, setSelectedDesa] = useState(null);
   const [villages, setVillages] = useState([]);
+  const activeVillageObj = villages.find(v => String(v.id) === String(selectedDesa));
+  const isSangbua = activeVillageObj?.name?.toLowerCase().includes("sangbua") || activeVillageObj?.slug?.toLowerCase().includes("sangbua");
   const [geospatialData, setGeospatialData] = useState([]);
   const [layerData, setLayerData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -182,8 +184,13 @@ export default function PetaTematikAdmin() {
 
   // Render Peta saat desa dipilih
   useEffect(() => {
-    if (!selectedDesa) {
+    if (!selectedDesa || isSangbua) {
       if (layerGroupRef.current) layerGroupRef.current.clearLayers();
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+        layerGroupRef.current = null;
+      }
       return;
     }
 
@@ -267,7 +274,7 @@ export default function PetaTematikAdmin() {
     }, 100);
 
     return () => clearTimeout(timeoutId);
-  }, [selectedDesa, layerData, geospatialData]);
+  }, [selectedDesa, layerData, geospatialData, isSangbua]);
 
   // --- Picker Map Logic ---
   const formDataTypeRef = useRef(formDataType);
@@ -1226,10 +1233,21 @@ export default function PetaTematikAdmin() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div
-                id="mapPreview"
-                className="h-[400px] w-full rounded-md z-0"
-              />
+              {isSangbua ? (
+                <iframe
+                  src="https://www.google.com/maps/d/embed?mid=1b0GodnI7mnWeQJ1_drZiFxiaYWSv3Vk&ehbc=2E312F"
+                  width="100%"
+                  height="400px"
+                  style={{ border: 0 }}
+                  title="Peta Sangbua"
+                  allowFullScreen
+                ></iframe>
+              ) : (
+                <div
+                  id="mapPreview"
+                  className="h-[400px] w-full rounded-md z-0"
+                />
+              )}
             </CardContent>
           </Card>
         </>

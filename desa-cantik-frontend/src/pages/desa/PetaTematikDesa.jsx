@@ -91,6 +91,7 @@ export default function PetaTematikDesa() {
 
   // Data States
   const { user, activeVillageId } = useAuth();
+  const isSangbua = user?.village?.name?.toLowerCase().includes("sangbua") || user?.village?.slug?.toLowerCase().includes("sangbua") || activeVillageId === 3 || activeVillageId === "3";
   const [geospatialData, setGeospatialData] = useState([]);
   const [layerData, setLayerData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -184,8 +185,8 @@ export default function PetaTematikDesa() {
 
   // --- 3. MAP VISUALIZATION EFFECT ---
   useEffect(() => {
-    // Hanya render peta jika toggle showMap aktif dan library sudah load
-    if (showMap) {
+    // Hanya render peta jika toggle showMap aktif dan library sudah load dan bukan Sangbua
+    if (showMap && !isSangbua) {
       // Setup Map Instance jika belum ada
       if (!mapRef.current) {
         const mapElement = document.getElementById("mapPreview");
@@ -289,7 +290,7 @@ export default function PetaTematikDesa() {
         layerGroupRef.current = null;
       }
     }
-  }, [showMap, layerData, geospatialData]);
+  }, [showMap, layerData, geospatialData, isSangbua]);
 
   // --- 4. RENDER PICKER MAP (MODAL) ---
   const formDataTypeRef = useRef(formDataType);
@@ -1237,10 +1238,21 @@ export default function PetaTematikDesa() {
                 : "h-0 opacity-0 overflow-hidden"
             }`}
           >
-            <div
-              id="mapPreview"
-              className="h-full w-full rounded-lg border shadow-inner bg-slate-100 relative z-0"
-            />
+            {isSangbua ? (
+              <iframe
+                src="https://www.google.com/maps/d/embed?mid=1b0GodnI7mnWeQJ1_drZiFxiaYWSv3Vk&ehbc=2E312F"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                title="Peta Sangbua"
+                allowFullScreen
+              ></iframe>
+            ) : (
+              <div
+                id="mapPreview"
+                className="h-full w-full rounded-lg border shadow-inner bg-slate-100 relative z-0"
+              />
+            )}
           </div>
         </CardContent>
       </Card>
