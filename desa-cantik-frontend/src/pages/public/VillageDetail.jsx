@@ -590,7 +590,7 @@ export default function VillageDetail() {
                                 className={cn(
                                   "w-full text-left text-xs sm:text-sm py-2 px-3 rounded-lg transition-all block leading-snug border-0",
                                   isTableActive
-                                    ? "bg-[#154D71] text-white shadow-md font-semibold"
+                                    ? "bg-[#4eaf47] text-white shadow-md font-semibold"
                                     : "bg-transparent text-gray-650 hover:bg-gray-250/50 hover:text-gray-900 font-medium"
                                 )}
                               >
