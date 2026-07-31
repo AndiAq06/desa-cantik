@@ -105,7 +105,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
               ? () => { window.scrollTo({ top: 0, behavior: 'smooth' }); scrollToSection('desa'); }
               : () => scrollToSection(section)
             }
-            className="text-lg font-bold text-white hover:text-[#FFF9AF] text-left w-full transition-colors flex items-center justify-between"
+            className="text-base font-semibold text-white/95 hover:text-[#FFF9AF] text-left w-full transition-colors flex items-center justify-between py-1"
           >
             <span>{label}</span>
             <span className="text-white/20">&rarr;</span>
@@ -118,7 +118,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
       <SheetClose asChild>
         <Link
           to={getLinkTarget(section)}
-          className="text-lg font-bold text-white hover:text-[#FFF9AF] text-left w-full block transition-colors flex items-center justify-between"
+          className="text-base font-semibold text-white/95 hover:text-[#FFF9AF] text-left w-full block transition-colors flex items-center justify-between py-1"
         >
           <span>{label}</span>
           <span className="text-white/20">&rarr;</span>
@@ -249,7 +249,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
               <SheetContent side="right" className="bg-gradient-to-b from-[#1C6EA4] to-[#154D71] text-white border-l-0 p-6 flex flex-col justify-between max-h-screen overflow-y-auto">
                 <div className="space-y-6">
                   <SheetHeader className="mb-6 text-left border-b border-white/10 pb-4">
-                    <SheetTitle className="text-white text-xl font-black tracking-wider uppercase">Sangkutu</SheetTitle>
+                    <SheetTitle className="text-white text-lg font-bold tracking-wider uppercase">Sangkutu</SheetTitle>
                   </SheetHeader>
                   <div className="flex flex-col gap-5">
                     {renderMobileLink('Desa', 'desa')}
@@ -262,7 +262,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                       <div className="w-full">
                         <button
                           onClick={() => setIsLayananOpen(!isLayananOpen)}
-                          className="text-lg font-bold text-white hover:text-[#FFF9AF] text-left w-full transition-colors flex items-center justify-between py-1"
+                          className="text-base font-semibold text-white/95 hover:text-[#FFF9AF] text-left w-full transition-colors flex items-center justify-between py-1"
                         >
                           <span>Layanan Online</span>
                           <span className={`text-white/40 transition-transform duration-300 ${isLayananOpen ? 'rotate-180' : ''}`}>
@@ -274,7 +274,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/surat-pengantar`}
-                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
                             >
                               <Mail className="h-4 w-4 text-[#FFF9AF]" />
                               Permohonan Layanan Administrasi
@@ -283,7 +283,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/status-pengantar`}
-                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
                             >
                               <ClipboardCheck className="h-4 w-4 text-[#FFF9AF]" />
                               Hasil Layanan Administrasi
@@ -292,7 +292,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/pengaduan`}
-                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
                             >
                               <MessageSquare className="h-4 w-4 text-[#FFF9AF]" />
                               Pengaduan Masyarakat
@@ -301,7 +301,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/status-pengaduan`}
-                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
                             >
                               <AlertCircle className="h-4 w-4 text-[#FFF9AF]" />
                               Status Pengaduan Masyarakat
@@ -310,7 +310,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/buku-tamu`}
-                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
                             >
                               <BookOpen className="h-4 w-4 text-[#FFF9AF]" />
                               Buku Tamu
@@ -326,7 +326,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                   <SheetClose asChild>
                     <Button
                       asChild
-                      className="w-full bg-[#FFF9AF] hover:bg-[#154D71] text-[#154D71] hover:text-white text-base py-6 rounded-xl shadow-lg transition-all duration-300"
+                      className="w-full bg-[#FFF9AF] hover:bg-[#154D71] text-[#154D71] hover:text-white text-base py-5 rounded-xl shadow-lg transition-all duration-300"
                     >
                       <Link to="/login">Login</Link>
                     </Button>

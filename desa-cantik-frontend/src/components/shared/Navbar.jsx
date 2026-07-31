@@ -61,25 +61,25 @@ export default function Navbar({ scrollToVillages }) {
               <SheetContent side="right" className="bg-gradient-to-b from-[#154D71] to-[#1C6EA4] text-white border-l-0 p-6 flex flex-col justify-between">
                 <div>
                   <SheetHeader className="mb-8 text-left border-b border-white/10 pb-4">
-                    <SheetTitle className="text-white text-xl font-black tracking-wider uppercase">Sangkutu</SheetTitle>
+                    <SheetTitle className="text-white text-lg font-bold tracking-wider uppercase">Sangkutu</SheetTitle>
                   </SheetHeader>
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-5">
                     <SheetClose asChild>
-                      <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-lg font-bold text-white hover:text-[#FFF9AF] transition-colors flex items-center justify-between">
+                      <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-base font-semibold text-white/95 hover:text-[#FFF9AF] transition-colors flex items-center justify-between py-1">
                         <span>Home</span>
                         <span className="text-white/20">&rarr;</span>
                       </Link>
                     </SheetClose>
 
                     <SheetClose asChild>
-                      <Link to="/" onClick={scrollToVillages} className="text-lg font-bold text-white hover:text-[#FFF9AF] transition-colors flex items-center justify-between">
+                      <Link to="/" onClick={scrollToVillages} className="text-base font-semibold text-white/95 hover:text-[#FFF9AF] transition-colors flex items-center justify-between py-1">
                         <span>Desa Cantik</span>
                         <span className="text-white/20">&rarr;</span>
                       </Link>
                     </SheetClose>
 
                     <SheetClose asChild>
-                      <Link to="/tentang" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-lg font-bold text-white hover:text-[#FFF9AF] transition-colors flex items-center justify-between">
+                      <Link to="/tentang" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-base font-semibold text-white/95 hover:text-[#FFF9AF] transition-colors flex items-center justify-between py-1">
                         <span>Tentang</span>
                         <span className="text-white/20">&rarr;</span>
                       </Link>
@@ -89,7 +89,7 @@ export default function Navbar({ scrollToVillages }) {
 
                 <div className="pt-6 border-t border-white/10">
                   <SheetClose asChild>
-                    <Button asChild className="w-full bg-[#FFF9AF] hover:bg-[#154D71] text-[#154D71] hover:text-white text-base py-6 rounded-xl shadow-lg transition-all duration-300">
+                    <Button asChild className="w-full bg-[#FFF9AF] hover:bg-[#154D71] text-[#154D71] hover:text-white text-base py-5 rounded-xl shadow-lg transition-all duration-300">
                       <Link to="/login">Login</Link>
                     </Button>
                   </SheetClose>

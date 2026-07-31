@@ -115,13 +115,13 @@ export default function Home() {
                 <img src={logoSangkutu} alt="Logo Sangkutu" className="w-80 h-80 object-contain" />
               </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl text-white mb-6" style={{ textShadow: "2px 4px 8px rgba(0,0,0,0.5)" }}>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl text-white mb-6" style={{ textShadow: "2px 4px 8px rgba(0,0,0,0.5)" }}>
               <span className="text-[#FFF9AF]">SANGKUTU</span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-white mb-8" style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}>
+            <p className="text-sm sm:text-xl md:text-2xl text-white mb-8" style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}>
               Satu Data Lembang/Kelurahan Toraja Utara
             </p>
-            <Button onClick={scrollToVillages} size="lg" className="bg-[#33A1E0] hover:bg-[#1C6EA4] text-white text-xl px-12 py-6 rounded-full shadow-xl hover:shadow-2xl transition-all">
+            <Button onClick={scrollToVillages} size="lg" className="bg-[#33A1E0] hover:bg-[#1C6EA4] text-white text-base sm:text-xl px-10 sm:px-12 py-5 sm:py-6 rounded-full shadow-xl hover:shadow-2xl transition-all">
               Jelajahi Desa Binaan
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

@@ -468,7 +468,7 @@ export default function VillageDetail() {
           </div>
 
           {/* Village Main Title (The Absolute Highlight) */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 tracking-tight filter drop-shadow-lg text-white mt-2">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black mb-6 tracking-tight filter drop-shadow-lg text-white mt-2">
             {village.name}
           </h1>
 
@@ -624,7 +624,7 @@ export default function VillageDetail() {
                   <Card className="border-0 shadow-lg overflow-hidden">
                     <CardHeader className="bg-white border-b px-6 py-5 flex flex-row items-center justify-between space-y-0">
                       <div>
-                        <CardTitle className="text-xl text-[#154D71]">{currentTable.title}</CardTitle>
+                        <CardTitle className="text-base sm:text-xl text-[#154D71]">{currentTable.title}</CardTitle>
                         <CardDescription className="mt-1">Update Terakhir: {currentTable.updatedAt ? new Date(currentTable.updatedAt).toLocaleDateString("id-ID") : "-"}</CardDescription>
                       </div>
                     </CardHeader>
