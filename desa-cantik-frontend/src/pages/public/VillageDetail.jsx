@@ -490,7 +490,7 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN INDICATOR */}
         <div 
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20"
           onClick={() => scrollToSection('tentang')}
         >
           <span className="text-xs tracking-widest uppercase font-semibold text-white/80">Jelajahi</span>

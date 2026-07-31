@@ -36,7 +36,7 @@ export default function Footer({ scrollToVillages }) {
     <footer className="bg-gradient-to-r from-[#154D71] to-[#1C6EA4] text-white pt-10 pb-0 mt-auto">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-10 max-w-5xl mx-auto text-sm">
-          <div className="md:col-span-1 mb-6 md:mb-0">
+          <div className="md:col-span-1 mb-6 md:mb-0 flex flex-col items-center md:items-start text-center md:text-left">
             <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full p-2 md:p-2.5 flex items-center justify-center mb-3">
               <img src={logoDc} alt="Logo Desa Cantik" className="w-6 h-6 md:w-8 md:h-8 object-contain" />
             </div>

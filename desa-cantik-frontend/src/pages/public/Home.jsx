@@ -130,7 +130,7 @@ export default function Home() {
 
         {/* SCROLL DOWN INDICATOR */}
         <div 
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20"
           onClick={() => document.getElementById("tentang-section")?.scrollIntoView({ behavior: "smooth" })}
         >
           <span className="text-xs tracking-widest uppercase font-semibold text-white/80">Jelajahi</span>
@@ -149,7 +149,7 @@ export default function Home() {
               <h2 className="text-4xl sm:text-5xl md:text-6xl text-white mb-4" style={{ textShadow: "rgba(0,0,0,0.2) 2px 4px 8px" }}>
                 Tentang <span className="text-[#FFF9AF]">Desa Cantik</span>
               </h2>
-              <div className="w-96 h-1 bg-[#FFF9AF] mx-auto rounded-full" />
+              <div className="w-full max-w-[240px] h-1 bg-[#FFF9AF] mx-auto rounded-full" />
             </div>
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1">
