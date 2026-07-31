@@ -364,6 +364,19 @@ export default function VillageDetail() {
     loadDocs();
   }, [village?.id]);
 
+  // Hook untuk otomatis scroll ke tabel data saat terpilih di HP/Tab
+  useEffect(() => {
+    if (!activeTableId) return;
+    if (window.innerWidth < 1024) {
+      const tableElement = document.getElementById("table-view-section");
+      if (tableElement) {
+        setTimeout(() => {
+          tableElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    }
+  }, [activeTableId]);
+
   // Fungsi UI & Logika Pembantu
   const handleLocalLayerToggle = (layerId) => {
     setLocalLayerVisibility((prev) => ({ ...prev, [layerId]: !prev[layerId] }));
@@ -429,7 +442,7 @@ export default function VillageDetail() {
       <VillageDetailNavbar activeSection={activeSection} scrollToSection={scrollToSection} village={village} />
 
       {/* HERO SECTION */}
-      <section className="relative h-[calc(100vh-80px)] min-h-[600px] flex items-center justify-center text-white overflow-hidden py-16">
+      <section className="relative h-[calc(100vh-80px)] min-h-[450px] sm:min-h-[600px] flex items-center justify-center text-white overflow-hidden py-10 sm:py-16">
         <div className="absolute inset-0 bg-gradient-to-br from-[#154D71] via-[#1C6EA4] to-[#33A1E0]">
           {village.image_url && <img src={village.image_url} className="w-full h-full object-cover opacity-25 mix-blend-overlay" alt="Background" />}
         </div>
@@ -441,14 +454,14 @@ export default function VillageDetail() {
 
           {/* Logo & Branding SANGKUTU (Centered, Transparent & Larger) */}
           <div className="flex flex-col items-center gap-4 mb-8">
-            <div className="w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center hover:scale-105 transition-transform duration-300 filter drop-shadow-xl">
+            <div className="w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 flex items-center justify-center hover:scale-105 transition-transform duration-300 filter drop-shadow-xl">
               <img src={logoSangkutu} alt="Logo Sangkutu" className="w-full h-full object-contain" />
             </div>
             <div className="max-w-3xl text-center">
-              <h2 className="text-[#FFF9AF] font-black text-3xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-lg">
+              <h2 className="text-[#FFF9AF] font-black text-2xl sm:text-4xl md:text-5xl tracking-widest uppercase filter drop-shadow-lg">
                 SANGKUTU
               </h2>
-              <p className="text-blue-100 text-sm sm:text-base md:text-lg font-semibold tracking-wide mt-2 uppercase opacity-95 filter drop-shadow">
+              <p className="text-blue-100 text-xs sm:text-base md:text-lg font-semibold tracking-wide mt-2 uppercase opacity-95 filter drop-shadow">
                 Satu Data Lembang/Kelurahan Toraja Utara
               </p>
             </div>
@@ -488,7 +501,7 @@ export default function VillageDetail() {
       </section>
 
       {/* TENTANG DESA */}
-      <section id="tentang" className="py-20 bg-white">
+      <section id="tentang" className="py-12 sm:py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative group">
@@ -526,7 +539,7 @@ export default function VillageDetail() {
       </section>
 
       {/* DATA STATISTIK */}
-      <section id="data" className="py-20 bg-gray-50">
+      <section id="data" className="py-12 sm:py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-4">Data Statistik</h2>
@@ -606,7 +619,7 @@ export default function VillageDetail() {
               </div>
 
               {/* Right Column: Table details */}
-              <div className="lg:col-span-2">
+              <div id="table-view-section" className="lg:col-span-2 scroll-mt-24">
                 {currentTable ? (
                   <Card className="border-0 shadow-lg overflow-hidden">
                     <CardHeader className="bg-white border-b px-6 py-5 flex flex-row items-center justify-between space-y-0">
@@ -651,7 +664,7 @@ export default function VillageDetail() {
       </section>
 
       {/* PUBLIKASI */}
-      <section id="publikasi" className="py-20 bg-white">
+      <section id="publikasi" className="py-12 sm:py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
             <div>
@@ -741,7 +754,7 @@ export default function VillageDetail() {
       </section>
 
       {/* PETA TEMATIK */}
-      <section id="peta" className="py-20 bg-gray-50">
+      <section id="peta" className="py-12 sm:py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-3">Peta Digital</h2>
@@ -852,7 +865,7 @@ export default function VillageDetail() {
       </section>
 
       {/* DOKUMENTASI KEGIATAN */}
-      <section id="dokumentasi" className="py-20 bg-white border-t border-gray-100">
+      <section id="dokumentasi" className="py-12 sm:py-20 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6">
           <div className="mb-10 text-left">
             <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-3">Dokumentasi Kegiatan</h2>
@@ -868,23 +881,17 @@ export default function VillageDetail() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {documentation.map((doc) => (
                 <div key={doc.id} className="group relative bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100 aspect-[4/3] hover:shadow-xl transition-all duration-300">
-                  {/* Blurred background */}
-                  <img
-                    src={doc.image_url}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover blur-xl opacity-40 scale-110 pointer-events-none select-none"
-                  />
-                  <div className="absolute inset-0 bg-black/15" />
+                  <div className="absolute inset-0 bg-black/10 z-10 group-hover:bg-black/20 transition-colors" />
 
-                  {/* Foreground image */}
+                  {/* Main cover image */}
                   <img
                     src={doc.image_url}
                     alt={doc.description || doc.title || 'Dokumentasi'}
-                    className="relative z-10 w-full h-full object-contain transition duration-500 group-hover:scale-102"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {(doc.description || doc.title) && (
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-5 pt-12 z-20">
-                      <p className="text-white text-sm font-semibold truncate leading-snug">
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 pt-12 z-20">
+                      <p className="text-white text-sm font-bold truncate leading-snug">
                         {doc.description || doc.title}
                       </p>
                     </div>

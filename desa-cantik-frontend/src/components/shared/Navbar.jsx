@@ -58,36 +58,41 @@ export default function Navbar({ scrollToVillages }) {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-white p-6">
-                <SheetHeader className="mb-6 text-left">
-                  <SheetTitle className="text-[#154D71]">Menu</SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-4">
-                  <SheetClose asChild>
-                    <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-lg font-medium text-gray-700 hover:text-[#154D71]">
-                      Home
-                    </Link>
-                  </SheetClose>
-
-                  <SheetClose asChild>
-                    <Link to="/" onClick={scrollToVillages} className="text-lg font-medium text-gray-700 hover:text-[#154D71]">
-                      Desa Cantik
-                    </Link>
-                  </SheetClose>
-
-                  <SheetClose asChild>
-                    <Link to="/tentang" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-lg font-medium text-gray-700 hover:text-[#154D71]">
-                      Tentang
-                    </Link>
-                  </SheetClose>
-
-                  <div className="pt-4 mt-2 border-t border-gray-100">
+              <SheetContent side="right" className="bg-gradient-to-b from-[#154D71] to-[#1C6EA4] text-white border-l-0 p-6 flex flex-col justify-between">
+                <div>
+                  <SheetHeader className="mb-8 text-left border-b border-white/10 pb-4">
+                    <SheetTitle className="text-white text-xl font-black tracking-wider uppercase">Sangkutu</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-6">
                     <SheetClose asChild>
-                      <Button asChild className="w-full bg-[#154D71] hover:bg-[#1C6EA4]">
-                        <Link to="/login">Login</Link>
-                      </Button>
+                      <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-lg font-bold text-white hover:text-[#FFF9AF] transition-colors flex items-center justify-between">
+                        <span>Home</span>
+                        <span className="text-white/20">&rarr;</span>
+                      </Link>
+                    </SheetClose>
+
+                    <SheetClose asChild>
+                      <Link to="/" onClick={scrollToVillages} className="text-lg font-bold text-white hover:text-[#FFF9AF] transition-colors flex items-center justify-between">
+                        <span>Desa Cantik</span>
+                        <span className="text-white/20">&rarr;</span>
+                      </Link>
+                    </SheetClose>
+
+                    <SheetClose asChild>
+                      <Link to="/tentang" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-lg font-bold text-white hover:text-[#FFF9AF] transition-colors flex items-center justify-between">
+                        <span>Tentang</span>
+                        <span className="text-white/20">&rarr;</span>
+                      </Link>
                     </SheetClose>
                   </div>
+                </div>
+
+                <div className="pt-6 border-t border-white/10">
+                  <SheetClose asChild>
+                    <Button asChild className="w-full bg-[#FFF9AF] hover:bg-[#154D71] text-[#154D71] hover:text-white text-base py-6 rounded-xl shadow-lg transition-all duration-300">
+                      <Link to="/login">Login</Link>
+                    </Button>
+                  </SheetClose>
                 </div>
               </SheetContent>
             </Sheet>
