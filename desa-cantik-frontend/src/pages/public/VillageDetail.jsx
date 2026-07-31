@@ -519,18 +519,18 @@ export default function VillageDetail() {
                 <div className="p-3 bg-blue-50 rounded-lg">
                   <FileText className="w-6 h-6 text-[#33A1E0]" />
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71]">Tentang Desa</h2>
+                <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Tentang Desa</h2>
               </div>
-              <p className="text-lg text-gray-600 leading-relaxed mb-8">{village.description || "Belum ada deskripsi detail mengenai desa ini. Silakan hubungi admin untuk informasi lebih lanjut."}</p>
+              <p className="text-sm sm:text-lg text-gray-600 leading-relaxed mb-8">{village.description || "Belum ada deskripsi detail mengenai desa ini. Silakan hubungi admin untuk informasi lebih lanjut."}</p>
 
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <p className="text-sm text-gray-500 mb-1">Luas Wilayah</p>
-                  <p className="text-xl font-bold text-[#154D71]">{village.area || "-"} km²</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mb-1">Luas Wilayah</p>
+                  <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.area || "-"} km²</p>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <p className="text-sm text-gray-500 mb-1">Kode Wilayah</p>
-                  <p className="text-xl font-bold text-[#154D71]">{village.village_code || "-"}</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mb-1">Kode Wilayah</p>
+                  <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.village_code || "-"}</p>
                 </div>
               </div>
             </div>
@@ -542,15 +542,15 @@ export default function VillageDetail() {
       <section id="data" className="py-12 sm:py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-4">Data Statistik</h2>
-            <p className="text-gray-600">Data statistik resmi yang dihasilkan Desa dan di validasi oleh BPS</p>
+            <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-4">Data Statistik</h2>
+            <p className="text-xs sm:text-base text-gray-600">Data statistik resmi yang dihasilkan Desa dan di validasi oleh BPS</p>
           </div>
 
           {subjectGroups.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Left Column: Filter & List of Indicators */}
               <div className="lg:col-span-1 space-y-3">
-                <h2 className="text-xl font-bold text-slate-800 tracking-tight pl-1">
+                <h2 className="text-base sm:text-xl font-bold text-slate-800 tracking-tight pl-1">
                   Kategori
                 </h2>
                 {subjectGroups.map((s) => {
@@ -668,8 +668,8 @@ export default function VillageDetail() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-2">Publikasi Desa</h2>
-              <p className="text-gray-600">Dokumen dan laporan resmi desa</p>
+              <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2">Publikasi Desa</h2>
+              <p className="text-xs sm:text-sm text-gray-600">Dokumen dan laporan resmi desa</p>
             </div>
             {/* FIX: Gunakan handler yang reset currentPage */}
             <div className="flex gap-4 bg-gray-50 p-2 rounded-lg border border-gray-100">
@@ -757,8 +757,8 @@ export default function VillageDetail() {
       <section id="peta" className="py-12 sm:py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-3">Peta Digital</h2>
-            <p className="text-gray-600 max-w-2xl">Eksplorasi data geospasial dan tematik wilayah desa.</p>
+            <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-3">Peta Digital</h2>
+            <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">Eksplorasi data geospasial dan tematik wilayah desa.</p>
           </div>
 
           <div className="relative w-full rounded-2xl shadow-xl overflow-hidden border-4 border-white group h-[360px] sm:h-[420px] md:h-[520px] lg:h-[600px] max-h-[80vh]">
@@ -868,8 +868,8 @@ export default function VillageDetail() {
       <section id="dokumentasi" className="py-12 sm:py-20 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6">
           <div className="mb-10 text-left">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#154D71] mb-3">Dokumentasi Kegiatan</h2>
-            <p className="text-gray-600 max-w-2xl">Galeri foto pembinaan dan dokumentasi kegiatan Desa Cantik (DesCan).</p>
+            <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-3">Dokumentasi Kegiatan</h2>
+            <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">Galeri foto pembinaan dan dokumentasi kegiatan Desa Cantik (DesCan).</p>
           </div>
 
           {loadingDocs ? (
