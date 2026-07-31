@@ -93,23 +93,23 @@ export default function Login() {
       {/* Back Button */}
       <Button
         variant="ghost"
-        className="absolute top-4 left-4 text-white hover:bg-white/20"
+        className="absolute top-4 left-4 text-white hover:bg-white/20 px-2 sm:px-4"
         onClick={handleBack}
       >
-        <ArrowLeft className="mr-2 h-5 w-5" />
-        Kembali ke Home
+        <ArrowLeft className="h-5 w-5 sm:mr-2" />
+        <span className="hidden sm:inline">Kembali ke Home</span>
       </Button>
 
       {/* Login Card */}
       <Card className="w-full max-w-md shadow-2xl relative z-10">
-        <CardHeader className="space-y-3 text-center pb-8">
-          <div className="mx-auto p-4 rounded-2xl w-fit">
-            <img src={logoDc} alt="Logo Desa Cantik" className="w-20 h-20 object-contain" />
+        <CardHeader className="space-y-2 text-center pb-6">
+          <div className="mx-auto p-3 rounded-2xl w-fit">
+            <img src={logoDc} alt="Logo Desa Cantik" className="w-16 h-16 sm:w-20 sm:h-20 object-contain" />
           </div>
-          <CardTitle className="text-3xl font-bold text-gray-900">
+          <CardTitle className="text-2xl sm:text-3xl font-bold text-gray-900">
             Desa Cantik
           </CardTitle>
-          <CardDescription className="text-base">
+          <CardDescription className="text-xs sm:text-base">
             Sistem Informasi Desa Cinta Statistik
           </CardDescription>
         </CardHeader>

@@ -105,10 +105,10 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
               ? () => { window.scrollTo({ top: 0, behavior: 'smooth' }); scrollToSection('desa'); }
               : () => scrollToSection(section)
             }
-            className="text-base font-semibold text-white/95 hover:text-[#FFF9AF] text-left w-full transition-colors flex items-center justify-between py-1"
+            className="text-base font-semibold text-slate-700 hover:text-[#1C6EA4] text-left w-full transition-colors flex items-center justify-between py-1"
           >
             <span>{label}</span>
-            <span className="text-white/20">&rarr;</span>
+            <span className="text-slate-350">&rarr;</span>
           </button>
         </SheetClose>
       );
@@ -118,10 +118,10 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
       <SheetClose asChild>
         <Link
           to={getLinkTarget(section)}
-          className="text-base font-semibold text-white/95 hover:text-[#FFF9AF] text-left w-full block transition-colors flex items-center justify-between py-1"
+          className="text-base font-semibold text-slate-700 hover:text-[#1C6EA4] text-left w-full block transition-colors flex items-center justify-between py-1"
         >
           <span>{label}</span>
-          <span className="text-white/20">&rarr;</span>
+          <span className="text-slate-350">&rarr;</span>
         </Link>
       </SheetClose>
     );
@@ -246,10 +246,10 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-gradient-to-b from-[#1C6EA4] to-[#154D71] text-white border-l-0 p-6 flex flex-col justify-between max-h-screen overflow-y-auto">
+              <SheetContent side="left" className="bg-white border-r border-slate-200 text-slate-800 p-6 flex flex-col justify-between max-h-screen overflow-y-auto">
                 <div className="space-y-6">
-                  <SheetHeader className="mb-6 text-left border-b border-white/10 pb-4">
-                    <SheetTitle className="text-white text-lg font-bold tracking-wider uppercase">Sangkutu</SheetTitle>
+                  <SheetHeader className="mb-6 text-left border-b border-slate-100 pb-4">
+                    <SheetTitle className="text-[#1C6EA4] text-lg font-bold tracking-wider uppercase">Sangkutu</SheetTitle>
                   </SheetHeader>
                   <div className="flex flex-col gap-5">
                     {renderMobileLink('Desa', 'desa')}
@@ -262,57 +262,57 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                       <div className="w-full">
                         <button
                           onClick={() => setIsLayananOpen(!isLayananOpen)}
-                          className="text-base font-semibold text-white/95 hover:text-[#FFF9AF] text-left w-full transition-colors flex items-center justify-between py-1"
+                          className="text-base font-semibold text-slate-700 hover:text-[#1C6EA4] text-left w-full transition-colors flex items-center justify-between py-1"
                         >
                           <span>Layanan Online</span>
-                          <span className={`text-white/40 transition-transform duration-300 ${isLayananOpen ? 'rotate-180' : ''}`}>
+                          <span className={`text-slate-400 transition-transform duration-300 ${isLayananOpen ? 'rotate-180' : ''}`}>
                             &#9662;
                           </span>
                         </button>
                         
-                        <div className={`flex flex-col gap-3.5 pl-4 border-l border-white/10 mt-3 overflow-hidden transition-all duration-300 ease-in-out ${isLayananOpen ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                        <div className={`flex flex-col gap-3.5 pl-4 border-l border-slate-100 mt-3 overflow-hidden transition-all duration-300 ease-in-out ${isLayananOpen ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}>
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/surat-pengantar`}
-                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-slate-650 hover:text-[#1C6EA4] flex items-center gap-2 transition-colors py-1"
                             >
-                              <Mail className="h-4 w-4 text-[#FFF9AF]" />
+                              <Mail className="h-4 w-4 text-[#1C6EA4]" />
                               Permohonan Layanan Administrasi
                             </Link>
                           </SheetClose>
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/status-pengantar`}
-                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-slate-650 hover:text-[#1C6EA4] flex items-center gap-2 transition-colors py-1"
                             >
-                              <ClipboardCheck className="h-4 w-4 text-[#FFF9AF]" />
+                              <ClipboardCheck className="h-4 w-4 text-[#1C6EA4]" />
                               Hasil Layanan Administrasi
                             </Link>
                           </SheetClose>
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/pengaduan`}
-                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-slate-650 hover:text-[#1C6EA4] flex items-center gap-2 transition-colors py-1"
                             >
-                              <MessageSquare className="h-4 w-4 text-[#FFF9AF]" />
+                              <MessageSquare className="h-4 w-4 text-[#1C6EA4]" />
                               Pengaduan Masyarakat
                             </Link>
                           </SheetClose>
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/status-pengaduan`}
-                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-slate-650 hover:text-[#1C6EA4] flex items-center gap-2 transition-colors py-1"
                             >
-                              <AlertCircle className="h-4 w-4 text-[#FFF9AF]" />
+                              <AlertCircle className="h-4 w-4 text-[#1C6EA4]" />
                               Status Pengaduan Masyarakat
                             </Link>
                           </SheetClose>
                           <SheetClose asChild>
                             <Link
                               to={`/desa/${villageId}/layanan-online/buku-tamu`}
-                              className="text-[14px] font-medium text-white/80 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                              className="text-[14px] font-medium text-slate-650 hover:text-[#1C6EA4] flex items-center gap-2 transition-colors py-1"
                             >
-                              <BookOpen className="h-4 w-4 text-[#FFF9AF]" />
+                              <BookOpen className="h-4 w-4 text-[#1C6EA4]" />
                               Buku Tamu
                             </Link>
                           </SheetClose>
@@ -322,11 +322,11 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-white/10 mt-6 flex-shrink-0">
+                <div className="pt-6 border-t border-slate-100 mt-6 flex-shrink-0">
                   <SheetClose asChild>
                     <Button
                       asChild
-                      className="w-full bg-[#FFF9AF] hover:bg-[#154D71] text-[#154D71] hover:text-white text-base py-5 rounded-xl shadow-lg transition-all duration-300"
+                      className="w-full bg-[#1C6EA4] hover:bg-[#154D71] text-white text-base py-5 rounded-xl shadow-lg transition-all duration-300"
                     >
                       <Link to="/login">Login</Link>
                     </Button>
