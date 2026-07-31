@@ -187,11 +187,11 @@ export default function Home() {
         <div className="container mx-auto px-6">
           {/* Heading */}
           <div className="text-center mb-12">
-            <h2 className="text-5xl text-[#154D71] mb-4">
+            <h2 className="text-3xl sm:text-5xl text-[#154D71] mb-4">
               Desa Binaan <span className="text-[#33A1E0]">BPS</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Daftar desa yang telah bergabung dalam program Desa Cinta Statistik</p>
-            <div className="w-24 h-1 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] mx-auto mt-4 rounded-full" />
+            <p className="text-sm sm:text-xl text-gray-600 max-w-2xl mx-auto">Daftar desa yang telah bergabung dalam program Desa Cinta Statistik</p>
+            <div className="w-full max-w-[120px] h-1 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] mx-auto mt-4 rounded-full" />
           </div>
 
           {/* Loading */}
