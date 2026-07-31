@@ -1,5 +1,5 @@
 // src/components/shared/VillageDetailNavbar.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function VillageDetailNavbar({ activeSection, scrollToSection, village }) {
+  const [isLayananOpen, setIsLayananOpen] = useState(false);
   const getSubdomain = () => {
     const hostname = window.location.hostname;
     if (/^[0-9.]+$/.test(hostname)) {
@@ -258,55 +259,64 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                     {renderMobileLink('Dokumentasi', 'dokumentasi')}
 
                     {village?.has_layanan_online === true && (
-                      <div className="flex flex-col gap-3.5 pl-2 border-l border-white/10 mt-2">
-                        <span className="text-[10px] font-bold text-white/50 uppercase tracking-widest pl-1">
-                          Layanan Online
-                        </span>
-                        <SheetClose asChild>
-                          <Link
-                            to={`/desa/${villageId}/layanan-online/surat-pengantar`}
-                            className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] pl-2 flex items-center gap-2 transition-colors"
-                          >
-                            <Mail className="h-4 w-4 text-[#FFF9AF]" />
-                            Permohonan Layanan Administrasi
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link
-                            to={`/desa/${villageId}/layanan-online/status-pengantar`}
-                            className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] pl-2 flex items-center gap-2 transition-colors"
-                          >
-                            <ClipboardCheck className="h-4 w-4 text-[#FFF9AF]" />
-                            Hasil Layanan Administrasi
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link
-                            to={`/desa/${villageId}/layanan-online/pengaduan`}
-                            className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] pl-2 flex items-center gap-2 transition-colors"
-                          >
-                            <MessageSquare className="h-4 w-4 text-[#FFF9AF]" />
-                            Pengaduan Masyarakat
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link
-                            to={`/desa/${villageId}/layanan-online/status-pengaduan`}
-                            className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] pl-2 flex items-center gap-2 transition-colors"
-                          >
-                            <AlertCircle className="h-4 w-4 text-[#FFF9AF]" />
-                            Status Pengaduan Masyarakat
-                          </Link>
-                        </SheetClose>
-                        <SheetClose asChild>
-                          <Link
-                            to={`/desa/${villageId}/layanan-online/buku-tamu`}
-                            className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] pl-2 flex items-center gap-2 transition-colors"
-                          >
-                            <BookOpen className="h-4 w-4 text-[#FFF9AF]" />
-                            Buku Tamu
-                          </Link>
-                        </SheetClose>
+                      <div className="w-full">
+                        <button
+                          onClick={() => setIsLayananOpen(!isLayananOpen)}
+                          className="text-lg font-bold text-white hover:text-[#FFF9AF] text-left w-full transition-colors flex items-center justify-between py-1"
+                        >
+                          <span>Layanan Online</span>
+                          <span className={`text-white/40 transition-transform duration-300 ${isLayananOpen ? 'rotate-180' : ''}`}>
+                            &#9662;
+                          </span>
+                        </button>
+                        
+                        <div className={`flex flex-col gap-3.5 pl-4 border-l border-white/10 mt-3 overflow-hidden transition-all duration-300 ease-in-out ${isLayananOpen ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                          <SheetClose asChild>
+                            <Link
+                              to={`/desa/${villageId}/layanan-online/surat-pengantar`}
+                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                            >
+                              <Mail className="h-4 w-4 text-[#FFF9AF]" />
+                              Permohonan Layanan Administrasi
+                            </Link>
+                          </SheetClose>
+                          <SheetClose asChild>
+                            <Link
+                              to={`/desa/${villageId}/layanan-online/status-pengantar`}
+                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                            >
+                              <ClipboardCheck className="h-4 w-4 text-[#FFF9AF]" />
+                              Hasil Layanan Administrasi
+                            </Link>
+                          </SheetClose>
+                          <SheetClose asChild>
+                            <Link
+                              to={`/desa/${villageId}/layanan-online/pengaduan`}
+                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                            >
+                              <MessageSquare className="h-4 w-4 text-[#FFF9AF]" />
+                              Pengaduan Masyarakat
+                            </Link>
+                          </SheetClose>
+                          <SheetClose asChild>
+                            <Link
+                              to={`/desa/${villageId}/layanan-online/status-pengaduan`}
+                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                            >
+                              <AlertCircle className="h-4 w-4 text-[#FFF9AF]" />
+                              Status Pengaduan Masyarakat
+                            </Link>
+                          </SheetClose>
+                          <SheetClose asChild>
+                            <Link
+                              to={`/desa/${villageId}/layanan-online/buku-tamu`}
+                              className="text-sm font-semibold text-white/90 hover:text-[#FFF9AF] flex items-center gap-2 transition-colors py-1"
+                            >
+                              <BookOpen className="h-4 w-4 text-[#FFF9AF]" />
+                              Buku Tamu
+                            </Link>
+                          </SheetClose>
+                        </div>
                       </div>
                     )}
                   </div>
