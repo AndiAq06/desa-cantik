@@ -187,7 +187,7 @@ export default function DashboardDesa() {
           </CardHeader>
           <CardContent className="flex-1 flex items-center justify-center pb-4">
             <div className="text-center">
-              <div className="text-6xl font-bold text-[#1C6EA4] mb-2">
+              <div className="text-4xl sm:text-6xl font-bold text-[#1C6EA4] mb-2">
                 {dashboardData?.profileCompleteness?.percentage || 0}%
               </div>
               <p className="text-sm text-muted-foreground">

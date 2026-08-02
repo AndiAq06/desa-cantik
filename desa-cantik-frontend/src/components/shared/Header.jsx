@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import logoBps from "@/assets/images/logo_bps.png";
 import logoTorut from "@/assets/images/logo_toraja_utara.png";
 
@@ -11,18 +12,25 @@ export default function Header({ title, subtitle, userName, userInitial, userRol
       {/* Sisi Kiri: Logo & Judul Halaman (Nama Desa/Admin) */}
       <div className="flex items-center gap-4">
         {/* Mobile Menu Button */}
-        <button onClick={props.onMenuClick} className="md:hidden p-2 -ml-2 text-white hover:bg-white/10 rounded-lg transition-colors">
+        <Button
+          onClick={props.onMenuClick}
+          variant="ghost"
+          size="icon"
+          className="md:hidden text-white hover:bg-white/10 p-1"
+        >
           <Menu className="h-6 w-6" />
-        </button>
+        </Button>
 
-        <Link to="/" className="flex items-center gap-2">
-          {/* Logo BPS */}
-          <div className="bg-white p-1 rounded-lg shadow-sm w-8 h-8 flex items-center justify-center">
-            <img src={logoBps} alt="Logo BPS" className="w-full h-full object-contain" />
-          </div>
-          {/* Logo Torut */}
-          <div className="bg-white p-1 rounded-lg shadow-sm w-8 h-8 flex items-center justify-center">
-            <img src={logoTorut} alt="Logo Toraja Utara" className="w-full h-full object-contain" />
+        <Link to="/" className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* Logo BPS */}
+            <div className="bg-white p-1 rounded-full shadow-md w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center hover:scale-105 transition-transform">
+              <img src={logoBps} alt="Logo BPS" className="w-full h-full object-contain" />
+            </div>
+            {/* Logo Torut */}
+            <div className="bg-white p-1 rounded-full shadow-md w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center hover:scale-105 transition-transform">
+              <img src={logoTorut} alt="Logo Toraja Utara" className="w-full h-full object-contain" />
+            </div>
           </div>
         </Link>
 
