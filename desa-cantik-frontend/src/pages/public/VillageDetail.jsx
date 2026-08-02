@@ -30,6 +30,7 @@ import { documentationService } from "@/services/documentationService";
 import VillageDetailNavbar from "@/components/shared/VillageDetailNavbar";
 import Footer from "@/components/shared/Footer";
 import ExcelTableViewer from "@/components/shared/ExcelTableViewer";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 import logoSangkutu from "@/assets/images/logo_sangkutu.png";
 
 const monthOptions = [
