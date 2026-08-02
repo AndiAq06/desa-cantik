@@ -140,9 +140,9 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-white hover:bg-white/10 p-1"
+                    className="text-white hover:bg-white/10 p-1 w-10 h-10"
                   >
-                    <Menu className="h-6 w-6" />
+                    <Menu className="h-7 w-7" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="bg-white border-r border-slate-200 text-slate-800 p-6 flex flex-col justify-between max-h-screen overflow-y-auto">

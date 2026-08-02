@@ -16,9 +16,9 @@ export default function Header({ title, subtitle, userName, userInitial, userRol
           onClick={props.onMenuClick}
           variant="ghost"
           size="icon"
-          className="md:hidden text-white hover:bg-white/10 p-1"
+          className="md:hidden text-white hover:bg-white/10 p-1 w-10 h-10"
         >
-          <Menu className="h-6 w-6" />
+          <Menu className="h-7 w-7" />
         </Button>
 
         <Link to="/" className="flex items-center gap-3">
