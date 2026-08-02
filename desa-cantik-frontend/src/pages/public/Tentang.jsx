@@ -94,7 +94,7 @@ const Tentang = () => {
               <div className="inline-block">
                 <span className="bg-blue-50 text-[#33A1E0] px-4 py-1.5 text-sm font-semibold rounded-full border border-blue-100">Program Unggulan BPS</span>
               </div>
-              <h2 className="text-4xl font-bold text-[#154D71]">Apa itu Desa Cantik?</h2>
+              <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Apa itu Desa Cantik?</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed text-lg">
                 <p>
                   <span className="font-semibold text-[#33A1E0]">Desa Cinta Statistik (Desa Cantik)</span> adalah program pembinaan statistik sektoral di tingkat desa yang dirancang oleh BPS. Program ini bertujuan untuk meningkatkan
@@ -117,27 +117,27 @@ const Tentang = () => {
           </div>
 
           {/* Stats Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {loadingStats
               ? Array(4)
                   .fill(0)
                   .map((_, i) => (
-                    <Card key={i} className="p-6 border border-gray-100 shadow-sm bg-white">
+                    <Card key={i} className="p-4 sm:p-6 border border-gray-100 shadow-sm bg-white">
                       <CardContent className="p-0 flex flex-col items-center">
-                        <div className="w-16 h-16 bg-gray-100 rounded-2xl mb-4 animate-pulse"></div>
-                        <div className="h-8 w-24 bg-gray-100 rounded mb-2 animate-pulse"></div>
-                        <div className="h-4 w-32 bg-gray-100 rounded animate-pulse"></div>
+                        <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-100 rounded-2xl mb-3 sm:mb-4 animate-pulse"></div>
+                        <div className="h-6 w-16 sm:h-8 sm:w-24 bg-gray-100 rounded mb-2 animate-pulse"></div>
+                        <div className="h-3 w-24 sm:h-4 sm:w-32 bg-gray-100 rounded animate-pulse"></div>
                       </CardContent>
                     </Card>
                   ))
               : stats.map((stat, index) => (
-                  <Card key={index} className="text-center p-6 border-0 shadow-lg hover:shadow-xl transition-all bg-white group hover:-translate-y-1">
+                  <Card key={index} className="text-center p-4 sm:p-6 border-0 shadow-lg hover:shadow-xl transition-all bg-white group hover:-translate-y-1">
                     <CardContent className="p-0">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:bg-[#33A1E0] transition-colors duration-300">
-                        <stat.icon className="h-8 w-8 text-[#33A1E0] group-hover:text-white transition-colors duration-300" />
+                      <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:bg-[#33A1E0] transition-colors duration-300">
+                        <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-[#33A1E0] group-hover:text-white transition-colors duration-300" />
                       </div>
-                      <p className="text-3xl font-bold text-[#154D71] mb-1">{stat.value}</p>
-                      <p className="text-sm text-gray-500 font-medium">{stat.label}</p>
+                      <p className="text-lg sm:text-3xl font-bold text-[#154D71] mb-1 tracking-tight truncate sm:whitespace-normal" title={stat.value}>{stat.value}</p>
+                      <p className="text-[11px] sm:text-sm text-gray-500 font-medium">{stat.label}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -206,18 +206,69 @@ const Tentang = () => {
                     ))}
                 </div>
               ) : teamMembers.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                  {teamMembers.map((person, index) => (
-                    <div key={person.id || index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition-colors">
-                      {/* Avatar icon modern — seragam semua */}
-                      <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#33A1E0] to-[#1C6EA4] flex items-center justify-center shadow-lg ring-4 ring-white/20">
-                        <UserCircle2 className="w-12 h-12 text-white" strokeWidth={1.5} />
+                <>
+                  {/* DESKTOP VERSION: Grid */}
+                  <div className="hidden md:grid grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    {teamMembers.map((person, index) => (
+                      <div key={person.id || index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/20 transition-colors">
+                        {/* Avatar icon modern — seragam semua */}
+                        <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#33A1E0] to-[#1C6EA4] flex items-center justify-center shadow-lg ring-4 ring-white/20">
+                          <UserCircle2 className="w-12 h-12 text-white" strokeWidth={1.5} />
+                        </div>
+                        <h3 className="text-xl font-semibold mb-1">{person.name}</h3>
+                        <p className="text-blue-200 text-sm">{person.role}</p>
                       </div>
-                      <h3 className="text-xl font-semibold mb-1">{person.name}</h3>
-                      <p className="text-blue-200 text-sm">{person.role}</p>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+
+                  {/* MOBILE & TABLET VERSION: Infinite Loop Marquee (when > 1 member) or Single Centered Card */}
+                  <div className="block md:hidden w-full overflow-hidden relative py-2">
+                    {teamMembers.length > 1 ? (
+                      <div className="w-full overflow-hidden relative">
+                        <style dangerouslySetInnerHTML={{__html: `
+                          @keyframes marquee-team {
+                            0% { transform: translateX(0); }
+                            100% { transform: translateX(-50%); }
+                          }
+                          .animate-marquee-team {
+                            display: flex;
+                            width: max-content;
+                            animation: marquee-team 25s linear infinite;
+                          }
+                          .animate-marquee-team:hover {
+                            animation-play-state: paused;
+                          }
+                        `}} />
+                        <div className="animate-marquee-team gap-5">
+                          {(teamMembers.length < 4
+                            ? [...teamMembers, ...teamMembers, ...teamMembers, ...teamMembers]
+                            : [...teamMembers, ...teamMembers]
+                          ).map((person, index) => (
+                            <div
+                              key={`${person.id || index}-${index}`}
+                              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 flex-shrink-0 w-[260px] text-center"
+                            >
+                              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#33A1E0] to-[#1C6EA4] flex items-center justify-center shadow-lg ring-4 ring-white/20">
+                                <UserCircle2 className="w-10 h-10 text-white" strokeWidth={1.5} />
+                              </div>
+                              <h3 className="text-lg font-semibold mb-1 truncate text-white">{person.name}</h3>
+                              <p className="text-blue-200 text-xs truncate">{person.role}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      // Single member layout for mobile
+                      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 max-w-sm mx-auto text-center">
+                        <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#33A1E0] to-[#1C6EA4] flex items-center justify-center shadow-lg ring-4 ring-white/20">
+                          <UserCircle2 className="w-12 h-12 text-white" strokeWidth={1.5} />
+                        </div>
+                        <h3 className="text-xl font-semibold mb-1 text-white">{teamMembers[0].name}</h3>
+                        <p className="text-blue-200 text-sm">{teamMembers[0].role}</p>
+                      </div>
+                    )}
+                  </div>
+                </>
               ) : (
                 <div className="text-center text-blue-200">
                   <p>Informasi tim pengelola akan segera ditambahkan</p>
