@@ -6,6 +6,7 @@ import { MapPin, Users, ArrowRight, ChevronLeft, ChevronRight } from "lucide-rea
 import { villageService } from "@/services/villageService";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import ScrollReveal from "@/components/shared/ScrollReveal";
 import logoSangkutu from "@/assets/images/logo_sangkutu.png";
 import logoDesa from "@/assets/images/logo_desa.png";
 import background from "@/assets/images/bg.jpg";
@@ -145,37 +146,43 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#4BADE4] via-[#33A1E0] to-[#1C6EA4]" />
         <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl text-white mb-4" style={{ textShadow: "rgba(0,0,0,0.2) 2px 4px 8px" }}>
-                Tentang <span className="text-[#FFF9AF]">Desa Cantik</span>
-              </h2>
-              <div className="w-full max-w-[240px] h-1 bg-[#FFF9AF] mx-auto rounded-full" />
-            </div>
+            <ScrollReveal duration={800}>
+              <div className="text-center mb-16">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl text-white mb-4" style={{ textShadow: "rgba(0,0,0,0.2) 2px 4px 8px" }}>
+                  Tentang <span className="text-[#FFF9AF]">Desa Cantik</span>
+                </h2>
+                <div className="w-full max-w-[240px] h-1 bg-[#FFF9AF] mx-auto rounded-full" />
+              </div>
+            </ScrollReveal>
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1">
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-white/10 rounded-3xl blur-xl" />
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                    <img src={logoDesa} alt="Tentang Desa Cantik" className="w-full h-full object-contain" onError={(e) => (e.target.src = "https://placehold.co/800x600/4BADE4/ffffff?text=Tentang+Kami")} />
+                <ScrollReveal delay={150} duration={850}>
+                  <div className="relative">
+                    <div className="absolute -inset-4 bg-white/10 rounded-3xl blur-xl" />
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                      <img src={logoDesa} alt="Tentang Desa Cantik" className="w-full h-full object-contain" onError={(e) => (e.target.src = "https://placehold.co/800x600/4BADE4/ffffff?text=Tentang+Kami")} />
+                    </div>
                   </div>
-                </div>
+                </ScrollReveal>
               </div>
               <div className="order-1 md:order-2 text-white space-y-6">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
-                  <p className="text-lg leading-relaxed mb-6">
-                    Berdasarkan UU No. 17 Tahun 1997 Tentang Statistik, BPS menjadi <span className="text-[#FFF9AF]">leading sector</span> dalam pembinaan statistik sektoral sebagai pengembangan Sistem Statistik Nasional (SSN) dan mendukung
-                    pembangunan.
-                  </p>
-                  <p className="text-lg leading-relaxed mb-8">
-                    <span className="text-[#FFF9AF]">Desa Cinta Statistik (Desa Cantik)</span> merupakan program yang bertujuan untuk meningkatkan literasi, kesadaran, dan peran aktif perangkat desa/kelurahan dan masyarakat dalam
-                    penyelenggaraan kegiatan statistik.
-                  </p>
-                  <Button asChild className="bg-[#FFF9AF] hover:bg-[#FFE680] text-[#154D71] px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all w-full md:w-auto">
-                    <Link to="/tentang">
-                      Pelajari Lebih Lanjut <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                </div>
+                <ScrollReveal delay={300} duration={850}>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
+                    <p className="text-lg leading-relaxed mb-6">
+                      Berdasarkan UU No. 17 Tahun 1997 Tentang Statistik, BPS menjadi <span className="text-[#FFF9AF]">leading sector</span> dalam pembinaan statistik sektoral sebagai pengembangan Sistem Statistik Nasional (SSN) dan mendukung
+                      pembangunan.
+                    </p>
+                    <p className="text-lg leading-relaxed mb-8">
+                      <span className="text-[#FFF9AF]">Desa Cinta Statistik (Desa Cantik)</span> merupakan program yang bertujuan untuk meningkatkan literasi, kesadaran, dan peran aktif perangkat desa/kelurahan dan masyarakat dalam
+                      penyelenggaraan kegiatan statistik.
+                    </p>
+                    <Button asChild className="bg-[#FFF9AF] hover:bg-[#FFE680] text-[#154D71] px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all w-full md:w-auto">
+                      <Link to="/tentang">
+                        Pelajari Lebih Lanjut <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
+                  </div>
+                </ScrollReveal>
               </div>
             </div>
           </div>
@@ -186,13 +193,15 @@ export default function Home() {
       <section ref={villagesRef} className="py-20 bg-gradient-to-b from-white to-gray-50 scroll-mt-28">
         <div className="container mx-auto px-6">
           {/* Heading */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-5xl text-[#154D71] mb-4">
-              Desa Binaan <span className="text-[#33A1E0]">BPS</span>
-            </h2>
-            <p className="text-sm sm:text-xl text-gray-600 max-w-2xl mx-auto">Daftar desa yang telah bergabung dalam program Desa Cinta Statistik</p>
-            <div className="w-full max-w-[120px] h-1 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] mx-auto mt-4 rounded-full" />
-          </div>
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-5xl text-[#154D71] mb-4">
+                Desa Binaan <span className="text-[#33A1E0]">BPS</span>
+              </h2>
+              <p className="text-sm sm:text-xl text-gray-600 max-w-2xl mx-auto">Daftar desa yang telah bergabung dalam program Desa Cinta Statistik</p>
+              <div className="w-full max-w-[120px] h-1 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] mx-auto mt-4 rounded-full" />
+            </div>
+          </ScrollReveal>
 
           {/* Loading */}
           {loading && <div className="text-center py-12 text-gray-600">Memuat desa binaan...</div>}

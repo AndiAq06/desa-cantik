@@ -505,34 +505,38 @@ export default function VillageDetail() {
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500"></div>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
-                <img
-                  src={village.image_url || village.logo_url || "https://placehold.co/800x600/f1f5f9/94a3b8?text=Foto+Desa"}
-                  alt={village.name}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
-                />
-              </div>
+              <ScrollReveal duration={800}>
+                <div className="absolute -inset-4 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500"></div>
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
+                  <img
+                    src={village.image_url || village.logo_url || "https://placehold.co/800x600/f1f5f9/94a3b8?text=Foto+Desa"}
+                    alt={village.name}
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition duration-700"
+                  />
+                </div>
+              </ScrollReveal>
             </div>
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-blue-50 rounded-lg">
-                  <FileText className="w-6 h-6 text-[#33A1E0]" />
+              <ScrollReveal delay={150} duration={850}>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <FileText className="w-6 h-6 text-[#33A1E0]" />
+                  </div>
+                  <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Tentang Desa</h2>
                 </div>
-                <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Tentang Desa</h2>
-              </div>
-              <p className="text-sm sm:text-lg text-gray-600 leading-relaxed mb-8">{village.description || "Belum ada deskripsi detail mengenai desa ini. Silakan hubungi admin untuk informasi lebih lanjut."}</p>
+                <p className="text-sm sm:text-lg text-gray-600 leading-relaxed mb-8">{village.description || "Belum ada deskripsi detail mengenai desa ini. Silakan hubungi admin untuk informasi lebih lanjut."}</p>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <p className="text-xs sm:text-sm text-gray-500 mb-1">Luas Wilayah</p>
-                  <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.area || "-"} km²</p>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <p className="text-xs sm:text-sm text-gray-500 mb-1">Luas Wilayah</p>
+                    <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.area || "-"} km²</p>
+                  </div>
+                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <p className="text-xs sm:text-sm text-gray-500 mb-1">Kode Wilayah</p>
+                    <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.village_code || "-"}</p>
+                  </div>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <p className="text-xs sm:text-sm text-gray-500 mb-1">Kode Wilayah</p>
-                  <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.village_code || "-"}</p>
-                </div>
-              </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -541,10 +545,12 @@ export default function VillageDetail() {
       {/* DATA STATISTIK */}
       <section id="data" className="py-12 sm:py-20 bg-gray-50">
         <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-4">Data Statistik</h2>
-            <p className="text-xs sm:text-base text-gray-600">Data statistik resmi yang dihasilkan Desa dan di validasi oleh BPS</p>
-          </div>
+          <ScrollReveal>
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-4">Data Statistik</h2>
+              <p className="text-xs sm:text-base text-gray-600">Data statistik resmi yang dihasilkan Desa dan di validasi oleh BPS</p>
+            </div>
+          </ScrollReveal>
 
           {subjectGroups.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -667,10 +673,12 @@ export default function VillageDetail() {
       <section id="publikasi" className="py-12 sm:py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-            <div>
-              <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2">Publikasi Desa</h2>
-              <p className="text-xs sm:text-sm text-gray-600">Dokumen dan laporan resmi desa</p>
-            </div>
+            <ScrollReveal>
+              <div>
+                <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2">Publikasi Desa</h2>
+                <p className="text-xs sm:text-sm text-gray-600">Dokumen dan laporan resmi desa</p>
+              </div>
+            </ScrollReveal>
             {/* FIX: Gunakan handler yang reset currentPage */}
             <div className="flex gap-4 bg-gray-50 p-2 rounded-lg border border-gray-100">
               <Select value={selectedYear} onValueChange={handleYearChange}>
@@ -756,10 +764,12 @@ export default function VillageDetail() {
       {/* PETA TEMATIK */}
       <section id="peta" className="py-12 sm:py-20 bg-gray-50">
         <div className="container mx-auto px-6">
-          <div className="mb-10">
-            <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-3">Peta Digital</h2>
-            <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">Eksplorasi data geospasial dan tematik wilayah desa.</p>
-          </div>
+          <ScrollReveal>
+            <div className="mb-10">
+              <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-3">Peta Digital</h2>
+              <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">Eksplorasi data geospasial dan tematik wilayah desa.</p>
+            </div>
+          </ScrollReveal>
 
           <div className="relative w-full rounded-2xl shadow-xl overflow-hidden border-4 border-white group h-[360px] sm:h-[420px] md:h-[520px] lg:h-[600px] max-h-[80vh]">
             {/* FLOATING FILTER POPUP */}
@@ -867,10 +877,12 @@ export default function VillageDetail() {
       {/* DOKUMENTASI KEGIATAN */}
       <section id="dokumentasi" className="py-12 sm:py-20 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6">
-          <div className="mb-10 text-left">
-            <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-3">Dokumentasi Kegiatan</h2>
-            <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">Galeri foto pembinaan dan dokumentasi kegiatan Desa Cantik (DesCan).</p>
-          </div>
+          <ScrollReveal>
+            <div className="mb-10 text-left">
+              <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-3">Dokumentasi Kegiatan</h2>
+              <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">Galeri foto pembinaan dan dokumentasi kegiatan Desa Cantik (DesCan).</p>
+            </div>
+          </ScrollReveal>
 
           {loadingDocs ? (
             <div className="flex items-center justify-center py-20 text-gray-500">
@@ -878,27 +890,98 @@ export default function VillageDetail() {
               <span>Memuat galeri kegiatan...</span>
             </div>
           ) : documentation.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {documentation.map((doc) => (
-                <div key={doc.id} className="group relative bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100 aspect-[4/3] hover:shadow-xl transition-all duration-300">
-                  <div className="absolute inset-0 bg-black/10 z-10 group-hover:bg-black/20 transition-colors" />
+            <>
+              {/* DESKTOP VERSION: Grid */}
+              <ScrollReveal delay={150} duration={800}>
+                <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8">
+                  {documentation.map((doc) => (
+                    <div key={doc.id} className="group relative bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100 aspect-[4/3] hover:shadow-xl transition-all duration-300">
+                      <div className="absolute inset-0 bg-black/10 z-10 group-hover:bg-black/20 transition-colors" />
 
-                  {/* Main cover image */}
-                  <img
-                    src={doc.image_url}
-                    alt={doc.description || doc.title || 'Dokumentasi'}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {(doc.description || doc.title) && (
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 pt-12 z-20">
-                      <p className="text-white text-sm font-bold truncate leading-snug">
-                        {doc.description || doc.title}
-                      </p>
+                      {/* Main cover image */}
+                      <img
+                        src={doc.image_url}
+                        alt={doc.description || doc.title || 'Dokumentasi'}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      {(doc.description || doc.title) && (
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 pt-12 z-20">
+                          <p className="text-white text-sm font-bold truncate leading-snug">
+                            {doc.description || doc.title}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </ScrollReveal>
+
+              {/* MOBILE & TABLET VERSION: Infinite Loop Marquee (when > 1 photo) or Single Card */}
+              <ScrollReveal delay={150} duration={800}>
+                <div className="block md:hidden">
+                  {documentation.length > 1 ? (
+                    <div className="w-full overflow-hidden relative py-2">
+                      <style dangerouslySetInnerHTML={{__html: `
+                        @keyframes marquee-docs {
+                          0% { transform: translateX(0); }
+                          100% { transform: translateX(-50%); }
+                        }
+                        .animate-marquee-docs {
+                          display: flex;
+                          width: max-content;
+                          animation: marquee-docs 20s linear infinite;
+                        }
+                        .animate-marquee-docs:hover {
+                          animation-play-state: paused;
+                        }
+                      `}} />
+                      <div className="animate-marquee-docs gap-5">
+                        {(documentation.length < 4 
+                          ? [...documentation, ...documentation, ...documentation, ...documentation]
+                          : [...documentation, ...documentation]
+                        ).map((doc, index) => (
+                          <div
+                            key={`${doc.id}-${index}`}
+                            className="group relative bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100 flex-shrink-0 w-[280px] aspect-[4/3] hover:shadow-xl transition-all duration-300"
+                          >
+                            <div className="absolute inset-0 bg-black/10 z-10 group-hover:bg-black/20 transition-colors" />
+                            <img
+                              src={doc.image_url}
+                              alt={doc.description || doc.title || 'Dokumentasi'}
+                              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            {(doc.description || doc.title) && (
+                              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 pt-12 z-20">
+                                <p className="text-white text-sm font-bold truncate leading-snug">
+                                  {doc.description || doc.title}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    // Single photo layout for mobile
+                    <div className="max-w-md mx-auto group relative bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100 aspect-[4/3]">
+                      <div className="absolute inset-0 bg-black/10 z-10" />
+                      <img
+                        src={documentation[0].image_url}
+                        alt={documentation[0].description || documentation[0].title || 'Dokumentasi'}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                      {(documentation[0].description || documentation[0].title) && (
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 pt-12 z-20">
+                          <p className="text-white text-sm font-bold truncate leading-snug">
+                            {documentation[0].description || documentation[0].title}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
-              ))}
-            </div>
+              </ScrollReveal>
+            </>
           ) : (
             <div className="text-center py-20 text-gray-400 border-2 border-dashed rounded-xl bg-gray-50/50">
               Belum ada foto dokumentasi kegiatan untuk desa ini.
