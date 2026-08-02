@@ -361,7 +361,7 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
         </button>
 
       </div>
-      <div className="w-full overflow-x-auto bg-white rounded-xl border border-slate-200 shadow-sm">
+      <div className="w-full overflow-x-auto bg-white">
         <table className="w-full border-collapse bg-white">
           <tbody>
             {finalRows.map((row, rowIndex) => (
