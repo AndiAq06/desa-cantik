@@ -937,7 +937,7 @@ export default function VillageDetail() {
                       </div>
                       {/* Content Container */}
                       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-start">
-                        <span className="text-emerald-600 font-semibold text-xs sm:text-sm mb-1.5 block">
+                        <span className="text-slate-800 font-semibold text-xs sm:text-sm mb-1.5 block">
                           {formatDate(doc.created_at || doc.date) || "2026-07-30"}
                         </span>
                         <h3 className="font-bold text-slate-800 text-sm sm:text-base leading-snug line-clamp-2">
@@ -990,7 +990,7 @@ export default function VillageDetail() {
                             </div>
                             {/* Content Container */}
                             <div className="p-4 flex-1 flex flex-col justify-start">
-                              <span className="text-emerald-600 font-semibold text-xs mb-1.5 block">
+                              <span className="text-slate-800 font-semibold text-xs mb-1.5 block">
                                 {formatDate(doc.created_at || doc.date) || "2026-07-30"}
                               </span>
                               <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
@@ -1017,7 +1017,7 @@ export default function VillageDetail() {
                       </div>
                       {/* Content Container */}
                       <div className="p-4 flex-1 flex flex-col justify-start">
-                        <span className="text-emerald-600 font-semibold text-xs mb-1.5 block">
+                        <span className="text-slate-800 font-semibold text-xs mb-1.5 block">
                           {formatDate(documentation[0].created_at || documentation[0].date) || "2026-07-30"}
                         </span>
                         <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
