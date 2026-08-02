@@ -44,7 +44,7 @@ export default function SidebarAdminBPS({ isCollapsed, setIsCollapsed }) {
                   >
                     <Link to={item.path}>
                       <Icon className="h-5 w-5" />
-                      {!isCollapsed && <span className="text-sm">{item.label}</span>}
+                      {!isCollapsed && <span className="text-xs sm:text-sm">{item.label}</span>}
                     </Link>
                   </Button>
                 </li>
@@ -61,7 +61,7 @@ export default function SidebarAdminBPS({ isCollapsed, setIsCollapsed }) {
                 title={isCollapsed ? "Logout" : undefined}
               >
                 <LogOut className="h-5 w-5 shrink-0" />
-                {!isCollapsed && <span className="text-sm">Logout</span>}
+                {!isCollapsed && <span className="text-xs sm:text-sm">Logout</span>}
               </Button>
             </li>
           </ul>

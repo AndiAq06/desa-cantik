@@ -149,8 +149,8 @@ export default function DashboardAdmin() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <main className="flex-1 p-6">
-        <div className="space-y-6 max-w-6xl mx-auto">
+      <main className="flex-1 p-2.5 sm:p-6">
+        <div className="space-y-4 sm:space-y-6 max-w-6xl mx-auto">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold text-gray-800">
@@ -177,65 +177,64 @@ export default function DashboardAdmin() {
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-6 sm:pb-2">
+                <CardTitle className="text-xs sm:text-sm font-semibold">
                   Total Desa
                 </CardTitle>
                 <Map className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{summary?.totalVillages || 0}</div>
-                <p className="text-xs text-muted-foreground">
+              <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+                <div className="text-xl sm:text-2xl font-bold">{summary?.totalVillages || 0}</div>
+                <p className="text-[10px] sm:text-xs text-muted-foreground">
                   {summary?.activeVillages || 0} aktif, {summary?.inactiveVillages || 0} non-aktif
                 </p>
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-6 sm:pb-2">
+                <CardTitle className="text-xs sm:text-sm font-semibold">
                   Total Pengguna
                 </CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{summary?.totalUsers || 0}</div>
-                <p className="text-xs text-muted-foreground">
-                  {summary?.admin_count || 0} Admin BPS, {summary?.village_officer_count || 0}
-                   Perangkat Desa
+              <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+                <div className="text-xl sm:text-2xl font-bold">{summary?.totalUsers || 0}</div>
+                <p className="text-[10px] sm:text-xs text-muted-foreground">
+                  {summary?.admin_count || 0} Admin BPS, {summary?.village_officer_count || 0} Perangkat Desa
                 </p>
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-6 sm:pb-2">
+                <CardTitle className="text-xs sm:text-sm font-semibold">
                   Total Statistik
                 </CardTitle>
                 <BarChart3 className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
+              <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+                <div className="text-xl sm:text-2xl font-bold">
                   {summary?.totalStatistics || 0}
                 </div>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-[10px] sm:text-xs text-muted-foreground">
                   Data statistik desa
                 </p>
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-6 sm:pb-2">
+                <CardTitle className="text-xs sm:text-sm font-semibold">
                   Total Publikasi
                 </CardTitle>
                 <FileText className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
+              <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+                <div className="text-xl sm:text-2xl font-bold">
                   {summary?.totalPublications || 0}
                 </div>
-                <p className="text-xs text-muted-foreground">
+                <p className="text-[10px] sm:text-xs text-muted-foreground">
                   {summary?.totalThematicMaps || 0} peta tematik
                 </p>
               </CardContent>

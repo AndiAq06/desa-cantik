@@ -104,14 +104,14 @@ export default function DashboardDesa() {
 
   if (loading) {
     return (
-      <div className="p-6 space-y-6 w-full">
+      <div className="p-2.5 sm:p-6 space-y-6 w-full">
         <div className="text-center text-gray-500">Memuat dashboard...</div>
       </div>
     );
   }
 
   return (
-    <div className="p-6 space-y-6 w-full">
+    <div className="p-2.5 sm:p-6 space-y-4 sm:space-y-6 w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-800">Dashboard Desa</h1>
@@ -124,53 +124,53 @@ export default function DashboardDesa() {
       {/* --- Baris Atas: Stat & Chart --- */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Kolom 1: Stat Cards (Stacked) */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <Card className="shadow-sm border-l-4 border-l-[#1C6EA4]">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-6 sm:pb-2">
+              <CardTitle className="text-xs sm:text-sm font-semibold text-muted-foreground">
                 Total Indikator Statistik
               </CardTitle>
-              <BarChartHorizontalBig className="h-5 w-5 text-[#1C6EA4]" />
+              <BarChartHorizontalBig className="h-4 w-4 sm:h-5 sm:w-5 text-[#1C6EA4]" />
             </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold text-gray-800">
+            <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+              <div className="text-2xl sm:text-4xl font-bold text-gray-800">
                 {dashboardData?.summary?.totalStatistics || 0}
               </div>
-              <p className="text-xs text-muted-foreground mt-1">
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
                 statistik tersimpan
               </p>
             </CardContent>
           </Card>
 
           <Card className="shadow-sm border-l-4 border-l-emerald-500">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-6 sm:pb-2">
+              <CardTitle className="text-xs sm:text-sm font-semibold text-muted-foreground">
                 Dokumen Publikasi
               </CardTitle>
-              <BookCopy className="h-5 w-5 text-emerald-500" />
+              <BookCopy className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500" />
             </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold text-gray-800">
+            <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+              <div className="text-2xl sm:text-4xl font-bold text-gray-800">
                 {dashboardData?.summary?.totalPublications || 0}
               </div>
-              <p className="text-xs text-muted-foreground mt-1">
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
                 {dashboardData?.summary?.publicationsThisYear || 0} tahun ini
               </p>
             </CardContent>
           </Card>
 
           <Card className="shadow-sm border-l-4 border-l-purple-500">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1 p-3 sm:p-6 sm:pb-2">
+              <CardTitle className="text-xs sm:text-sm font-semibold text-muted-foreground">
                 Total Layer Peta
               </CardTitle>
-              <FileText className="h-5 w-5 text-purple-500" />
+              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
             </CardHeader>
-            <CardContent>
-              <div className="text-4xl font-bold text-gray-800">
+            <CardContent className="p-3 pt-0 sm:p-6 sm:pt-0">
+              <div className="text-2xl sm:text-4xl font-bold text-gray-800">
                 {dashboardData?.summary?.thematicMaps || 0}
               </div>
-              <p className="text-xs text-muted-foreground mt-1">
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
                 layer peta
               </p>
             </CardContent>

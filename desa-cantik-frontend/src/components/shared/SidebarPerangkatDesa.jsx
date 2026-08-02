@@ -71,7 +71,7 @@ export default function SidebarPerangkatDesa({ isCollapsed, setIsCollapsed }) {
                   <Link to={dynamicPath}>
                     <Icon className="h-5 w-5" />
                     {!isCollapsed && (
-                      <span className="text-sm">{item.label}</span>
+                      <span className="text-xs sm:text-sm">{item.label}</span>
                     )}
                   </Link>
                 </Button>
@@ -89,7 +89,7 @@ export default function SidebarPerangkatDesa({ isCollapsed, setIsCollapsed }) {
               title={isCollapsed ? "Logout" : undefined}
             >
               <LogOut className="h-5 w-5 shrink-0" />
-              {!isCollapsed && <span className="text-sm">Logout</span>}
+              {!isCollapsed && <span className="text-xs sm:text-sm">Logout</span>}
             </Button>
           </li>
         </ul>

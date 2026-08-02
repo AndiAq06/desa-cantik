@@ -361,8 +361,8 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
         </button>
 
       </div>
-      <div className="w-full overflow-x-auto bg-white">
-        <table className="w-full border-collapse text-base text-slate-700 bg-white">
+      <div className="w-full overflow-x-auto bg-white rounded-xl border border-slate-200 shadow-sm">
+        <table className="w-full border-collapse bg-white">
           <tbody>
             {finalRows.map((row, rowIndex) => (
               <tr
@@ -383,9 +383,9 @@ export default function ExcelTableViewer({ fileUrl, title, leftActions }) {
                    const isNumber = valStr !== "" && !isNaN(valStr.replace(/[\.,\-]/g, ""));
                    const alignClass = (isHeader || isNumber) ? "text-center" : "text-left";
                    
-                   let cellClass = `border border-slate-200 px-3 py-2 align-middle ${alignClass}`;
+                   let cellClass = `border border-slate-200 px-2 py-1.5 sm:px-3 sm:py-2 align-middle text-[11px] sm:text-sm text-slate-700 ${alignClass}`;
                     if (isHeader) {
-                      cellClass = "bg-[#154D71] text-white border border-[#236691] font-bold px-3 py-2.5 text-center align-middle";
+                      cellClass = "bg-[#154D71] text-white border border-[#236691] font-bold px-2 py-2 sm:px-3 sm:py-2.5 text-center align-middle text-xs sm:text-sm md:text-base";
                    } else {
                      if (cellIndex === 0) {
                        cellClass += " font-medium text-slate-800";

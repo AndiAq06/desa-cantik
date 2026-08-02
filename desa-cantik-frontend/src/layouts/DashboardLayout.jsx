@@ -124,7 +124,7 @@ export default function DashboardLayout() {
 
         {/* CONTENT */}
         <div className="flex-1 flex flex-col overflow-hidden">
-          <main className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
+          <main className="flex-1 overflow-y-auto p-2 sm:p-4 md:p-6 space-y-4">
             <Outlet />
           </main>
         </div>
