@@ -451,14 +451,21 @@ export default function VillageDetail() {
   const getGoogleMapsDirectionsUrl = (geometry) => {
     if (!geometry) return null;
     try {
-      if (geometry.type === "Point" && Array.isArray(geometry.coordinates)) {
-        const [lng, lat] = geometry.coordinates;
+      let targetGeo = geometry;
+      if (geometry.type === "FeatureCollection" && Array.isArray(geometry.features) && geometry.features.length > 0) {
+        targetGeo = geometry.features[0].geometry;
+      }
+      
+      if (!targetGeo) return null;
+
+      if (targetGeo.type === "Point" && Array.isArray(targetGeo.coordinates)) {
+        const [lng, lat] = targetGeo.coordinates;
         return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-      } else if (geometry.type === "LineString" && Array.isArray(geometry.coordinates) && geometry.coordinates.length > 0) {
-        const [lng, lat] = geometry.coordinates[0];
+      } else if (targetGeo.type === "LineString" && Array.isArray(targetGeo.coordinates) && targetGeo.coordinates.length > 0) {
+        const [lng, lat] = targetGeo.coordinates[0];
         return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
-      } else if (geometry.type === "Polygon" && Array.isArray(geometry.coordinates) && geometry.coordinates[0] && geometry.coordinates[0].length > 0) {
-        const [lng, lat] = geometry.coordinates[0][0];
+      } else if (targetGeo.type === "Polygon" && Array.isArray(targetGeo.coordinates) && targetGeo.coordinates[0] && targetGeo.coordinates[0].length > 0) {
+        const [lng, lat] = targetGeo.coordinates[0][0];
         return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
       }
     } catch (err) {
