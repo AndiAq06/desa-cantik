@@ -17,8 +17,8 @@ export default function Navbar({ scrollToVillages }) {
             <div className="md:hidden">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 p-1 w-10 h-10">
-                    <Menu className="h-7 w-7" />
+                  <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 p-1 w-11 h-11">
+                    <Menu className="h-8 w-8" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="bg-white border-r border-slate-200 text-slate-800 p-6 flex flex-col justify-between">
