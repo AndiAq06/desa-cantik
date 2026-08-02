@@ -425,6 +425,29 @@ export default function VillageDetail() {
     docImages.push("https://placehold.co/800x600/cbd5e1/64748b?text=Dokumentasi+2");
   }
 
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "";
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return "";
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    } catch (e) {
+      return "";
+    }
+  };
+
+  const getBadgeText = (doc) => {
+    if (!doc) return "Pembinaan";
+    const desc = (doc.description || doc.title || "").toLowerCase();
+    if (desc.includes("pelatihan") || desc.includes("latih")) return "Pelatihan";
+    if (desc.includes("sosialisasi") || desc.includes("sosial")) return "Sosialisasi";
+    if (desc.includes("rapat") || desc.includes("musyawarah")) return "Musyawarah";
+    return "Pembinaan";
+  };
+
   if (loading) return <div className="h-screen flex items-center justify-center text-[#154D71] font-medium animate-pulse">Memuat data desa...</div>;
   if (!village) return <div className="h-screen flex items-center justify-center text-red-500">Data desa tidak ditemukan.</div>;
 
@@ -880,8 +903,28 @@ export default function VillageDetail() {
         <div className="container mx-auto px-6">
           <ScrollReveal>
             <div className="mb-10 text-left">
-              <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-3">Dokumentasi Kegiatan</h2>
-              <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">Galeri foto pembinaan dan dokumentasi kegiatan Desa Cantik (DesCan).</p>
+              {/* Green outline pill "Rekam Jejak Lapangan" */}
+              <span className="border border-emerald-500/30 text-emerald-600 bg-emerald-50/50 px-3.5 py-1 rounded-full text-xs font-bold inline-block mb-3.5 tracking-wide">
+                Rekam Jejak Lapangan
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-800 tracking-tight mb-2">
+                Galeri Kegiatan Desa Cantik
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-500 max-w-2xl mb-6">
+                Dokumentasi bimbingan teknis & pencacahan data di {village?.name || 'Desa'}.
+              </p>
+              
+              {/* Button "Lihat Semua Foto (3)" */}
+              <button 
+                onClick={() => {
+                  const el = document.getElementById("dokumentasi");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="bg-[#059669] hover:bg-[#047857] text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full inline-flex items-center gap-2 shadow-sm transition-all"
+              >
+                Lihat Semua Foto ({documentation.length})
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
           </ScrollReveal>
 
@@ -896,22 +939,27 @@ export default function VillageDetail() {
               <ScrollReveal delay={150} duration={800}>
                 <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8">
                   {documentation.map((doc) => (
-                    <div key={doc.id} className="group relative bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100 aspect-[4/3] hover:shadow-xl transition-all duration-300">
-                      <div className="absolute inset-0 bg-black/10 z-10 group-hover:bg-black/20 transition-colors" />
-
-                      {/* Main cover image */}
-                      <img
-                        src={doc.image_url}
-                        alt={doc.description || doc.title || 'Dokumentasi'}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      {(doc.description || doc.title) && (
-                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 pt-12 z-20">
-                          <p className="text-white text-sm font-bold truncate leading-snug">
-                            {doc.description || doc.title}
-                          </p>
-                        </div>
-                      )}
+                    <div key={doc.id} className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full group">
+                      {/* Image Container */}
+                      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
+                        <img 
+                          src={doc.image_url} 
+                          alt={doc.description || doc.title || 'Dokumentasi'}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                        />
+                        <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
+                          {getBadgeText(doc)}
+                        </span>
+                      </div>
+                      {/* Content Container */}
+                      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-start">
+                        <span className="text-emerald-600 font-semibold text-xs sm:text-sm mb-1.5 block">
+                          {formatDate(doc.created_at || doc.date) || "2026-07-30"}
+                        </span>
+                        <h3 className="font-bold text-slate-800 text-sm sm:text-base leading-snug line-clamp-2">
+                          {doc.description || doc.title || "Kegiatan Pembinaan"}
+                        </h3>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -943,41 +991,55 @@ export default function VillageDetail() {
                         ).map((doc, index) => (
                           <div
                             key={`${doc.id}-${index}`}
-                            className="group relative bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100 flex-shrink-0 w-[280px] aspect-[4/3] hover:shadow-xl transition-all duration-300"
+                            className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm flex-shrink-0 w-[280px] flex flex-col group"
                           >
-                            <div className="absolute inset-0 bg-black/10 z-10 group-hover:bg-black/20 transition-colors" />
-                            <img
-                              src={doc.image_url}
-                              alt={doc.description || doc.title || 'Dokumentasi'}
-                              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                            {(doc.description || doc.title) && (
-                              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 pt-12 z-20">
-                                <p className="text-white text-sm font-bold truncate leading-snug">
-                                  {doc.description || doc.title}
-                                </p>
-                              </div>
-                            )}
+                            {/* Image Container */}
+                            <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
+                              <img 
+                                src={doc.image_url} 
+                                alt={doc.description || doc.title || 'Dokumentasi'}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                              />
+                              <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
+                                {getBadgeText(doc)}
+                              </span>
+                            </div>
+                            {/* Content Container */}
+                            <div className="p-4 flex-1 flex flex-col justify-start">
+                              <span className="text-emerald-600 font-semibold text-xs mb-1.5 block">
+                                {formatDate(doc.created_at || doc.date) || "2026-07-30"}
+                              </span>
+                              <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
+                                {doc.description || doc.title || "Kegiatan Pembinaan"}
+                              </h3>
+                            </div>
                           </div>
                         ))}
                       </div>
                     </div>
                   ) : (
                     // Single photo layout for mobile
-                    <div className="max-w-md mx-auto group relative bg-slate-100 rounded-2xl overflow-hidden shadow-md border border-slate-100 aspect-[4/3]">
-                      <div className="absolute inset-0 bg-black/10 z-10" />
-                      <img
-                        src={documentation[0].image_url}
-                        alt={documentation[0].description || documentation[0].title || 'Dokumentasi'}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                      {(documentation[0].description || documentation[0].title) && (
-                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 pt-12 z-20">
-                          <p className="text-white text-sm font-bold truncate leading-snug">
-                            {documentation[0].description || documentation[0].title}
-                          </p>
-                        </div>
-                      )}
+                    <div className="max-w-md mx-auto bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm flex flex-col">
+                      {/* Image Container */}
+                      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
+                        <img 
+                          src={documentation[0].image_url} 
+                          alt={documentation[0].description || documentation[0].title || 'Dokumentasi'}
+                          className="w-full h-full object-cover" 
+                        />
+                        <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
+                          {getBadgeText(documentation[0])}
+                        </span>
+                      </div>
+                      {/* Content Container */}
+                      <div className="p-4 flex-1 flex flex-col justify-start">
+                        <span className="text-emerald-600 font-semibold text-xs mb-1.5 block">
+                          {formatDate(documentation[0].created_at || documentation[0].date) || "2026-07-30"}
+                        </span>
+                        <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
+                          {documentation[0].description || documentation[0].title || "Kegiatan Pembinaan"}
+                        </h3>
+                      </div>
                     </div>
                   )}
                 </div>
