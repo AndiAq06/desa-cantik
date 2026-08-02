@@ -448,6 +448,25 @@ export default function VillageDetail() {
     return "Pembinaan";
   };
 
+  const getGoogleMapsDirectionsUrl = (geometry) => {
+    if (!geometry) return null;
+    try {
+      if (geometry.type === "Point" && Array.isArray(geometry.coordinates)) {
+        const [lng, lat] = geometry.coordinates;
+        return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+      } else if (geometry.type === "LineString" && Array.isArray(geometry.coordinates) && geometry.coordinates.length > 0) {
+        const [lng, lat] = geometry.coordinates[0];
+        return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+      } else if (geometry.type === "Polygon" && Array.isArray(geometry.coordinates) && geometry.coordinates[0] && geometry.coordinates[0].length > 0) {
+        const [lng, lat] = geometry.coordinates[0][0];
+        return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+      }
+    } catch (err) {
+      console.warn("Gagal membuat link rute Google Maps:", err);
+    }
+    return null;
+  };
+
   if (loading) return <div className="h-screen flex items-center justify-center text-[#154D71] font-medium animate-pulse">Memuat data desa...</div>;
   if (!village) return <div className="h-screen flex items-center justify-center text-red-500">Data desa tidak ditemukan.</div>;
 
@@ -886,6 +905,20 @@ export default function VillageDetail() {
                                 {layer.type}
                               </Badge>
                               <p className="text-xs text-gray-600 leading-relaxed">{layer.description || "Tidak ada deskripsi tambahan."}</p>
+                              
+                              {getGoogleMapsDirectionsUrl(layer.geometry) && (
+                                <div className="mt-3 pt-2.5 border-t border-slate-100">
+                                  <a
+                                    href={getGoogleMapsDirectionsUrl(layer.geometry)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 text-xs text-[#1C6EA4] hover:text-[#154D71] font-semibold hover:underline"
+                                  >
+                                    <MapPin className="w-3.5 h-3.5" />
+                                    Petunjuk Arah (Google Maps)
+                                  </a>
+                                </div>
+                              )}
                             </div>
                           </Popup>
                         </GeoJSON>
