@@ -903,28 +903,12 @@ export default function VillageDetail() {
         <div className="container mx-auto px-6">
           <ScrollReveal>
             <div className="mb-10 text-left">
-              {/* Green outline pill "Rekam Jejak Lapangan" */}
-              <span className="border border-emerald-500/30 text-emerald-600 bg-emerald-50/50 px-3.5 py-1 rounded-full text-xs font-bold inline-block mb-3.5 tracking-wide">
-                Rekam Jejak Lapangan
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-800 tracking-tight mb-2">
-                Galeri Kegiatan Desa Cantik
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#154D71] mb-2 sm:mb-3">
+                Dokumentasi Kegiatan
               </h2>
-              <p className="text-xs sm:text-sm text-gray-500 max-w-2xl mb-6">
-                Dokumentasi bimbingan teknis & pencacahan data di {village?.name || 'Desa'}.
+              <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">
+                Galeri foto pembinaan dan dokumentasi kegiatan Desa Cantik (DesCan) di {village?.name || 'Desa'}.
               </p>
-              
-              {/* Button "Lihat Semua Foto (3)" */}
-              <button 
-                onClick={() => {
-                  const el = document.getElementById("dokumentasi");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="bg-[#059669] hover:bg-[#047857] text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full inline-flex items-center gap-2 shadow-sm transition-all"
-              >
-                Lihat Semua Foto ({documentation.length})
-                <ArrowRight className="w-4 h-4" />
-              </button>
             </div>
           </ScrollReveal>
 
