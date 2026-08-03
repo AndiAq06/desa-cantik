@@ -963,13 +963,24 @@ export default function VillageDetail() {
       <section id="dokumentasi" className="py-12 sm:py-20 bg-white border-t border-gray-100">
         <div className="container mx-auto px-6">
           <ScrollReveal>
-            <div className="mb-10 text-left">
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#154D71] mb-2 sm:mb-3">
-                Dokumentasi Kegiatan
-              </h2>
-              <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">
-                Galeri foto pembinaan dan dokumentasi kegiatan Desa Cantik (DesCan) di {village?.name || 'Desa'}.
-              </p>
+            <div className="mb-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+              <div className="text-left">
+                <h2 className="text-2xl sm:text-4xl font-extrabold text-[#154D71] mb-2 sm:mb-3">
+                  Dokumentasi Kegiatan
+                </h2>
+                <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">
+                  Galeri foto pembinaan dan dokumentasi kegiatan Desa Cantik (DesCan) di {village?.name || 'Desa'}.
+                </p>
+              </div>
+              <div className="shrink-0 text-left sm:text-right">
+                <Link
+                  to={subdomain ? "/galeri" : `/desa/${id}/galeri`}
+                  className="bg-[#059669] hover:bg-[#047857] text-white font-semibold text-xs sm:text-sm px-5 py-3 rounded-full inline-flex items-center gap-2 shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Lihat Semua Foto ({documentation.length})
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </ScrollReveal>
 
@@ -979,117 +990,84 @@ export default function VillageDetail() {
               <span>Memuat galeri kegiatan...</span>
             </div>
           ) : documentation.length > 0 ? (
-            <>
-              {/* DESKTOP VERSION: Grid */}
-              <ScrollReveal delay={150} duration={800}>
-                <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8">
-                  {documentation.map((doc) => (
-                    <div key={doc.id} className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full group">
-                      {/* Image Container */}
-                      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
-                        <img 
-                          src={doc.image_url} 
-                          alt={doc.description || doc.title || 'Dokumentasi'}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                        />
-                        <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
-                          {getBadgeText(doc)}
-                        </span>
-                      </div>
-                      {/* Content Container */}
-                      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-start">
-                        <span className="text-slate-800 font-semibold text-xs sm:text-sm mb-1.5 block">
-                          {formatDate(doc.created_at || doc.date) || "2026-07-30"}
-                        </span>
-                        <h3 className="font-bold text-slate-800 text-sm sm:text-base leading-snug line-clamp-2">
-                          {doc.description || doc.title || "Kegiatan Pembinaan"}
-                        </h3>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </ScrollReveal>
-
-              {/* MOBILE & TABLET VERSION: Infinite Loop Marquee (when > 1 photo) or Single Card */}
-              <ScrollReveal delay={150} duration={800}>
-                <div className="block md:hidden">
-                  {documentation.length > 1 ? (
-                    <div className="w-full overflow-hidden relative py-2">
-                      <style dangerouslySetInnerHTML={{__html: `
-                        @keyframes marquee-docs {
-                          0% { transform: translateX(0); }
-                          100% { transform: translateX(-50%); }
-                        }
-                        .animate-marquee-docs {
-                          display: flex;
-                          width: max-content;
-                          animation: marquee-docs 20s linear infinite;
-                        }
-                        .animate-marquee-docs:hover {
-                          animation-play-state: paused;
-                        }
-                      `}} />
-                      <div className="animate-marquee-docs gap-5">
-                        {(documentation.length < 4 
-                          ? [...documentation, ...documentation, ...documentation, ...documentation]
-                          : [...documentation, ...documentation]
-                        ).map((doc, index) => (
-                          <div
-                            key={`${doc.id}-${index}`}
-                            className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm flex-shrink-0 w-[280px] flex flex-col group"
-                          >
-                            {/* Image Container */}
-                            <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
-                              <img 
-                                src={doc.image_url} 
-                                alt={doc.description || doc.title || 'Dokumentasi'}
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                              />
-                              <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
-                                {getBadgeText(doc)}
-                              </span>
-                            </div>
-                            {/* Content Container */}
-                            <div className="p-4 flex-1 flex flex-col justify-start">
-                              <span className="text-slate-800 font-semibold text-xs mb-1.5 block">
-                                {formatDate(doc.created_at || doc.date) || "2026-07-30"}
-                              </span>
-                              <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
-                                {doc.description || doc.title || "Kegiatan Pembinaan"}
-                              </h3>
-                            </div>
+            <ScrollReveal delay={150} duration={800}>
+              <div className="w-full overflow-hidden relative py-2">
+                {documentation.length > 1 ? (
+                  <>
+                    <style dangerouslySetInnerHTML={{__html: `
+                      @keyframes marquee-docs-all {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); }
+                      }
+                      .animate-marquee-docs-all {
+                        display: flex;
+                        width: max-content;
+                        animation: marquee-docs-all 35s linear infinite;
+                      }
+                      .animate-marquee-docs-all:hover {
+                        animation-play-state: paused;
+                      }
+                    `}} />
+                    <div className="animate-marquee-docs-all gap-6">
+                      {(documentation.length < 6
+                        ? [...documentation, ...documentation, ...documentation, ...documentation, ...documentation, ...documentation]
+                        : [...documentation, ...documentation]
+                      ).map((doc, index) => (
+                        <div
+                          key={`${doc.id}-${index}`}
+                          className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm flex-shrink-0 w-[280px] sm:w-[320px] flex flex-col group hover:shadow-md transition-shadow duration-300"
+                        >
+                          {/* Image Container */}
+                          <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
+                            <img 
+                              src={doc.image_url} 
+                              alt={doc.description || doc.title || 'Dokumentasi'}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                            />
+                            <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
+                              {getBadgeText(doc)}
+                            </span>
                           </div>
-                        ))}
-                      </div>
+                          {/* Content Container */}
+                          <div className="p-4 flex-1 flex flex-col justify-start">
+                            <span className="text-slate-800 font-semibold text-xs mb-1.5 block">
+                              {formatDate(doc.created_at || doc.date) || "2026-07-30"}
+                            </span>
+                            <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
+                              {doc.description || doc.title || "Kegiatan Pembinaan"}
+                            </h3>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ) : (
-                    // Single photo layout for mobile
-                    <div className="max-w-md mx-auto bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm flex flex-col">
-                      {/* Image Container */}
-                      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
-                        <img 
-                          src={documentation[0].image_url} 
-                          alt={documentation[0].description || documentation[0].title || 'Dokumentasi'}
-                          className="w-full h-full object-cover" 
-                        />
-                        <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
-                          {getBadgeText(documentation[0])}
-                        </span>
-                      </div>
-                      {/* Content Container */}
-                      <div className="p-4 flex-1 flex flex-col justify-start">
-                        <span className="text-slate-800 font-semibold text-xs mb-1.5 block">
-                          {formatDate(documentation[0].created_at || documentation[0].date) || "2026-07-30"}
-                        </span>
-                        <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
-                          {documentation[0].description || documentation[0].title || "Kegiatan Pembinaan"}
-                        </h3>
-                      </div>
+                  </>
+                ) : (
+                  // Single photo layout
+                  <div className="max-w-md mx-auto bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm flex flex-col">
+                    {/* Image Container */}
+                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
+                      <img 
+                        src={documentation[0].image_url} 
+                        alt={documentation[0].description || documentation[0].title || 'Dokumentasi'}
+                        className="w-full h-full object-cover" 
+                      />
+                      <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
+                        {getBadgeText(documentation[0])}
+                      </span>
                     </div>
-                  )}
-                </div>
-              </ScrollReveal>
-            </>
+                    {/* Content Container */}
+                    <div className="p-4 flex-1 flex flex-col justify-start">
+                      <span className="text-slate-800 font-semibold text-xs mb-1.5 block">
+                        {formatDate(documentation[0].created_at || documentation[0].date) || "2026-07-30"}
+                      </span>
+                      <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
+                        {documentation[0].description || documentation[0].title || "Kegiatan Pembinaan"}
+                      </h3>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </ScrollReveal>
           ) : (
             <div className="text-center py-20 text-gray-400 border-2 border-dashed rounded-xl bg-gray-50/50">
               Belum ada foto dokumentasi kegiatan untuk desa ini.

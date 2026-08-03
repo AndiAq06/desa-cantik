@@ -9,6 +9,7 @@ import ResetPassword from "@/pages/public/ResetPassword";
 import Tentang from "@/pages/public/Tentang";
 import VillageDetail from "@/pages/public/VillageDetail";
 import PublicationDetail from "@/pages/public/PublicationDetail";
+import VillageGallery from "@/pages/public/VillageGallery";
 
 // --- Impor Halaman Admin BPS ---
 import DashboardLayout from "@/layouts/DashboardLayout";
@@ -82,9 +83,11 @@ function AppRoutes() {
       <Routes>
         {/* --- Rute Publik --- */}
         <Route path="/" element={subdomain ? <VillageDetail /> : <Home />} />
+        <Route path="/galeri" element={subdomain ? <VillageGallery /> : <Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/tentang" element={<Tentang />} />
         <Route path="/desa/:slug" element={<VillageDetail />} />
+        <Route path="/desa/:slug/galeri" element={<VillageGallery />} />
         <Route path="/desa/:slug/layanan-online/surat-pengantar" element={<SuratPengantarPublic />} />
         <Route path="/desa/:slug/layanan-online/status-pengantar" element={<StatusPengantarPublic />} />
         <Route path="/desa/:slug/layanan-online/pengaduan" element={<PengaduanPublic />} />
