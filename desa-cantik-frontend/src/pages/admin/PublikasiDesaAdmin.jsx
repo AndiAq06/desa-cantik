@@ -111,7 +111,8 @@ export default function PublikasiDesaAdmin() {
           per_page: 100,
         });
         const list = Array.isArray(data) ? data : data.data || [];
-        setPublications(list);
+        const filteredList = list.filter(item => (item.category || "").toLowerCase() !== 'dokumentasi');
+        setPublications(filteredList);
       } catch (error) {
         console.error("Gagal memuat publikasi desa:", error);
         setPublications([]);
@@ -215,7 +216,6 @@ export default function PublikasiDesaAdmin() {
         toast.success("Publikasi berhasil diperbarui");
       }
 
-      // Reload publications from API to get proper fileUrl/downloadUrl
       const refreshedData = await publicationService.getPublications(
         selectedDesa,
         {
@@ -225,7 +225,8 @@ export default function PublikasiDesaAdmin() {
       const list = Array.isArray(refreshedData)
         ? refreshedData
         : refreshedData.data || [];
-      setPublications(list);
+      const filteredList = list.filter(item => (item.category || "").toLowerCase() !== 'dokumentasi');
+      setPublications(filteredList);
     } catch (error) {
       console.error("Gagal menyimpan publikasi:", error);
       toast.error("Gagal menyimpan publikasi.");

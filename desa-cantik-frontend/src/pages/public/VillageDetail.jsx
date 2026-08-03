@@ -261,7 +261,8 @@ export default function VillageDetail() {
       try {
         const data = await publicationService.getPublications(id);
         const list = Array.isArray(data) ? data : data.data || [];
-        const formatted = list.map((item) => ({
+        const filteredList = list.filter(item => (item.category || "").toLowerCase() !== 'dokumentasi');
+        const formatted = filteredList.map((item) => ({
           id: item.id,
           title: item.title,
           subject: item.category || "Umum",

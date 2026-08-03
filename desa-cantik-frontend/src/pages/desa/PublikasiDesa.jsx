@@ -97,7 +97,8 @@ export default function PublikasiDesa() {
     try {
       setLoading(true);
       const res = await dataApi.listPublications(activeVillageId);
-      const data = res.items.map((d) => {
+      const filteredItems = (res.items || []).filter(item => (item.category || "").toLowerCase() !== 'dokumentasi');
+      const data = filteredItems.map((d) => {
         // Map fileUrl, ensuring we use the backend's provided URL
         const mappedFileUrl = d.fileUrl || d.downloadUrl || "";
         
