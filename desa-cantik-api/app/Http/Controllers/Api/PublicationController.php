@@ -156,7 +156,7 @@ class PublicationController extends Controller
         );
 
         // If not authenticated or no access, check if publication is published
-        if (!$hasAccess && !in_array($publication->status, ['Rilis', 'published'])) {
+        if (!$hasAccess && !in_array($publication->status, ['Rilis', 'published', 'Terverifikasi'])) {
             return $this->error('Publication not found', 404);
         }
 

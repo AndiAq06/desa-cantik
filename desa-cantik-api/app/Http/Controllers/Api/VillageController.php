@@ -297,18 +297,7 @@ class VillageController extends Controller
 
         $images = [];
 
-        // 1. Ambil gambar utama desa (Profil/Logo) - now directly on village
-        $mainImage = $village->logo_url;
 
-        if ($mainImage) {
-            $images[] = [
-                'id' => 'profile-' . $village->id,
-                'type' => 'profile',
-                'title' => 'Profil Desa ' . $village->name,
-                'image_url' => $mainImage,
-                'created_at' => $village->created_at,
-            ];
-        }
 
         // 2. Ambil Publikasi (Hanya yang berupa GAMBAR)
         // Menggunakan kolom 'village_id' dan memfilter file_type

@@ -42,17 +42,7 @@ class VillageDocumentationController extends Controller
 
         $items = [];
 
-        // Primary village image/thumbnail - now directly on village
-        $hero = $village->thumbnail_url ?? $village->logo_url;
 
-        if ($hero) {
-            $items[] = [
-                'id' => 'village-hero-' . $village->id,
-                'type' => 'image',
-                'url' => $hero,
-                'caption' => $village->name,
-            ];
-        }
 
         // Publication covers as documentation items
         $publications = Publication::query()
