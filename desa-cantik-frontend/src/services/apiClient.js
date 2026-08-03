@@ -96,6 +96,7 @@ const request = async (method, path, { data, params, headers } = {}) => {
     }
 
     const error = new Error(detailedMessage);
+    error.status = response.status;
     error.data = json; // Attach full response data for custom handling
     throw error;
   }

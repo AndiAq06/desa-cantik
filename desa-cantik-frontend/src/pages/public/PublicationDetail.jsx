@@ -45,8 +45,9 @@ export default function PublicationDetail() {
         setPublication(data);
       } catch (err) {
         console.error("Error loading publication:", err);
+        const isNotFound = err.status === 404 || err.message?.toLowerCase().includes("not found") || err.message?.toLowerCase().includes("tidak ditemukan");
         setError(
-          err.response?.status === 404
+          isNotFound
             ? "Publikasi tidak ditemukan"
             : "Gagal memuat data publikasi"
         );
