@@ -139,7 +139,8 @@ export default function VillageDetail() {
     return parts[0];
   };
 
-  const slug = paramSlug || getSubdomain();
+  const subdomain = getSubdomain();
+  const slug = paramSlug || subdomain;
 
   // The identifier parameter is now the village name slug directly
   const id = slug;
@@ -425,6 +426,8 @@ export default function VillageDetail() {
     docImages.push("https://placehold.co/800x600/e2e8f0/94a3b8?text=Dokumentasi+1");
     docImages.push("https://placehold.co/800x600/cbd5e1/64748b?text=Dokumentasi+2");
   }
+
+
 
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
