@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
 
 import { MapPin, Users, Layers, CalendarDays, ArrowRight, Landmark, Download, Eye, FileText, BarChart3, ExternalLink, Loader2, ChevronDown, ChevronRight, ChevronUp, GraduationCap, Heart, DollarSign, Coins, Leaf, Heading2 } from "lucide-react";
 
@@ -487,6 +488,10 @@ export default function VillageDetail() {
         .animate-marquee {
           animation: marquee 40s linear infinite;
         }
+        .custom-div-icon {
+          background: none !important;
+          border: none !important;
+        }
       `}</style>
 
       <VillageDetailNavbar activeSection={activeSection} scrollToSection={scrollToSection} village={village} />
@@ -903,6 +908,22 @@ export default function VillageDetail() {
                             fillColor: layer.color,
                             weight: 2,
                             fillOpacity: 0.3,
+                          }}
+                          pointToLayer={(feature, latlng) => {
+                            return L.marker(latlng, {
+                              icon: L.divIcon({
+                                html: `
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${layer.color || '#1C6EA4'}" stroke="white" stroke-width="1.5" style="width: 22px; height: 22px; filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.35));">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                    <circle cx="12" cy="10" r="3" fill="white" />
+                                  </svg>
+                                `,
+                                className: "custom-div-icon",
+                                iconSize: [22, 22],
+                                iconAnchor: [11, 22],
+                                popupAnchor: [0, -22]
+                              })
+                            });
                           }}
                         >
                           <Popup>
