@@ -95,6 +95,10 @@ class PublicationController extends Controller
         $publications = Publication::query()
             ->with(['uploader:id,full_name', 'village:id,name,village_code'])
             ->where('village_id', $village->id)
+            ->where(function ($query) {
+                $query->whereNull('category')
+                    ->orWhere('category', '!=', 'dokumentasi');
+            })
             ->when($year, fn($query) => $query->whereYear('published_at', $year))
             // For public access (unauthenticated or no village access), only show published publications
            ->when(!$hasVillageAccess, function ($query) {

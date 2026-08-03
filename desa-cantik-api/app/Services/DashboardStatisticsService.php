@@ -103,7 +103,7 @@ class DashboardStatisticsService
             'village_officer_count' => (int) $roleCounts->officer_count,
             'active_users' => (int) $roleCounts->active_users,
             'total_statistics' => VillageStatistic::count(),
-            'total_publications' => Publication::count(),
+            'total_publications' => Publication::where(fn($q) => $q->whereNull('category')->orWhere('category', '!=', 'dokumentasi'))->count(),
             'total_thematic_maps' => DB::table('thematic_maps')->count(),
         ];
     }
@@ -294,7 +294,7 @@ class DashboardStatisticsService
         return [
             'total_villages' => Village::count(),
             'total_statistics' => VillageStatistic::count(),
-            'total_publications' => Publication::count(),
+            'total_publications' => Publication::where(fn($q) => $q->whereNull('category')->orWhere('category', '!=', 'dokumentasi'))->count(),
             'last_updated' => ($date = VillageStatistic::max('updated_at')) ? Carbon::parse($date)->toISOString() : null,
             'last_update' => ($date = VillageStatistic::max('updated_at')) ? Carbon::parse($date)->toISOString() : null,
         ];
@@ -303,6 +303,10 @@ class DashboardStatisticsService
     protected function latestPublications(): array
     {
         return Publication::query()
+            ->where(function ($query) {
+                $query->whereNull('category')
+                    ->orWhere('category', '!=', 'dokumentasi');
+            })
             ->with('village:id,name')
             ->orderByDesc('published_at')
             ->limit(5)
@@ -322,6 +326,10 @@ class DashboardStatisticsService
     protected function publicationStatus(): array
     {
         return Publication::query()
+            ->where(function ($query) {
+                $query->whereNull('category')
+                    ->orWhere('category', '!=', 'dokumentasi');
+            })
             ->selectRaw('status, COUNT(*) as count')
             ->groupBy('status')
             ->get()
@@ -339,6 +347,10 @@ class DashboardStatisticsService
     {
         // Use category column which contains values like "Laporan Statistik", "Profil Desa", etc.
         return Publication::query()
+            ->where(function ($query) {
+                $query->whereNull('category')
+                    ->orWhere('category', '!=', 'dokumentasi');
+            })
             ->selectRaw('COALESCE(category, "Umum") as category, COUNT(*) as count')
             ->groupByRaw('COALESCE(category, "Umum")')
             ->get()
