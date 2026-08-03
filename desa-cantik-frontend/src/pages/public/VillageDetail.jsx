@@ -560,8 +560,8 @@ export default function VillageDetail() {
       </section>
 
       {/* TENTANG DESA */}
-      <section id="tentang" className="py-12 sm:py-20 bg-white">
-        <div className="container mx-auto px-6">
+      <section id="tentang" className="min-h-[calc(100vh-80px)] flex items-center bg-white py-12 sm:py-16">
+        <div className="container mx-auto px-6 w-full">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative group">
               <ScrollReveal duration={800}>
@@ -602,8 +602,8 @@ export default function VillageDetail() {
       </section>
 
       {/* DATA STATISTIK */}
-      <section id="data" className="py-12 sm:py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
+      <section id="data" className="min-h-[calc(100vh-80px)] flex items-center bg-gray-50 py-12 sm:py-16">
+        <div className="container mx-auto px-6 w-full">
           <ScrollReveal>
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-4">Data Statistik</h2>
