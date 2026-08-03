@@ -19,7 +19,7 @@ export default function VillageGallery() {
       if (!id) return;
       try {
         setLoading(true);
-        const data = await villageService.getPublicVillageDetail(id);
+        const data = await villageService.getVillageById(id);
         setVillage(data);
       } catch (err) {
         console.error("Gagal memuat detail desa:", err);

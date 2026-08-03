@@ -13,6 +13,14 @@ export default function PDFPreview({ pdfUrl, title, className = "" }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  React.useEffect(() => {
+    if (!pdfUrl) return;
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [pdfUrl]);
+
   // If no URL, show placeholder immediately
   if (!pdfUrl) {
     return (

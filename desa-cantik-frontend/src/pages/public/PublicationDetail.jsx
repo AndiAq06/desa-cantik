@@ -59,25 +59,10 @@ export default function PublicationDetail() {
   }, [id]);
 
   const handleDownload = () => {
-    // Check if publication has a downloadable file
-    if (
-      !publication?.fileUrl &&
-      !publication?.downloadUrl &&
-      !publication?.file_url
-    ) {
-      alert("File publikasi tidak tersedia untuk diunduh.");
-      return;
-    }
-
-    if (publication?.file_url) {
-      window.open(publication.file_url, "_blank");
-    } else if (publication?.fileUrl) {
-      window.open(publication.fileUrl, "_blank");
-    } else if (publication?.downloadUrl) {
-      window.open(publication.downloadUrl, "_blank");
-    } else {
-      publicationService.downloadPublication(id);
-    }
+    if (!publication) return;
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1";
+    const downloadUrl = `${baseUrl}/publications/${id}/download`;
+    window.open(downloadUrl, "_blank");
   };
 
   const formatFileSize = (bytes) => {
@@ -216,10 +201,7 @@ export default function PublicationDetail() {
                 <div className="relative aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden group">
                   <PDFPreview
                     pdfUrl={
-                      publication.viewUrl ||
-                      publication.view_url ||
-                      publication.fileUrl ||
-                      publication.file_url
+                      `${import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/v1"}/publications/${id}/view`
                     }
                     title={publication.title}
                     className="w-full h-full"

@@ -978,7 +978,7 @@ export default function VillageDetail() {
               <div className="shrink-0 text-left sm:text-right">
                 <Link
                   to={subdomain ? "/galeri" : `/desa/${id}/galeri`}
-                  className="bg-[#059669] hover:bg-[#047857] text-white font-semibold text-xs sm:text-sm px-5 py-3 rounded-full inline-flex items-center gap-2 shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  className="bg-[#1C6EA4] hover:bg-[#154D71] text-white font-semibold text-xs sm:text-sm px-5 py-3 rounded-full inline-flex items-center gap-2 shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Lihat Semua Foto ({documentation.length})
                   <ArrowRight className="w-4 h-4" />
