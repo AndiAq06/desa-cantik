@@ -568,8 +568,8 @@ export default function VillageDetail() {
         )}
       >
         <div className="container mx-auto px-6 w-full">
-          <div className="grid md:grid-cols-2 gap-16 items-start">
-            <div className="relative group md:sticky md:top-28">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
+            <div className="md:col-span-5 relative group md:sticky md:top-28">
               <ScrollReveal duration={800}>
                 <div className="absolute -inset-4 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
@@ -581,7 +581,7 @@ export default function VillageDetail() {
                 </div>
               </ScrollReveal>
             </div>
-            <div>
+            <div className="md:col-span-7">
               <ScrollReveal delay={150} duration={850}>
                 {/* TENTANG DESA BLOCK */}
                 <div className="mb-10">
@@ -607,42 +607,47 @@ export default function VillageDetail() {
                   </div>
                 </div>
 
-                {/* VISI BLOCK */}
-                {village.vision && (
-                  <div className="mb-10 pt-8 border-t border-gray-100">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="p-3 bg-blue-50 rounded-lg">
-                        <Eye className="w-6 h-6 text-[#33A1E0]" />
+                {/* VISI & MISI SIDE-BY-SIDE GRID */}
+                {(village.vision || (village.mission && village.mission.length > 0)) && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-8 border-t border-gray-100">
+                    {/* VISI BLOCK */}
+                    {village.vision && (
+                      <div>
+                        <div className="flex items-center gap-3 mb-6">
+                          <div className="p-3 bg-blue-50 rounded-lg">
+                            <Eye className="w-6 h-6 text-[#33A1E0]" />
+                          </div>
+                          <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Visi</h2>
+                        </div>
+                        <p className="text-sm sm:text-lg text-gray-600 leading-relaxed whitespace-pre-line">
+                          {village.vision}
+                        </p>
                       </div>
-                      <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Visi</h2>
-                    </div>
-                    <p className="text-sm sm:text-lg text-gray-600 leading-relaxed whitespace-pre-line">
-                      {village.vision}
-                    </p>
-                  </div>
-                )}
+                    )}
 
-                {/* MISI BLOCK */}
-                {village.mission && village.mission.length > 0 && (
-                  <div className="pt-8 border-t border-gray-100">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="p-3 bg-blue-50 rounded-lg">
-                        <ListChecks className="w-6 h-6 text-[#33A1E0]" />
+                    {/* MISI BLOCK */}
+                    {village.mission && village.mission.length > 0 && (
+                      <div>
+                        <div className="flex items-center gap-3 mb-6">
+                          <div className="p-3 bg-blue-50 rounded-lg">
+                            <ListChecks className="w-6 h-6 text-[#33A1E0]" />
+                          </div>
+                          <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Misi</h2>
+                        </div>
+                        <ol className="space-y-4">
+                          {village.mission.map((m, idx) => (
+                            <li key={idx} className="flex items-start gap-4">
+                              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-[#33A1E0] text-xs font-bold mt-0.5">
+                                {idx + 1}
+                              </span>
+                              <span className="text-sm sm:text-lg text-gray-600 leading-relaxed">
+                                {m}
+                              </span>
+                            </li>
+                          ))}
+                        </ol>
                       </div>
-                      <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Misi</h2>
-                    </div>
-                    <ol className="space-y-4">
-                      {village.mission.map((m, idx) => (
-                        <li key={idx} className="flex items-start gap-4">
-                          <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-[#33A1E0] text-xs font-bold mt-0.5">
-                            {idx + 1}
-                          </span>
-                          <span className="text-sm sm:text-lg text-gray-600 leading-relaxed">
-                            {m}
-                          </span>
-                        </li>
-                      ))}
-                    </ol>
+                    )}
                   </div>
                 )}
               </ScrollReveal>
