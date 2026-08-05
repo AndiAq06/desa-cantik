@@ -95,12 +95,12 @@ export default function Footer({ scrollToVillages }) {
               </li>
               <li>
                 <a href={ensureHttp(footerData.bps_sulsel)} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  BPS Sulsel
+                  BPS Sulawesi Selatan
                 </a>
               </li>
               <li>
                 <a href={ensureHttp(footerData.bps_ri)} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  BPS RI
+                  BPS Republik Indonesia
                 </a>
               </li>
             </ul>
