@@ -568,8 +568,8 @@ export default function VillageDetail() {
         )}
       >
         <div className="container mx-auto px-6 w-full">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="relative group">
+          <div className="grid md:grid-cols-2 gap-16 items-start">
+            <div className="relative group md:sticky md:top-28">
               <ScrollReveal duration={800}>
                 <div className="absolute -inset-4 bg-gradient-to-r from-[#33A1E0] to-[#1C6EA4] rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
@@ -583,78 +583,71 @@ export default function VillageDetail() {
             </div>
             <div>
               <ScrollReveal delay={150} duration={850}>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-3 bg-blue-50 rounded-lg">
-                    <FileText className="w-6 h-6 text-[#33A1E0]" />
+                {/* TENTANG DESA BLOCK */}
+                <div className="mb-10">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                      <FileText className="w-6 h-6 text-[#33A1E0]" />
+                    </div>
+                    <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Tentang Desa</h2>
                   </div>
-                  <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Tentang Desa</h2>
-                </div>
-                <p className="text-sm sm:text-lg text-gray-600 leading-relaxed mb-8">{village.description || "Belum ada deskripsi detail mengenai desa ini. Silakan hubungi admin untuk informasi lebih lanjut."}</p>
+                  <p className="text-sm sm:text-lg text-gray-600 leading-relaxed mb-8">
+                    {village.description || "Belum ada deskripsi detail mengenai desa ini. Silakan hubungi admin untuk informasi lebih lanjut."}
+                  </p>
 
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <p className="text-xs sm:text-sm text-gray-500 mb-1">Luas Wilayah</p>
-                    <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.area || "-"} km²</p>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <p className="text-xs sm:text-sm text-gray-500 mb-1">Kode Wilayah</p>
-                    <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.village_code || "-"}</p>
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                      <p className="text-xs sm:text-sm text-gray-500 mb-1">Luas Wilayah</p>
+                      <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.area || "-"} km²</p>
+                    </div>
+                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                      <p className="text-xs sm:text-sm text-gray-500 mb-1">Kode Wilayah</p>
+                      <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.village_code || "-"}</p>
+                    </div>
                   </div>
                 </div>
+
+                {/* VISI BLOCK */}
+                {village.vision && (
+                  <div className="mb-10 pt-8 border-t border-gray-100">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="p-3 bg-blue-50 rounded-lg">
+                        <Eye className="w-6 h-6 text-[#33A1E0]" />
+                      </div>
+                      <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Visi</h2>
+                    </div>
+                    <p className="text-sm sm:text-lg text-gray-600 leading-relaxed whitespace-pre-line">
+                      {village.vision}
+                    </p>
+                  </div>
+                )}
+
+                {/* MISI BLOCK */}
+                {village.mission && village.mission.length > 0 && (
+                  <div className="pt-8 border-t border-gray-100">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="p-3 bg-blue-50 rounded-lg">
+                        <ListChecks className="w-6 h-6 text-[#33A1E0]" />
+                      </div>
+                      <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71]">Misi</h2>
+                    </div>
+                    <ol className="space-y-4">
+                      {village.mission.map((m, idx) => (
+                        <li key={idx} className="flex items-start gap-4">
+                          <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-[#33A1E0] text-xs font-bold mt-0.5">
+                            {idx + 1}
+                          </span>
+                          <span className="text-sm sm:text-lg text-gray-600 leading-relaxed">
+                            {m}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
               </ScrollReveal>
             </div>
           </div>
-
-          {/* VISI & MISI SECTION */}
-          {(village.vision || (village.mission && village.mission.length > 0)) && (
-            <ScrollReveal delay={200} duration={900}>
-              <div className="mt-16 pt-12 border-t border-gray-100">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-                  {/* Visi Card */}
-                  {village.vision && (
-                    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
-                      <div>
-                        <div className="p-3 bg-blue-50 w-fit rounded-lg mb-6">
-                          <Eye className="w-6 h-6 text-[#33A1E0]" />
-                        </div>
-                        <h3 className="text-sm font-semibold tracking-wider text-[#33A1E0] uppercase mb-4">Visi</h3>
-                        <p className="text-sm sm:text-base text-gray-600 leading-relaxed whitespace-pre-line">
-                          {village.vision}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Misi Card */}
-                  {village.mission && village.mission.length > 0 && (
-                    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-emerald-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
-                      <div>
-                        <div className="p-3 bg-emerald-50 w-fit rounded-lg mb-6">
-                          <ListChecks className="w-6 h-6 text-emerald-600" />
-                        </div>
-                        <h3 className="text-sm font-semibold tracking-wider text-emerald-600 uppercase mb-2">Misi</h3>
-                        <h4 className="text-lg sm:text-xl font-extrabold text-[#154D71] leading-snug mb-6">
-                          Langkah Nyata Menuju Desa yang Lebih Baik
-                        </h4>
-                        <ol className="space-y-4">
-                          {village.mission.map((m, idx) => (
-                            <li key={idx} className="flex items-start gap-4">
-                              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mt-0.5">
-                                {idx + 1}
-                              </span>
-                              <span className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                                {m}
-                              </span>
-                            </li>
-                          ))}
-                        </ol>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </ScrollReveal>
-          )}
         </div>
       </section>
 
