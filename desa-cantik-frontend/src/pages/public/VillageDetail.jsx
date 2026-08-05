@@ -560,7 +560,13 @@ export default function VillageDetail() {
       </section>
 
       {/* TENTANG DESA */}
-      <section id="tentang" className="min-h-[calc(100vh-80px)] flex items-center bg-white py-12 sm:py-16">
+      <section
+        id="tentang"
+        className={cn(
+          "min-h-[calc(100vh-80px)] bg-white py-16 sm:py-24",
+          !(village.vision || (village.mission && village.mission.length > 0)) && "flex items-center"
+        )}
+      >
         <div className="container mx-auto px-6 w-full">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative group">
@@ -605,29 +611,19 @@ export default function VillageDetail() {
               <div className="mt-16 pt-12 border-t border-gray-100">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
                   {/* Visi Card */}
-                  {village.vision && (() => {
-                    const visionParagraphs = (village.vision || "").split(/\r?\n\r?\n/).filter(Boolean);
-                    const mainVision = visionParagraphs[0] || "";
-                    const visionDesc = visionParagraphs.slice(1).join("\n\n") || "";
-                    return (
-                      <div className="bg-white rounded-2xl p-6 sm:p-8 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
-                        <div>
-                          <div className="p-3 bg-blue-50 w-fit rounded-lg mb-6">
-                            <Eye className="w-6 h-6 text-[#33A1E0]" />
-                          </div>
-                          <h3 className="text-sm font-semibold tracking-wider text-[#33A1E0] uppercase mb-2">Visi</h3>
-                          <h4 className="text-lg sm:text-xl font-extrabold text-[#154D71] leading-snug mb-4">
-                            {mainVision}
-                          </h4>
-                          {visionDesc && (
-                            <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-                              {visionDesc}
-                            </p>
-                          )}
+                  {village.vision && (
+                    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
+                      <div>
+                        <div className="p-3 bg-blue-50 w-fit rounded-lg mb-6">
+                          <Eye className="w-6 h-6 text-[#33A1E0]" />
                         </div>
+                        <h3 className="text-sm font-semibold tracking-wider text-[#33A1E0] uppercase mb-4">Visi</h3>
+                        <p className="text-sm sm:text-base text-gray-600 leading-relaxed whitespace-pre-line">
+                          {village.vision}
+                        </p>
                       </div>
-                    );
-                  })()}
+                    </div>
+                  )}
 
                   {/* Misi Card */}
                   {village.mission && village.mission.length > 0 && (
