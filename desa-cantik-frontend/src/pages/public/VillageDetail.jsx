@@ -617,7 +617,7 @@ export default function VillageDetail() {
                         <div className="p-3 bg-blue-50 w-fit rounded-lg mb-6">
                           <Eye className="w-6 h-6 text-[#33A1E0]" />
                         </div>
-                        <h3 className="text-sm font-semibold tracking-wider text-[#33A1E0] uppercase mb-4">Visi</h3>
+                        <h3 className="text-xl sm:text-2xl font-bold text-[#154D71] mb-4">Visi</h3>
                         <p className="text-sm sm:text-base text-gray-600 leading-relaxed whitespace-pre-line">
                           {village.vision}
                         </p>
@@ -627,22 +627,19 @@ export default function VillageDetail() {
 
                   {/* Misi Card */}
                   {village.mission && village.mission.length > 0 && (
-                    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-emerald-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
+                    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
                       <div>
-                        <div className="p-3 bg-emerald-50 w-fit rounded-lg mb-6">
-                          <ListChecks className="w-6 h-6 text-emerald-600" />
+                        <div className="p-3 bg-blue-50 w-fit rounded-lg mb-6">
+                          <ListChecks className="w-6 h-6 text-[#33A1E0]" />
                         </div>
-                        <h3 className="text-sm font-semibold tracking-wider text-emerald-600 uppercase mb-2">Misi</h3>
-                        <h4 className="text-lg sm:text-xl font-extrabold text-[#154D71] leading-snug mb-6">
-                          Langkah Nyata Menuju Desa yang Lebih Baik
-                        </h4>
+                        <h3 className="text-xl sm:text-2xl font-bold text-[#154D71] mb-6">Misi</h3>
                         <ol className="space-y-4">
                           {village.mission.map((m, idx) => (
                             <li key={idx} className="flex items-start gap-4">
-                              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mt-0.5">
+                              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-[#33A1E0] text-xs font-bold mt-0.5">
                                 {idx + 1}
                               </span>
-                              <span className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                              <span className="text-sm sm:text-base text-gray-600 leading-relaxed">
                                 {m}
                               </span>
                             </li>
