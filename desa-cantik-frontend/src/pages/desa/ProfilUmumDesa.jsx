@@ -20,6 +20,8 @@ export default function ProfilUmumDesa() {
     regency: "",
     area: 0,
     villageCode: "",
+    vision: "",
+    mission: [],
   });
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -31,6 +33,8 @@ export default function ProfilUmumDesa() {
     regency: "",
     area: 0,
     villageCode: "",
+    vision: "",
+    mission: [],
   });
   const [uploadedImage, setUploadedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -51,6 +55,8 @@ export default function ProfilUmumDesa() {
           regency: data.regency ?? "",
           area: data.area ?? 0,
           villageCode: data.code ?? data.village_code ?? "",
+          vision: data.vision ?? "",
+          mission: Array.isArray(data.mission) ? data.mission : [],
         };
         setProfile(profileData);
         setEditFormData({
@@ -60,6 +66,8 @@ export default function ProfilUmumDesa() {
           regency: data.regency ?? "",
           area: data.area ?? 0,
           villageCode: data.code ?? data.village_code ?? "",
+          vision: data.vision ?? "",
+          mission: Array.isArray(data.mission) ? [...data.mission] : [],
         });
       } catch (e) {
         console.error("Gagal memuat profil:", e);
@@ -82,6 +90,8 @@ export default function ProfilUmumDesa() {
       regency: profile.regency,
       area: profile.area,
       villageCode: profile.villageCode,
+      vision: profile.vision,
+      mission: [...profile.mission],
     });
     setUploadedImage(null);
     setImagePreview(null);
@@ -90,6 +100,21 @@ export default function ProfilUmumDesa() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditFormData({ ...editFormData, [name]: value });
+  };
+
+  const handleMissionChange = (index, value) => {
+    const newMission = [...editFormData.mission];
+    newMission[index] = value;
+    setEditFormData({ ...editFormData, mission: newMission });
+  };
+
+  const handleAddMission = () => {
+    setEditFormData({ ...editFormData, mission: [...editFormData.mission, ""] });
+  };
+
+  const handleRemoveMission = (index) => {
+    const newMission = editFormData.mission.filter((_, i) => i !== index);
+    setEditFormData({ ...editFormData, mission: newMission });
   };
 
   const handleImageChange = (e) => {
@@ -149,6 +174,14 @@ export default function ProfilUmumDesa() {
           payload.append("area", sanitizedArea.toString());
         }
         payload.append("code", editFormData.villageCode || "");
+        payload.append("vision", editFormData.vision || "");
+        if (editFormData.mission && editFormData.mission.length > 0) {
+          editFormData.mission.forEach((m) => {
+            if (m.trim()) {
+              payload.append("mission[]", m.trim());
+            }
+          });
+        }
       } else {
         // Otherwise use regular JSON
         payload = {
@@ -158,6 +191,8 @@ export default function ProfilUmumDesa() {
           regency: editFormData.regency || null,
           area: sanitizedArea,
           code: editFormData.villageCode || null,
+          vision: editFormData.vision || null,
+          mission: (editFormData.mission || []).map(m => m.trim()).filter(Boolean),
         };
       }
 
@@ -174,6 +209,8 @@ export default function ProfilUmumDesa() {
         regency: freshData.regency ?? "",
         area: freshData.area ?? 0,
         villageCode: freshData.code ?? freshData.village_code ?? "",
+        vision: freshData.vision ?? "",
+        mission: Array.isArray(freshData.mission) ? freshData.mission : [],
       });
 
       setEditMode(false);
@@ -308,6 +345,34 @@ export default function ProfilUmumDesa() {
                 <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
                   {profile.description || "Belum ada deskripsi"}
                 </p>
+              </div>
+
+              {/* Vision */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-600 uppercase tracking-wide">
+                  Visi
+                </label>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap font-medium">
+                  {profile.vision || "Belum ada visi"}
+                </p>
+              </div>
+
+              {/* Mission */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-600 uppercase tracking-wide">
+                  Misi
+                </label>
+                {profile.mission && profile.mission.length > 0 ? (
+                  <ol className="list-decimal list-inside space-y-1 text-gray-700">
+                    {profile.mission.map((m, idx) => (
+                      <li key={idx} className="leading-relaxed">
+                        {m}
+                      </li>
+                    ))}
+                  </ol>
+                ) : (
+                  <p className="text-gray-500 italic">Belum ada misi</p>
+                )}
               </div>
             </div>
           ) : (
@@ -455,6 +520,69 @@ export default function ProfilUmumDesa() {
                   placeholder="Tuliskan deskripsi singkat tentang desa Anda..."
                   className="resize-none"
                 />
+              </div>
+
+              {/* Vision */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Visi Desa
+                </label>
+                <Textarea
+                  name="vision"
+                  value={editFormData.vision}
+                  onChange={handleChange}
+                  rows={3}
+                  placeholder="Tuliskan visi desa..."
+                  className="resize-none"
+                />
+              </div>
+
+              {/* Mission */}
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Misi Desa
+                  </label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={handleAddMission}
+                    className="text-[#1C6EA4] border-[#1C6EA4] hover:bg-blue-50"
+                  >
+                    + Tambah Misi
+                  </Button>
+                </div>
+                
+                <div className="space-y-2">
+                  {editFormData.mission && editFormData.mission.map((m, idx) => (
+                    <div key={idx} className="flex items-center gap-2">
+                      <span className="text-gray-500 font-medium w-6 text-center">
+                        {idx + 1}.
+                      </span>
+                      <Input
+                        type="text"
+                        value={m}
+                        onChange={(e) => handleMissionChange(idx, e.target.value)}
+                        placeholder={`Tuliskan poin misi ke-${idx + 1}...`}
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleRemoveMission(idx)}
+                        className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                  {(!editFormData.mission || editFormData.mission.length === 0) && (
+                    <p className="text-sm text-gray-400 italic text-center py-2 bg-gray-50 rounded-lg">
+                      Belum ada poin misi. Klik tombol "+ Tambah Misi" di atas untuk menambahkan.
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* Action buttons */}

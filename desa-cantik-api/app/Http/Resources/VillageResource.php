@@ -52,9 +52,10 @@ class VillageResource extends JsonResource
         ];
 
         if ($this->includeDetails) {
-            // Direct access to denormalized profile fields
             $data['description'] = $this->deskripsi;
             $data['deskripsi'] = $this->deskripsi;
+            $data['vision'] = $this->visi;
+            $data['mission'] = $this->misi ? json_decode($this->misi, true) : [];
         }
 
         return $data;

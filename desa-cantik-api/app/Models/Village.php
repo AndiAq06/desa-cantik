@@ -28,6 +28,8 @@ class Village extends Model
         'population',
         'logo_url',
         'has_layanan_online',
+        'visi',
+        'misi',
     ];
 
     protected $casts = [

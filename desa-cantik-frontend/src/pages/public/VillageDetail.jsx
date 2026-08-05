@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, GeoJSON, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-import { MapPin, Users, Layers, CalendarDays, ArrowRight, Landmark, Download, Eye, FileText, BarChart3, ExternalLink, Loader2, ChevronDown, ChevronRight, ChevronUp, GraduationCap, Heart, DollarSign, Coins, Leaf, Heading2 } from "lucide-react";
+import { MapPin, Users, Layers, CalendarDays, ArrowRight, Landmark, Download, Eye, ListChecks, FileText, BarChart3, ExternalLink, Loader2, ChevronDown, ChevronRight, ChevronUp, GraduationCap, Heart, DollarSign, Coins, Leaf, Heading2 } from "lucide-react";
 
 // KOMPONEN UI
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
@@ -598,6 +598,67 @@ export default function VillageDetail() {
               </ScrollReveal>
             </div>
           </div>
+
+          {/* VISI & MISI SECTION */}
+          {(village.vision || (village.mission && village.mission.length > 0)) && (
+            <ScrollReveal delay={200} duration={900}>
+              <div className="mt-16 pt-12 border-t border-gray-100">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                  {/* Visi Card */}
+                  {village.vision && (() => {
+                    const visionParagraphs = (village.vision || "").split(/\r?\n\r?\n/).filter(Boolean);
+                    const mainVision = visionParagraphs[0] || "";
+                    const visionDesc = visionParagraphs.slice(1).join("\n\n") || "";
+                    return (
+                      <div className="bg-white rounded-2xl p-6 sm:p-8 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
+                        <div>
+                          <div className="p-3 bg-blue-50 w-fit rounded-lg mb-6">
+                            <Eye className="w-6 h-6 text-[#33A1E0]" />
+                          </div>
+                          <h3 className="text-sm font-semibold tracking-wider text-[#33A1E0] uppercase mb-2">Visi</h3>
+                          <h4 className="text-lg sm:text-xl font-extrabold text-[#154D71] leading-snug mb-4">
+                            {mainVision}
+                          </h4>
+                          {visionDesc && (
+                            <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
+                              {visionDesc}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+                  {/* Misi Card */}
+                  {village.mission && village.mission.length > 0 && (
+                    <div className="bg-white rounded-2xl p-6 sm:p-8 border border-emerald-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
+                      <div>
+                        <div className="p-3 bg-emerald-50 w-fit rounded-lg mb-6">
+                          <ListChecks className="w-6 h-6 text-emerald-600" />
+                        </div>
+                        <h3 className="text-sm font-semibold tracking-wider text-emerald-600 uppercase mb-2">Misi</h3>
+                        <h4 className="text-lg sm:text-xl font-extrabold text-[#154D71] leading-snug mb-6">
+                          Langkah Nyata Menuju Desa yang Lebih Baik
+                        </h4>
+                        <ol className="space-y-4">
+                          {village.mission.map((m, idx) => (
+                            <li key={idx} className="flex items-start gap-4">
+                              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mt-0.5">
+                                {idx + 1}
+                              </span>
+                              <span className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                                {m}
+                              </span>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </ScrollReveal>
+          )}
         </div>
       </section>
 
