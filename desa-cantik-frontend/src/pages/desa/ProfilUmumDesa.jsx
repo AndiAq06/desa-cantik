@@ -176,9 +176,9 @@ export default function ProfilUmumDesa() {
         payload.append("code", editFormData.villageCode || "");
         payload.append("vision", editFormData.vision || "");
         if (editFormData.mission && editFormData.mission.length > 0) {
-          editFormData.mission.forEach((m) => {
+          editFormData.mission.forEach((m, idx) => {
             if (m.trim()) {
-              payload.append("mission[]", m.trim());
+              payload.append(`mission[${idx}]`, m.trim());
             }
           });
         }
