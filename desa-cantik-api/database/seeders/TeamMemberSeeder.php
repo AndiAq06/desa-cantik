@@ -14,19 +14,19 @@ class TeamMemberSeeder extends Seeder
     {
         $members = [
             [
-                'name' => 'Kak Dannar',
+                'name' => 'Dannar Kurniawan Adjie',
                 'role' => 'BPS Toraja Utara',
                 'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=KD',
                 'display_order' => 1,
             ],
             [
-                'name' => 'Kak Tony',
+                'name' => 'Antonius Parupang',
                 'role' => 'BPS Toraja Utara',
                 'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=KT',
                 'display_order' => 2,
             ],
             [
-                'name' => 'Kak Rahma',
+                'name' => 'Ainur Rahma',
                 'role' => 'BPS Toraja Utara',
                 'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=KR',
                 'display_order' => 3,
