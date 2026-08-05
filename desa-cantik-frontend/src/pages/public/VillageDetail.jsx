@@ -838,8 +838,7 @@ export default function VillageDetail() {
                         <CalendarDays className="w-3 h-3" /> {pub.date}
                       </span>
                     </div>
-                    <h3 className="font-bold text-[#154D71] text-lg leading-tight mb-2 line-clamp-2 group-hover:text-[#33A1E0] transition-colors">{pub.title}</h3>
-                    <p className="text-sm text-gray-500 line-clamp-2 mb-4">{pub.description}</p>
+                    <h3 className="font-bold text-[#154D71] text-lg leading-tight mb-4 line-clamp-2 group-hover:text-[#33A1E0] transition-colors">{pub.title}</h3>
                     <div className="inline-flex items-center text-sm font-medium text-[#33A1E0] group-hover:text-[#154D71]">
                       Lihat Detail <ArrowRight className="w-4 h-4 ml-1" />
                     </div>
