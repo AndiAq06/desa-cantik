@@ -192,6 +192,7 @@ export default function PublikasiDesaAdmin() {
 
         const formData = new FormData();
         formData.append("title", data.title);
+        formData.append("description", data.description || "");
         formData.append("category", data.category || "Umum");
         formData.append("status", data.status || "Draft");
         formData.append(
@@ -208,6 +209,7 @@ export default function PublikasiDesaAdmin() {
           currentItem.id,
           {
             title: data.title,
+            description: data.description || "",
             category: data.category,
             status: data.status || "Draft",
             published_at: `${data.year || new Date().getFullYear()}-01-01`,
@@ -528,6 +530,7 @@ export default function PublikasiDesaAdmin() {
                 <Textarea
                   id="description"
                   name="description"
+                  defaultValue={currentItem?.description || ""}
                   placeholder="Penjelasan singkat tentang isi dokumen..."
                 />
               </div>

@@ -59,6 +59,7 @@ const statusOptions = ["Rilis", "Diarsipkan"];
 
 const defaultFormState = {
   title: "",
+  description: "",
   subject: subjectOptions[0],
   releaseDate: new Date(),
   status: statusOptions[0],
@@ -189,6 +190,7 @@ export default function PublikasiDesa() {
     setEditingId(pub.id);
     setFormState({
       ...pub,
+      description: pub.description || "",
       file: null,
       fileUrl: pub.fileUrl || "",
       fileName: pub.fileName || "",
@@ -259,6 +261,7 @@ export default function PublikasiDesa() {
 
       const payload = {
         title: formState.title.trim(),
+        description: formState.description ? formState.description.trim() : "",
         category: formState.subject,
         status: formState.status,
         published_at: publishedDate,
@@ -490,6 +493,19 @@ export default function PublikasiDesa() {
                 value={formState.title}
                 onChange={handleFormChange}
                 placeholder="Masukkan judul publikasi"
+              />
+            </div>
+
+            {/* Deskripsi */}
+            <div className="space-y-2">
+              <Label htmlFor="description">Deskripsi</Label>
+              <textarea
+                id="description"
+                name="description"
+                value={formState.description || ""}
+                onChange={handleFormChange}
+                placeholder="Masukkan deskripsi publikasi"
+                className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               />
             </div>
 
