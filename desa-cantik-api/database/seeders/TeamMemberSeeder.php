@@ -14,13 +14,13 @@ class TeamMemberSeeder extends Seeder
     {
         $members = [
             [
-                'name' => 'Dannar Kurniawan Adjie',
+                'name' => 'Dannar Kurniawan Ajie Prasetya',
                 'role' => 'BPS Toraja Utara',
                 'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=KD',
                 'display_order' => 1,
             ],
             [
-                'name' => 'Antonius Parupang',
+                'name' => 'Antonius Parupan',
                 'role' => 'BPS Toraja Utara',
                 'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=KT',
                 'display_order' => 2,
@@ -32,10 +32,16 @@ class TeamMemberSeeder extends Seeder
                 'display_order' => 3,
             ],
             [
+                'name' => 'Rahma Fitriani Maradi Ibrahim',
+                'role' => 'BPS Toraja Utara',
+                'photo_url' => 'https://placehold.co/400x400/33A1E0/ffffff?text=RF',
+                'display_order' => 4,
+            ],
+            [
                 'name' => 'Teguh Christiawan',
                 'role' => 'Politeknik Statistika STIS',
                 'photo_url' => 'https://placehold.co/400x400/33A1E0/ffffff?text=TC',
-                'display_order' => 4,
+                'display_order' => 5,
             ],
         ];
 
