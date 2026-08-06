@@ -389,7 +389,7 @@ export default function VillageDetail() {
   const scrollToSection = (sectionId) => {
     const el = document.getElementById(sectionId);
     if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 100;
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
