@@ -93,12 +93,12 @@ export default function Footer({ scrollToVillages }) {
             <ul className="flex flex-col gap-2.5 text-blue-100 text-xs md:text-sm pl-1 md:pl-0">
               <li>
                 <a href={ensureHttp(footerData.bps_torut)} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  BPS Toraja Utara
+                  BPS Kabupaten Toraja Utara
                 </a>
               </li>
               <li>
                 <a href={ensureHttp(footerData.bps_sulsel)} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  BPS Sulawesi Selatan
+                  BPS Provinsi Sulawesi Selatan
                 </a>
               </li>
               <li>
