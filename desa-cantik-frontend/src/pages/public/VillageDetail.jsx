@@ -607,7 +607,7 @@ export default function VillageDetail() {
       {/* VISI, MISI & PUBLIKASI */}
       <section
         id="publikasi"
-        className="min-h-[calc(100vh-80px)] py-16 sm:py-24 bg-white border-t border-gray-100 flex items-center"
+        className="min-h-[calc(100vh-80px)] py-16 sm:py-24 bg-gray-50 border-t border-gray-100 flex items-center"
       >
         <div className="container mx-auto px-6 w-full">
           {/* VISI & MISI CARDS */}
@@ -665,7 +665,7 @@ export default function VillageDetail() {
                   <p className="text-xs sm:text-sm text-gray-600">Dokumen dan laporan resmi desa</p>
                 </div>
               </ScrollReveal>
-              <div className="flex gap-4 bg-gray-50 p-2 rounded-lg border border-gray-100">
+              <div className="flex gap-4 bg-white p-2 rounded-lg border border-gray-200">
                 <Select value={selectedYear} onValueChange={handleYearChange}>
                   <SelectTrigger className="w-[120px] bg-white border-0 shadow-sm">
                     <SelectValue />
@@ -747,7 +747,7 @@ export default function VillageDetail() {
       </section>
 
       {/* DATA STATISTIK */}
-      <section id="data" className="min-h-[calc(100vh-80px)] flex items-center bg-gray-50 py-12 sm:py-16">
+      <section id="data" className="min-h-[calc(100vh-80px)] flex items-center bg-white py-12 sm:py-16">
         <div className="container mx-auto px-6 w-full">
           <ScrollReveal>
             <div className="text-center max-w-3xl mx-auto mb-12">
@@ -831,7 +831,7 @@ export default function VillageDetail() {
               {/* Right Column: Table details */}
               <div id="table-view-section" className="lg:col-span-2 scroll-mt-24">
                 {currentTable ? (
-                  <Card className="border-0 shadow-lg overflow-hidden">
+                  <Card className="border border-slate-150 shadow-lg overflow-hidden">
                     <CardHeader className="bg-white border-b px-6 py-5 flex flex-row items-center justify-between space-y-0">
                       <div>
                         <CardTitle className="text-base sm:text-xl text-[#154D71]">{currentTable.title}</CardTitle>
@@ -874,8 +874,8 @@ export default function VillageDetail() {
       </section>
 
       {/* PETA TEMATIK */}
-      <section id="peta" className="py-12 sm:py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
+      <section id="peta" className="min-h-[calc(100vh-80px)] flex items-center bg-gray-50 py-16 sm:py-24">
+        <div className="container mx-auto px-6 w-full">
           <ScrollReveal>
             <div className="mb-10">
               <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-3">Peta Digital</h2>
