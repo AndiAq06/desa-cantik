@@ -204,13 +204,13 @@ export default function Home() {
 
         {/* SCROLL DOWN TO VILLAGES INDICATOR */}
         <div 
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20"
           onClick={scrollToVillages}
         >
-          <span className="text-xs tracking-widest uppercase font-semibold text-white/80">Lihat Desa Binaan</span>
           <svg className="w-5 h-5 text-white" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
+          <span className="text-xs tracking-widest uppercase font-semibold text-white/80">Lihat Desa Binaan</span>
         </div>
       </section>
 
