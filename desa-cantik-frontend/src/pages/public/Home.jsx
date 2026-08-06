@@ -215,8 +215,11 @@ export default function Home() {
       </section>
 
       {/* Desa Binaan Section */}
-      <section ref={villagesRef} className="py-20 bg-gradient-to-b from-white to-gray-50 scroll-mt-28">
-        <div className="container mx-auto px-6">
+      <section
+        ref={villagesRef}
+        className="min-h-[calc(100vh-80px)] flex items-center py-20 bg-gradient-to-b from-white to-gray-50 scroll-mt-28"
+      >
+        <div className="container mx-auto px-6 w-full">
           {/* Heading */}
           <ScrollReveal>
             <div className="text-center mb-12">
