@@ -562,10 +562,7 @@ export default function VillageDetail() {
       {/* TENTANG DESA */}
       <section
         id="tentang"
-        className={cn(
-          "min-h-[calc(100vh-80px)] bg-white py-16 sm:py-24",
-          !(village.vision || (village.mission && village.mission.length > 0)) && "flex items-center"
-        )}
+        className="min-h-[calc(100vh-80px)] flex items-center bg-white py-16 sm:py-24"
       >
         <div className="container mx-auto px-6 w-full">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -604,54 +601,148 @@ export default function VillageDetail() {
               </ScrollReveal>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* VISI & MISI SECTION */}
+      {/* VISI, MISI & PUBLIKASI */}
+      <section
+        id="publikasi"
+        className="min-h-[calc(100vh-80px)] py-16 sm:py-24 bg-white border-t border-gray-100 flex items-center"
+      >
+        <div className="container mx-auto px-6 w-full">
+          {/* VISI & MISI CARDS */}
           {(village.vision || (village.mission && village.mission.length > 0)) && (
-            <ScrollReveal delay={200} duration={900}>
-              <div className="mt-16 pt-12 border-t border-gray-100">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-                  {/* Visi Card */}
-                  {village.vision && (
-                    <div className="bg-gradient-to-br from-[#154D71] to-[#1C6EA4] text-white rounded-2xl p-6 sm:p-8 border border-white/10 shadow-md flex flex-col justify-between hover:shadow-xl transition duration-300">
-                      <div>
-                        <div className="p-3 bg-white/10 w-fit rounded-lg mb-6">
-                          <Eye className="w-6 h-6 text-blue-200" />
-                        </div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Visi</h3>
-                        <p className="text-sm sm:text-base text-blue-100 leading-relaxed whitespace-pre-line">
-                          {village.vision}
-                        </p>
+            <ScrollReveal delay={150} duration={850}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-16">
+                {/* Visi Card */}
+                {village.vision && (
+                  <div className="bg-gradient-to-br from-[#154D71] to-[#1C6EA4] text-white rounded-2xl p-6 sm:p-8 border border-white/10 shadow-md flex flex-col justify-between hover:shadow-xl transition duration-300">
+                    <div>
+                      <div className="p-3 bg-white/10 w-fit rounded-lg mb-6">
+                        <Eye className="w-6 h-6 text-blue-200" />
                       </div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Visi</h3>
+                      <p className="text-sm sm:text-base text-blue-100 leading-relaxed whitespace-pre-line">
+                        {village.vision}
+                      </p>
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  {/* Misi Card */}
-                  {village.mission && village.mission.length > 0 && (
-                    <div className="bg-white text-gray-800 rounded-2xl p-6 sm:p-8 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
-                      <div>
-                        <div className="p-3 bg-blue-50 w-fit rounded-lg mb-6">
-                          <ListChecks className="w-6 h-6 text-[#33A1E0]" />
-                        </div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-[#154D71] mb-6">Misi</h3>
-                        <ol className="space-y-4">
-                          {village.mission.map((m, idx) => (
-                            <li key={idx} className="flex items-start gap-4">
-                              <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-[#33A1E0] text-xs font-bold mt-0.5">
-                                {idx + 1}
-                              </span>
-                              <span className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                                {m}
-                              </span>
-                            </li>
-                          ))}
-                        </ol>
+                {/* Misi Card */}
+                {village.mission && village.mission.length > 0 && (
+                  <div className="bg-white text-gray-800 rounded-2xl p-6 sm:p-8 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
+                    <div>
+                      <div className="p-3 bg-blue-50 w-fit rounded-lg mb-6">
+                        <ListChecks className="w-6 h-6 text-[#33A1E0]" />
                       </div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-[#154D71] mb-6">Misi</h3>
+                      <ol className="space-y-4">
+                        {village.mission.map((m, idx) => (
+                          <li key={idx} className="flex items-start gap-4">
+                            <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-[#33A1E0] text-xs font-bold mt-0.5">
+                              {idx + 1}
+                            </span>
+                            <span className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                              {m}
+                            </span>
+                          </li>
+                        ))}
+                      </ol>
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </ScrollReveal>
           )}
+
+          {/* PUBLIKASI CONTENT */}
+          <div>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+              <ScrollReveal>
+                <div>
+                  <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2">Publikasi Desa</h2>
+                  <p className="text-xs sm:text-sm text-gray-600">Dokumen dan laporan resmi desa</p>
+                </div>
+              </ScrollReveal>
+              <div className="flex gap-4 bg-gray-50 p-2 rounded-lg border border-gray-100">
+                <Select value={selectedYear} onValueChange={handleYearChange}>
+                  <SelectTrigger className="w-[120px] bg-white border-0 shadow-sm">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {yearOptions.map((y) => (
+                      <SelectItem key={y} value={y}>
+                        {y}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={selectedMonth} onValueChange={handleMonthChange}>
+                  <SelectTrigger className="w-[140px] bg-white border-0 shadow-sm">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {monthOptions.map((m) => (
+                      <SelectItem key={m.value} value={m.value}>
+                        {m.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            {currentPublications.length > 0 ? (
+              <div className="grid md:grid-cols-2 gap-6">
+                {currentPublications.map((pub) => (
+                  <Link key={pub.id} to={`/publikasi/${pub.id}`} className="group bg-white border border-gray-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 flex gap-6 items-start cursor-pointer">
+                    <div className="w-24 h-32 shrink-0 bg-gray-100 rounded-lg overflow-hidden shadow-sm relative">
+                      <img src={pub.imageUrl} className="w-full h-full object-cover" alt="Cover" />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                    </div>
+                    <div className="flex-1 py-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Badge variant="secondary" className="text-[10px] bg-blue-50 text-blue-600 hover:bg-blue-100">
+                          {pub.subject}
+                        </Badge>
+                        <span className="text-xs text-gray-400 flex items-center gap-1">
+                          <CalendarDays className="w-3 h-3" /> {pub.date}
+                        </span>
+                      </div>
+                      <h3 className="font-bold text-[#154D71] text-lg leading-tight mb-4 line-clamp-2 group-hover:text-[#33A1E0] transition-colors">{pub.title}</h3>
+                      <div className="inline-flex items-center text-sm font-medium text-[#33A1E0] group-hover:text-[#154D71]">
+                        Lihat Detail <ArrowRight className="w-4 h-4 ml-1" />
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                <p className="text-gray-500">Tidak ada publikasi ditemukan.</p>
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-10 flex justify-center">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} className={cn("cursor-pointer", safePage === 1 && "pointer-events-none opacity-50")} />
+                    </PaginationItem>
+                    <span className="mx-4 text-sm text-gray-500 self-center">
+                      Halaman {safePage} dari {totalPages}
+                    </span>
+                    <PaginationItem>
+                      <PaginationNext onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} className={cn("cursor-pointer", safePage === totalPages && "pointer-events-none opacity-50")} />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
@@ -777,97 +868,6 @@ export default function VillageDetail() {
               </div>
               <h3 className="text-xl font-medium text-gray-900 mb-2">Belum Ada Data Statistik</h3>
               <p className="text-gray-500 max-w-md mx-auto">Data statistik untuk desa ini sedang dalam proses pengumpulan dan verifikasi.</p>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* PUBLIKASI */}
-      <section id="publikasi" className="py-12 sm:py-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-            <ScrollReveal>
-              <div>
-                <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2">Publikasi Desa</h2>
-                <p className="text-xs sm:text-sm text-gray-600">Dokumen dan laporan resmi desa</p>
-              </div>
-            </ScrollReveal>
-            {/* FIX: Gunakan handler yang reset currentPage */}
-            <div className="flex gap-4 bg-gray-50 p-2 rounded-lg border border-gray-100">
-              <Select value={selectedYear} onValueChange={handleYearChange}>
-                <SelectTrigger className="w-[120px] bg-white border-0 shadow-sm">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {yearOptions.map((y) => (
-                    <SelectItem key={y} value={y}>
-                      {y}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Select value={selectedMonth} onValueChange={handleMonthChange}>
-                <SelectTrigger className="w-[140px] bg-white border-0 shadow-sm">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {monthOptions.map((m) => (
-                    <SelectItem key={m.value} value={m.value}>
-                      {m.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          {currentPublications.length > 0 ? (
-            <div className="grid md:grid-cols-2 gap-6">
-              {currentPublications.map((pub) => (
-                <Link key={pub.id} to={`/publikasi/${pub.id}`} className="group bg-white border border-gray-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 flex gap-6 items-start cursor-pointer">
-                  <div className="w-24 h-32 shrink-0 bg-gray-100 rounded-lg overflow-hidden shadow-sm relative">
-                    <img src={pub.imageUrl} className="w-full h-full object-cover" alt="Cover" />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                  </div>
-                  <div className="flex-1 py-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="secondary" className="text-[10px] bg-blue-50 text-blue-600 hover:bg-blue-100">
-                        {pub.subject}
-                      </Badge>
-                      <span className="text-xs text-gray-400 flex items-center gap-1">
-                        <CalendarDays className="w-3 h-3" /> {pub.date}
-                      </span>
-                    </div>
-                    <h3 className="font-bold text-[#154D71] text-lg leading-tight mb-4 line-clamp-2 group-hover:text-[#33A1E0] transition-colors">{pub.title}</h3>
-                    <div className="inline-flex items-center text-sm font-medium text-[#33A1E0] group-hover:text-[#154D71]">
-                      Lihat Detail <ArrowRight className="w-4 h-4 ml-1" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
-              <p className="text-gray-500">Tidak ada publikasi ditemukan.</p>
-            </div>
-          )}
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="mt-10 flex justify-center">
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} className={cn("cursor-pointer", safePage === 1 && "pointer-events-none opacity-50")} />
-                  </PaginationItem>
-                  <span className="mx-4 text-sm text-gray-500 self-center">
-                    Halaman {safePage} dari {totalPages}
-                  </span>
-                  <PaginationItem>
-                    <PaginationNext onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} className={cn("cursor-pointer", safePage === totalPages && "pointer-events-none opacity-50")} />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
             </div>
           )}
         </div>

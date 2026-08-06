@@ -73,15 +73,18 @@ export default function Footer({ scrollToVillages }) {
 
           <FooterSection title="Kontak">
             <ul className="flex flex-col gap-2.5 text-blue-100 text-xs md:text-sm pl-1 md:pl-0">
-              <li>
-                <a href={`mailto:${footerData.email}`} className="hover:text-white transition-colors break-all">
-                  desacantik@bps.go.id
-                </a>
+              <li className="leading-snug">
+                <span className="font-semibold text-white block">BPS Kabupaten Toraja Utara</span>
+                <span className="text-blue-200">Jl. Ahmad Yani No. 64, Rantepao</span>
               </li>
               <li>
-                <a href={`tel:${cleanPhone(footerData.phone)}`} className="hover:text-white transition-colors">
-                  0812-3456-7890
-                </a>
+                Telp: <a href="tel:042321262" className="hover:text-white transition-colors">(0423) 21262</a>
+              </li>
+              <li>
+                Faks: <span className="text-blue-200">(0423) 21262</span>
+              </li>
+              <li>
+                Email: <a href="mailto:bps7326@bps.go.id" className="hover:text-white transition-colors break-all">bps7326@bps.go.id</a>
               </li>
             </ul>
           </FooterSection>

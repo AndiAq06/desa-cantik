@@ -152,8 +152,8 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
                     </SheetHeader>
                     <div className="flex flex-col gap-5">
                       {renderMobileLink('Desa', 'desa')}
-                      {renderMobileLink('Data', 'data')}
                       {renderMobileLink('Publikasi', 'publikasi')}
+                      {renderMobileLink('Data', 'data')}
                       {renderMobileLink('Peta', 'peta')}
                       {renderMobileLink('Dokumentasi', 'dokumentasi')}
 
@@ -279,8 +279,8 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
               </Link>
             )}
 
-            {renderButton('Data', 'data')}
             {renderButton('Publikasi', 'publikasi')}
+            {renderButton('Data', 'data')}
             {renderButton('Peta', 'peta')}
             {renderButton('Dokumentasi', 'dokumentasi')}
 
