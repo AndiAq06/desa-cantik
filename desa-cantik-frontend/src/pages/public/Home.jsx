@@ -153,9 +153,12 @@ export default function Home() {
       </section>
 
       {/* Tentang Desa Cantik Section */}
-      <section id="tentang-section" className="relative w-full min-h-screen overflow-hidden py-20">
+      <section
+        id="tentang-section"
+        className="relative w-full min-h-[calc(100vh-80px)] md:h-[calc(100vh-80px)] overflow-hidden py-12 md:py-0 flex items-center"
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-[#4BADE4] via-[#33A1E0] to-[#1C6EA4]" />
-        <div className="relative z-10 container mx-auto px-6 h-full flex flex-col justify-center">
+        <div className="relative z-10 container mx-auto px-6 w-full">
           <div className="max-w-7xl mx-auto">
             <ScrollReveal duration={800}>
               <div className="text-center mb-16">
