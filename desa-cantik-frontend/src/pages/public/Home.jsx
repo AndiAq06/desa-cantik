@@ -217,6 +217,7 @@ export default function Home() {
       {/* Desa Binaan Section */}
       <section
         ref={villagesRef}
+        id="desa-binaan"
         className="min-h-[calc(100vh-80px)] flex items-center py-20 bg-gradient-to-b from-white to-gray-50 scroll-mt-28"
       >
         <div className="container mx-auto px-6 w-full">

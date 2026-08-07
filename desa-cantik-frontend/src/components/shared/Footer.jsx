@@ -21,6 +21,43 @@ const FooterSection = ({ title, children }) => {
 export default function Footer({ scrollToVillages }) {
   const { footerData } = useContext(FooterContext);
 
+  const getSubdomain = () => {
+    const hostname = window.location.hostname;
+    if (/^[0-9.]+$/.test(hostname)) {
+      return null;
+    }
+    const parts = hostname.split('.');
+    const isTwoPartTld = parts[parts.length - 2] === 'co' || parts[parts.length - 2] === 'web' || parts[parts.length - 2] === 'go';
+    const minPartsForSubdomain = isTwoPartTld ? 4 : 3;
+
+    if (parts.length < minPartsForSubdomain || parts[0] === 'www' || parts[0] === 'api') {
+      return null;
+    }
+    return parts[0];
+  };
+
+  const subdomain = getSubdomain();
+
+  const getMainDomainUrl = (path = "") => {
+    const hostname = window.location.hostname;
+    const protocol = window.location.protocol;
+    const port = window.location.port;
+
+    const parts = hostname.split('.');
+    const isTwoPartTld = parts[parts.length - 2] === 'co' || parts[parts.length - 2] === 'web' || parts[parts.length - 2] === 'go';
+    const minPartsForSubdomain = isTwoPartTld ? 4 : 3;
+
+    let mainHostname = hostname;
+    if (!/^[0-9.]+$/.test(hostname)) {
+      if (parts.length >= minPartsForSubdomain && parts[0] !== 'www' && parts[0] !== 'api') {
+        mainHostname = parts.slice(1).join('.');
+      }
+    }
+
+    const portStr = port ? `:${port}` : '';
+    return `${protocol}//${mainHostname}${portStr}${path}`;
+  };
+
   const ensureHttp = (url) => {
     if (!url) return "#";
     if (url.startsWith("http://") || url.startsWith("https://")) return url;
@@ -47,26 +84,48 @@ export default function Footer({ scrollToVillages }) {
           <FooterSection title="Navigasi">
             <ul className="flex flex-col gap-2.5 text-blue-100 text-xs md:text-sm pl-1 md:pl-0">
               <li>
-                <Link to="/" className="hover:text-white transition-colors">
-                  Home
-                </Link>
+                {subdomain ? (
+                  <a href={getMainDomainUrl("/")} className="hover:text-white transition-colors">
+                    Home
+                  </a>
+                ) : (
+                  <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="hover:text-white transition-colors">
+                    Home
+                  </Link>
+                )}
               </li>
               <li>
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollToVillages();
-                  }}
-                  className="hover:text-white transition-colors cursor-pointer"
-                >
-                  Desa Cantik
-                </a>
+                {subdomain ? (
+                  <a href={getMainDomainUrl("/#desa-binaan")} className="hover:text-white transition-colors">
+                    Desa Cantik
+                  </a>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (scrollToVillages) {
+                        scrollToVillages();
+                      } else {
+                        document.getElementById("desa-binaan")?.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
+                    className="hover:text-white transition-colors cursor-pointer"
+                  >
+                    Desa Cantik
+                  </a>
+                )}
               </li>
               <li>
-                <Link to="/about" className="hover:text-white transition-colors">
-                  Tentang
-                </Link>
+                {subdomain ? (
+                  <a href={getMainDomainUrl("/tentang")} className="hover:text-white transition-colors">
+                    Tentang
+                  </a>
+                ) : (
+                  <Link to="/tentang" className="hover:text-white transition-colors">
+                    Tentang
+                  </Link>
+                )}
               </li>
             </ul>
           </FooterSection>

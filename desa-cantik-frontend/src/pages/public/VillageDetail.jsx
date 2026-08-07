@@ -271,7 +271,7 @@ export default function VillageDetail() {
           month: (new Date(item.created_at).getMonth() + 1).toString(),
           description: item.description,
           imageUrl: item.cover_url || item.thumbnail_url || "https://placehold.co/300x400/f1f5f9/94a3b8?text=Dokumen",
-          fileUrl: item.file_url,
+          fileUrl: item.view_url || item.file_url || item.download_url,
         }));
         setPublications(formatted);
       } catch (err) {
@@ -607,22 +607,22 @@ export default function VillageDetail() {
       {/* VISI, MISI & PUBLIKASI */}
       <section
         id="publikasi"
-        className="min-h-[calc(100vh-80px)] py-16 sm:py-24 bg-gray-50 border-t border-gray-100 flex items-center"
+        className="min-h-[calc(100vh-80px)] py-8 sm:py-12 bg-gray-50 border-t border-gray-100 flex items-center"
       >
         <div className="container mx-auto px-6 w-full">
           {/* VISI & MISI CARDS */}
           {(village.vision || (village.mission && village.mission.length > 0)) && (
             <ScrollReveal delay={150} duration={850}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-8">
                 {/* Visi Card */}
                 {village.vision && (
-                  <div className="bg-gradient-to-br from-[#154D71] to-[#1C6EA4] text-white rounded-2xl p-6 sm:p-8 border border-white/10 shadow-md flex flex-col justify-between hover:shadow-xl transition duration-300">
+                  <div className="bg-gradient-to-br from-[#154D71] to-[#1C6EA4] text-white rounded-2xl p-5 sm:p-6 border border-white/10 shadow-md flex flex-col justify-between hover:shadow-xl transition duration-300">
                     <div>
-                      <div className="p-3 bg-white/10 w-fit rounded-lg mb-6">
-                        <Eye className="w-6 h-6 text-blue-200" />
+                      <div className="p-2 bg-white/10 w-fit rounded-lg mb-3">
+                        <Eye className="w-5 h-5 text-blue-200" />
                       </div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">Visi</h3>
-                      <p className="text-sm sm:text-base text-blue-100 leading-relaxed whitespace-pre-line">
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Visi</h3>
+                      <p className="text-xs sm:text-sm text-blue-100 leading-relaxed whitespace-pre-line">
                         {village.vision}
                       </p>
                     </div>
@@ -631,19 +631,19 @@ export default function VillageDetail() {
 
                 {/* Misi Card */}
                 {village.mission && village.mission.length > 0 && (
-                  <div className="bg-white text-gray-800 rounded-2xl p-6 sm:p-8 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
+                  <div className="bg-white text-gray-800 rounded-2xl p-5 sm:p-6 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
                     <div>
-                      <div className="p-3 bg-blue-50 w-fit rounded-lg mb-6">
-                        <ListChecks className="w-6 h-6 text-[#33A1E0]" />
+                      <div className="p-2 bg-blue-50 w-fit rounded-lg mb-3">
+                        <ListChecks className="w-5 h-5 text-[#33A1E0]" />
                       </div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-[#154D71] mb-6">Misi</h3>
-                      <ol className="space-y-4">
+                      <h3 className="text-lg sm:text-xl font-bold text-[#154D71] mb-3">Misi</h3>
+                      <ol className="space-y-2">
                         {village.mission.map((m, idx) => (
-                          <li key={idx} className="flex items-start gap-4">
-                            <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-blue-50 text-[#33A1E0] text-xs font-bold mt-0.5">
-                              {idx + 1}
+                           <li key={idx} className="flex items-start gap-3">
+                            <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-blue-50 text-[#33A1E0] text-[10px] font-bold mt-0.5">
+                               {idx + 1}
                             </span>
-                            <span className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                            <span className="text-xs sm:text-sm text-gray-600 leading-relaxed">
                               {m}
                             </span>
                           </li>
@@ -698,8 +698,23 @@ export default function VillageDetail() {
                 {currentPublications.map((pub) => (
                   <Link key={pub.id} to={`/publikasi/${pub.id}`} className="group bg-white border border-gray-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 flex gap-6 items-start cursor-pointer">
                     <div className="w-24 h-32 shrink-0 bg-gray-100 rounded-lg overflow-hidden shadow-sm relative">
-                      <img src={pub.imageUrl} className="w-full h-full object-cover" alt="Cover" />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                      {pub.fileUrl ? (
+                        <div className="w-full h-full pointer-events-none select-none relative">
+                          <object
+                            data={`${pub.fileUrl}#page=1&view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
+                            type="application/pdf"
+                            className="w-full h-full scale-[1.05] origin-top"
+                          >
+                            <img src={pub.imageUrl} className="w-full h-full object-cover" alt="Cover" />
+                          </object>
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-20" />
+                        </div>
+                      ) : (
+                        <>
+                          <img src={pub.imageUrl} className="w-full h-full object-cover" alt="Cover" />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
+                        </>
+                      )}
                     </div>
                     <div className="flex-1 py-1">
                       <div className="flex items-center gap-2 mb-2">
