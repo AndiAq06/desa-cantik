@@ -612,7 +612,7 @@ export default function VillageDetail() {
           <svg className="w-5 h-5 text-[#154D71]" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
-          <span className="text-[10px] tracking-widest uppercase font-bold text-[#154D71]/80">Visi & Misi</span>
+          <span className="text-[10px] tracking-widest uppercase font-bold text-[#154D71]/80">Visi, Misi & Publikasi</span>
         </div>
       </section>
 
