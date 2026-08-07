@@ -563,7 +563,7 @@ export default function VillageDetail() {
       {/* TENTANG DESA */}
       <section
         id="tentang"
-        className="min-h-[calc(100vh-80px)] flex items-center bg-white py-16 sm:py-24"
+        className="relative min-h-[calc(100vh-80px)] flex items-center bg-white py-16 sm:py-24"
       >
         <div className="container mx-auto px-6 w-full">
           <div className="grid md:grid-cols-2 gap-16 items-center">
