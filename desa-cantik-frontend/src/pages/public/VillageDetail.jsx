@@ -603,12 +603,23 @@ export default function VillageDetail() {
             </div>
           </div>
         </div>
+
+        {/* SCROLL DOWN TO VISI MISI */}
+        <div 
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
+          onClick={() => scrollToSection('publikasi')}
+        >
+          <svg className="w-5 h-5 text-[#154D71]" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+          <span className="text-[10px] tracking-widest uppercase font-bold text-[#154D71]/80">Visi & Misi</span>
+        </div>
       </section>
 
       {/* VISI, MISI & PUBLIKASI */}
       <section
         id="publikasi"
-        className="min-h-[calc(100vh-80px)] py-8 sm:py-12 bg-gray-50 border-t border-gray-100 flex items-center"
+        className="relative min-h-[calc(100vh-80px)] py-8 sm:py-12 bg-gray-50 border-t border-gray-100 flex items-center"
       >
         <div className="container mx-auto px-6 w-full">
           {/* VISI & MISI CARDS */}
@@ -745,10 +756,21 @@ export default function VillageDetail() {
             )}
           </div>
         </div>
+
+        {/* SCROLL DOWN TO DATA */}
+        <div 
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
+          onClick={() => scrollToSection('data')}
+        >
+          <svg className="w-5 h-5 text-[#154D71]" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+          <span className="text-[10px] tracking-widest uppercase font-bold text-[#154D71]/80">Data Statistik</span>
+        </div>
       </section>
 
       {/* DATA STATISTIK */}
-      <section id="data" className="min-h-[calc(100vh-80px)] flex items-center bg-white py-12 sm:py-16">
+      <section id="data" className="relative min-h-[calc(100vh-80px)] flex items-center bg-white py-12 sm:py-16">
         <div className="container mx-auto px-6 w-full">
           <ScrollReveal>
             <div className="text-center max-w-3xl mx-auto mb-12">
@@ -872,10 +894,21 @@ export default function VillageDetail() {
             </div>
           )}
         </div>
+
+        {/* SCROLL DOWN TO PETA */}
+        <div 
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
+          onClick={() => scrollToSection('peta')}
+        >
+          <svg className="w-5 h-5 text-[#154D71]" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+          <span className="text-[10px] tracking-widest uppercase font-bold text-[#154D71]/80">Peta Digital</span>
+        </div>
       </section>
 
       {/* PETA TEMATIK */}
-      <section id="peta" className="min-h-[calc(100vh-80px)] flex items-center bg-gray-50 py-16 sm:py-24">
+      <section id="peta" className="relative min-h-[calc(100vh-80px)] flex items-center bg-gray-50 py-16 sm:py-24">
         <div className="container mx-auto px-6 w-full">
           <ScrollReveal>
             <div className="mb-10">
@@ -1011,6 +1044,17 @@ export default function VillageDetail() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* SCROLL DOWN TO DOKUMENTASI */}
+        <div 
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
+          onClick={() => scrollToSection('dokumentasi')}
+        >
+          <svg className="w-5 h-5 text-[#154D71]" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+          <span className="text-[10px] tracking-widest uppercase font-bold text-[#154D71]/80">Dokumentasi</span>
         </div>
       </section>
 
