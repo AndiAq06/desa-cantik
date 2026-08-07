@@ -628,40 +628,30 @@ export default function VillageDetail() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-12">
                 {/* Visi Card */}
                 {village.vision && (
-                  <div className="bg-gradient-to-br from-[#154D71] to-[#1C6EA4] text-white rounded-2xl p-5 sm:p-6 border border-white/10 shadow-md flex flex-col justify-between hover:shadow-xl transition duration-300">
-                    <div>
-                      <div className="p-2 bg-white/10 w-fit rounded-lg mb-3">
-                        <Eye className="w-5 h-5 text-blue-200" />
-                      </div>
-                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Visi</h3>
-                      <p className="text-xs sm:text-sm text-blue-100 leading-relaxed whitespace-pre-line">
-                        {village.vision}
-                      </p>
-                    </div>
+                  <div className="bg-gradient-to-br from-[#154D71] to-[#1C6EA4] text-white rounded-2xl p-5 sm:p-6 border border-white/10 shadow-md flex flex-col justify-center hover:shadow-xl transition duration-300">
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Visi</h3>
+                    <p className="text-xs sm:text-sm text-blue-100 leading-relaxed whitespace-pre-line">
+                      {village.vision}
+                    </p>
                   </div>
                 )}
 
                 {/* Misi Card */}
                 {village.mission && village.mission.length > 0 && (
-                  <div className="bg-white text-gray-800 rounded-2xl p-5 sm:p-6 border border-blue-100 shadow-sm flex flex-col justify-between hover:shadow-md transition duration-300">
-                    <div>
-                      <div className="p-2 bg-blue-50 w-fit rounded-lg mb-3">
-                        <ListChecks className="w-5 h-5 text-[#33A1E0]" />
-                      </div>
-                      <h3 className="text-lg sm:text-xl font-bold text-[#154D71] mb-3">Misi</h3>
-                      <ol className="space-y-2">
-                        {village.mission.map((m, idx) => (
-                           <li key={idx} className="flex items-start gap-3">
-                            <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-blue-50 text-[#33A1E0] text-[10px] font-bold mt-0.5">
-                               {idx + 1}
-                            </span>
-                            <span className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                              {m}
-                            </span>
-                          </li>
-                        ))}
-                      </ol>
-                    </div>
+                  <div className="bg-white text-gray-800 rounded-2xl p-5 sm:p-6 border border-blue-100 shadow-sm flex flex-col justify-center hover:shadow-md transition duration-300">
+                    <h3 className="text-lg sm:text-xl font-bold text-[#154D71] mb-3">Misi</h3>
+                    <ol className="space-y-2">
+                      {village.mission.map((m, idx) => (
+                         <li key={idx} className="flex items-start gap-3">
+                          <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-blue-50 text-[#33A1E0] text-[10px] font-bold mt-0.5">
+                             {idx + 1}
+                          </span>
+                          <span className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                            {m}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
                   </div>
                 )}
               </div>
