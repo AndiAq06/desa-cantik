@@ -606,7 +606,7 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN TO VISI MISI */}
         <div 
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
           onClick={() => scrollToSection('publikasi')}
         >
           <svg className="w-5 h-5 text-[#154D71]" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
@@ -749,7 +749,7 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN TO DATA */}
         <div 
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
           onClick={() => scrollToSection('data')}
         >
           <svg className="w-5 h-5 text-[#154D71]" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
@@ -887,7 +887,7 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN TO PETA */}
         <div 
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
           onClick={() => scrollToSection('peta')}
         >
           <svg className="w-5 h-5 text-[#154D71]" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
@@ -1038,7 +1038,7 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN TO DOKUMENTASI */}
         <div 
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20 text-[#154D71]"
           onClick={() => scrollToSection('dokumentasi')}
         >
           <svg className="w-5 h-5 text-[#154D71]" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
