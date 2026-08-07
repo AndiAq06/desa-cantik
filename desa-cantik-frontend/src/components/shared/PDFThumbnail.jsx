@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FileText, Loader2 } from "lucide-react";
 import * as pdfjsLib from "pdfjs-dist";
 
-// Set CDN worker to match the installed package version
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/5.4.449/pdf.worker.min.js`;
+// Import worker source as a local URL via Vite asset loader
+// This prevents cross-origin worker blocks and eliminates CDN dependency
+import pdfjsWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerUrl;
 
 export default function PDFThumbnail({ pdfUrl, title, className = "" }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
@@ -23,7 +25,10 @@ export default function PDFThumbnail({ pdfUrl, title, className = "" }) {
         setLoading(true);
         setError(false);
 
-        const loadingTask = pdfjsLib.getDocument(pdfUrl);
+        const loadingTask = pdfjsLib.getDocument({
+          url: pdfUrl,
+          withCredentials: true, // Allow cookies/credentials
+        });
         const pdf = await loadingTask.promise;
 
         if (!active) return;
