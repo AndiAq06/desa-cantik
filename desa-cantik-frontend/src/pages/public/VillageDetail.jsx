@@ -32,6 +32,7 @@ import VillageDetailNavbar from "@/components/shared/VillageDetailNavbar";
 import Footer from "@/components/shared/Footer";
 import ExcelTableViewer from "@/components/shared/ExcelTableViewer";
 import ScrollReveal from "@/components/shared/ScrollReveal";
+import PDFThumbnail from "@/components/shared/PDFThumbnail";
 import logoSangkutu from "@/assets/images/logo_sangkutu.png";
 
 const monthOptions = [
@@ -613,7 +614,7 @@ export default function VillageDetail() {
           {/* VISI & MISI CARDS */}
           {(village.vision || (village.mission && village.mission.length > 0)) && (
             <ScrollReveal delay={150} duration={850}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-12">
                 {/* Visi Card */}
                 {village.vision && (
                   <div className="bg-gradient-to-br from-[#154D71] to-[#1C6EA4] text-white rounded-2xl p-5 sm:p-6 border border-white/10 shadow-md flex flex-col justify-between hover:shadow-xl transition duration-300">
@@ -698,23 +699,8 @@ export default function VillageDetail() {
                 {currentPublications.map((pub) => (
                   <Link key={pub.id} to={`/publikasi/${pub.id}`} className="group bg-white border border-gray-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 flex gap-6 items-start cursor-pointer">
                     <div className="w-24 h-32 shrink-0 bg-gray-100 rounded-lg overflow-hidden shadow-sm relative">
-                      {pub.fileUrl ? (
-                        <div className="w-full h-full pointer-events-none select-none relative">
-                          <object
-                            data={`${pub.fileUrl}#page=1&view=FitH&toolbar=0&navpanes=0&scrollbar=0`}
-                            type="application/pdf"
-                            className="w-full h-full scale-[1.05] origin-top"
-                          >
-                            <img src={pub.imageUrl} className="w-full h-full object-cover" alt="Cover" />
-                          </object>
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-20" />
-                        </div>
-                      ) : (
-                        <>
-                          <img src={pub.imageUrl} className="w-full h-full object-cover" alt="Cover" />
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                        </>
-                      )}
+                      <PDFThumbnail pdfUrl={pub.fileUrl} title={pub.title} className="w-full h-full" />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors pointer-events-none" />
                     </div>
                     <div className="flex-1 py-1">
                       <div className="flex items-center gap-2 mb-2">
