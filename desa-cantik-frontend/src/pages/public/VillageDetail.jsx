@@ -638,7 +638,7 @@ export default function VillageDetail() {
           {/* VISI & MISI CARDS */}
           {(village.vision || (village.mission && village.mission.length > 0)) && (
             <ScrollReveal delay={150} duration={850}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-12">
                 {/* Visi Card */}
                 {village.vision && (
                   <div className="bg-gradient-to-br from-[#114364]/95 via-[#154D71] to-[#1C6EA4] text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-lg flex flex-col justify-center relative overflow-hidden hover:shadow-2xl hover:shadow-[#154D71]/20 hover:-translate-y-1 transition duration-300">
