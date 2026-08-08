@@ -94,6 +94,20 @@ const getCategoryIconBg = (categoryName) => {
   return "bg-gray-500";
 };
 
+const getBadgeColor = (subject) => {
+  const sub = (subject || "").toLowerCase();
+  if (sub.includes("pemerintah") || sub.includes("hukum") || sub.includes("regulasi") || sub.includes("laporan") || sub.includes("politik")) {
+    return "bg-purple-50 text-purple-700 border-purple-100/50 hover:bg-purple-100";
+  }
+  if (sub.includes("ekonomi") || sub.includes("uang") || sub.includes("dana") || sub.includes("anggaran") || sub.includes("apb") || sub.includes("apblem") || sub.includes("kerja")) {
+    return "bg-emerald-50 text-emerald-700 border-emerald-100/50 hover:bg-emerald-100";
+  }
+  if (sub.includes("sosial") || sub.includes("didik") || sub.includes("sekolah") || sub.includes("sehat") || sub.includes("kesehatan") || sub.includes("penduduk")) {
+    return "bg-amber-50 text-amber-700 border-amber-100/50 hover:bg-amber-100";
+  }
+  return "bg-blue-50 text-blue-700 border-blue-100/50 hover:bg-blue-100";
+};
+
 // KOMPONEN MAP CONTROLLER UNTUK FIT BOUNDS
 const MapController = ({ data, visibility }) => {
   const map = useMap();
@@ -590,13 +604,23 @@ export default function VillageDetail() {
                 <p className="text-sm sm:text-lg text-gray-600 leading-relaxed mb-8">{village.description || "Belum ada deskripsi detail mengenai desa ini. Silakan hubungi admin untuk informasi lebih lanjut."}</p>
 
                 <div className="grid grid-cols-2 gap-6">
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <p className="text-xs sm:text-sm text-gray-500 mb-1">Luas Wilayah</p>
-                    <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.area || "-"} km²</p>
+                  <div className="bg-gradient-to-br from-white to-blue-50/20 p-5 rounded-2xl border border-blue-100/50 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-4">
+                    <div className="p-3 bg-blue-50/70 rounded-xl text-[#33A1E0] shrink-0">
+                      <Layers className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-400 font-medium mb-0.5">Luas Wilayah</p>
+                      <p className="text-lg sm:text-2xl font-black bg-gradient-to-r from-[#154D71] to-[#1C6EA4] bg-clip-text text-transparent">{village.area || "-"} km²</p>
+                    </div>
                   </div>
-                  <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <p className="text-xs sm:text-sm text-gray-500 mb-1">Kode Wilayah</p>
-                    <p className="text-base sm:text-xl font-bold text-[#154D71]">{village.village_code || "-"}</p>
+                  <div className="bg-gradient-to-br from-white to-blue-50/20 p-5 rounded-2xl border border-blue-100/50 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-4">
+                    <div className="p-3 bg-blue-50/70 rounded-xl text-[#33A1E0] shrink-0">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-400 font-medium mb-0.5">Kode Wilayah</p>
+                      <p className="text-lg sm:text-2xl font-black bg-gradient-to-r from-[#154D71] to-[#1C6EA4] bg-clip-text text-transparent">{village.village_code || "-"}</p>
+                    </div>
                   </div>
                 </div>
               </ScrollReveal>
@@ -628,9 +652,12 @@ export default function VillageDetail() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-12">
                 {/* Visi Card */}
                 {village.vision && (
-                  <div className="bg-gradient-to-br from-[#154D71] to-[#1C6EA4] text-white rounded-2xl p-5 sm:p-6 border border-white/10 shadow-md flex flex-col justify-center hover:shadow-xl transition duration-300">
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2">Visi</h3>
-                    <p className="text-xs sm:text-sm text-blue-100 leading-relaxed whitespace-pre-line">
+                  <div className="bg-gradient-to-br from-[#114364]/95 via-[#154D71] to-[#1C6EA4] text-white rounded-3xl p-6 sm:p-8 border border-white/10 shadow-lg flex flex-col justify-center relative overflow-hidden hover:shadow-2xl hover:shadow-[#154D71]/20 hover:-translate-y-1 transition duration-300">
+                    <div className="absolute -right-8 -bottom-8 text-white/5 pointer-events-none transform -rotate-12">
+                      <Eye className="w-48 h-48" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-3 tracking-tight relative z-10">Visi</h3>
+                    <p className="text-xs sm:text-base text-blue-50/90 leading-relaxed whitespace-pre-line relative z-10 font-medium">
                       {village.vision}
                     </p>
                   </div>
@@ -638,15 +665,18 @@ export default function VillageDetail() {
 
                 {/* Misi Card */}
                 {village.mission && village.mission.length > 0 && (
-                  <div className="bg-white text-gray-800 rounded-2xl p-5 sm:p-6 border border-blue-100 shadow-sm flex flex-col justify-center hover:shadow-md transition duration-300">
-                    <h3 className="text-lg sm:text-xl font-bold text-[#154D71] mb-3">Misi</h3>
-                    <ol className="space-y-2">
+                  <div className="bg-white/90 backdrop-blur-md text-gray-800 rounded-3xl p-6 sm:p-8 border border-blue-100/50 shadow-sm flex flex-col justify-center relative overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                    <div className="absolute -right-8 -bottom-8 text-blue-50 pointer-events-none transform -rotate-12">
+                      <ListChecks className="w-48 h-48" />
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-extrabold text-[#154D71] mb-4 tracking-tight relative z-10">Misi</h3>
+                    <ol className="space-y-3 relative z-10">
                       {village.mission.map((m, idx) => (
-                         <li key={idx} className="flex items-start gap-3">
-                          <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-full bg-blue-50 text-[#33A1E0] text-[10px] font-bold mt-0.5">
+                         <li key={idx} className="flex items-start gap-3.5 group/item">
+                          <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-lg bg-gradient-to-br from-[#154D71] to-[#33A1E0] text-white text-xs font-black shadow-sm group-hover/item:scale-110 transition-transform duration-300 mt-0.5">
                              {idx + 1}
                           </span>
-                          <span className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                          <span className="text-xs sm:text-sm text-gray-600 leading-relaxed font-medium">
                             {m}
                           </span>
                         </li>
@@ -698,23 +728,29 @@ export default function VillageDetail() {
             {currentPublications.length > 0 ? (
               <div className="grid md:grid-cols-2 gap-6">
                 {currentPublications.map((pub) => (
-                  <Link key={pub.id} to={`/publikasi/${pub.id}`} className="group bg-white border border-gray-100 rounded-2xl p-4 hover:shadow-xl transition-all duration-300 flex gap-6 items-start cursor-pointer">
-                    <div className="w-24 h-32 shrink-0 bg-gray-100 rounded-lg overflow-hidden shadow-sm relative">
+                  <Link key={pub.id} to={`/publikasi/${pub.id}`} className="group bg-white border border-gray-150 rounded-3xl p-5 hover:shadow-2xl hover:border-blue-150 transition-all duration-500 flex gap-6 items-stretch cursor-pointer hover:-translate-y-0.5">
+                    <div className="w-24 h-32 shrink-0 bg-gray-150 rounded-r-md overflow-hidden relative shadow-[2px_4px_8px_rgba(0,0,0,0.15)] group-hover:shadow-[4px_8px_16px_rgba(0,0,0,0.2)] group-hover:scale-[1.04] group-hover:-rotate-1 transition-all duration-300">
                       <PDFThumbnail pdfUrl={pub.fileUrl} title={pub.title} className="w-full h-full" />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors pointer-events-none" />
+                      {/* Book spine crease shadow */}
+                      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-r from-black/20 via-black/5 to-transparent z-10" />
+                      {/* Book page edge stack */}
+                      <div className="absolute right-0 top-0.5 bottom-0.5 w-[2px] bg-slate-100/60 z-10 rounded-r shadow-[1px_0_1px_rgba(0,0,0,0.05)]" />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors pointer-events-none z-20" />
                     </div>
-                    <div className="flex-1 py-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge variant="secondary" className="text-[10px] bg-blue-50 text-blue-600 hover:bg-blue-100">
-                          {pub.subject}
-                        </Badge>
-                        <span className="text-xs text-gray-400 flex items-center gap-1">
-                          <CalendarDays className="w-3 h-3" /> {pub.date}
-                        </span>
+                    <div className="flex-1 flex flex-col justify-between py-0.5">
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge variant="outline" className={cn("text-[9px] uppercase tracking-wider font-extrabold px-2 py-0.5 border shadow-[0_1px_2px_rgba(0,0,0,0.02)] transition-colors duration-300", getBadgeColor(pub.subject))}>
+                            {pub.subject}
+                          </Badge>
+                          <span className="text-xs text-gray-400 flex items-center gap-1 font-medium">
+                            <CalendarDays className="w-3.5 h-3.5" /> {pub.date}
+                          </span>
+                        </div>
+                        <h3 className="font-bold text-[#154D71] text-base sm:text-lg leading-snug mb-3 line-clamp-2 group-hover:text-[#33A1E0] transition-colors duration-300">{pub.title}</h3>
                       </div>
-                      <h3 className="font-bold text-[#154D71] text-lg leading-tight mb-4 line-clamp-2 group-hover:text-[#33A1E0] transition-colors">{pub.title}</h3>
-                      <div className="inline-flex items-center text-sm font-medium text-[#33A1E0] group-hover:text-[#154D71]">
-                        Lihat Detail <ArrowRight className="w-4 h-4 ml-1" />
+                      <div className="inline-flex items-center text-xs font-bold text-[#33A1E0] group-hover:text-[#154D71] transition-colors duration-300 mt-2">
+                        Lihat Detail <ArrowRight className="w-3.5 h-3.5 ml-1 transform group-hover:translate-x-1.5 transition-transform duration-300" />
                       </div>
                     </div>
                   </Link>
@@ -1104,25 +1140,26 @@ export default function VillageDetail() {
                       ).map((doc, index) => (
                         <div
                           key={`${doc.id}-${index}`}
-                          className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm flex-shrink-0 w-[280px] sm:w-[320px] flex flex-col group hover:shadow-md transition-shadow duration-300"
+                          className="bg-white rounded-3xl border border-blue-50/30 overflow-hidden shadow-sm flex-shrink-0 w-[280px] sm:w-[320px] flex flex-col group hover:shadow-xl hover:border-blue-100/50 transition-all duration-500 hover:-translate-y-1"
                         >
                           {/* Image Container */}
                           <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
                             <img 
                               src={doc.image_url} 
                               alt={doc.description || doc.title || 'Dokumentasi'}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
                             />
-                            <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
+                            <span className="absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-md text-[#154D71] border border-blue-100/50 text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full z-20 shadow-sm">
                               {getBadgeText(doc)}
                             </span>
+                            <div className="absolute inset-0 bg-[#154D71]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
                           </div>
                           {/* Content Container */}
-                          <div className="p-4 flex-1 flex flex-col justify-start">
-                            <span className="text-slate-800 font-semibold text-xs mb-1.5 block">
+                          <div className="p-5 flex-1 flex flex-col justify-start">
+                            <span className="text-gray-400 font-bold text-xs mb-1.5 block">
                               {formatDate(doc.created_at || doc.date) || "2026-07-30"}
                             </span>
-                            <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
+                            <h3 className="font-bold text-[#154D71] group-hover:text-[#1C6EA4] text-sm leading-relaxed line-clamp-2 transition-colors duration-300">
                               {doc.description || doc.title || "Kegiatan Pembinaan"}
                             </h3>
                           </div>
@@ -1132,24 +1169,25 @@ export default function VillageDetail() {
                   </>
                 ) : (
                   // Single photo layout
-                  <div className="max-w-md mx-auto bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm flex flex-col">
+                  <div className="max-w-md mx-auto bg-white rounded-3xl border border-blue-50/30 overflow-hidden shadow-sm flex flex-col group hover:shadow-xl hover:border-blue-100/50 transition-all duration-500 hover:-translate-y-1">
                     {/* Image Container */}
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 shrink-0">
                       <img 
                         src={documentation[0].image_url} 
                         alt={documentation[0].description || documentation[0].title || 'Dokumentasi'}
-                        className="w-full h-full object-cover" 
+                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
                       />
-                      <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
+                      <span className="absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-md text-[#154D71] border border-blue-100/50 text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full z-20 shadow-sm">
                         {getBadgeText(documentation[0])}
                       </span>
+                      <div className="absolute inset-0 bg-[#154D71]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
                     </div>
                     {/* Content Container */}
-                    <div className="p-4 flex-1 flex flex-col justify-start">
-                      <span className="text-slate-800 font-semibold text-xs mb-1.5 block">
+                    <div className="p-5 flex-1 flex flex-col justify-start">
+                      <span className="text-gray-400 font-bold text-xs mb-1.5 block">
                         {formatDate(documentation[0].created_at || documentation[0].date) || "2026-07-30"}
                       </span>
-                      <h3 className="font-bold text-slate-800 text-sm leading-snug line-clamp-2">
+                      <h3 className="font-bold text-[#154D71] group-hover:text-[#1C6EA4] text-sm leading-relaxed line-clamp-2 transition-colors duration-300">
                         {documentation[0].description || documentation[0].title || "Kegiatan Pembinaan"}
                       </h3>
                     </div>
