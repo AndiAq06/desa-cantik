@@ -636,31 +636,31 @@ export default function VillageDetail() {
       {/* VISI, MISI & PUBLIKASI */}
       <section
         id="publikasi"
-        className="relative min-h-[calc(100vh-80px)] py-6 sm:py-8 bg-gray-50 border-t border-gray-100 flex items-center"
+        className="relative min-h-[calc(100vh-80px)] py-10 sm:py-14 bg-gray-50 border-t border-gray-100 flex items-center"
       >
         <div className="container mx-auto px-6 w-full">
           {(village.vision || (village.mission && village.mission.length > 0)) && (
             <ScrollReveal delay={150} duration={850}>
               <div className={cn(
                 "grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch",
-                isAnyLong ? "mb-12" : "mb-20"
+                isAnyLong ? "mb-14" : "mb-24"
               )}>
                 {/* Visi Card */}
                 {village.vision && (
                   <div className={cn(
                     "bg-gradient-to-br from-[#114364]/95 via-[#154D71] to-[#1C6EA4] text-white rounded-3xl border border-white/10 shadow-lg flex flex-col justify-center relative overflow-hidden hover:shadow-2xl hover:shadow-[#154D71]/20 hover:-translate-y-1 transition duration-300",
-                    isLongVision ? "p-4 sm:p-5" : "p-6 sm:p-8"
+                    isLongVision ? "p-5 sm:p-6" : "p-8 sm:p-10"
                   )}>
                     <div className="absolute -right-8 -bottom-8 text-white/5 pointer-events-none transform -rotate-12">
                       <Eye className="w-48 h-48" />
                     </div>
                     <h3 className={cn(
                       "font-bold text-white tracking-tight relative z-10",
-                      isLongVision ? "text-lg sm:text-xl mb-2" : "text-xl sm:text-2xl mb-3"
+                      isLongVision ? "text-xl sm:text-2xl mb-3" : "text-2xl sm:text-3xl mb-5"
                     )}>Visi</h3>
                     <p className={cn(
                       "text-blue-50/90 leading-relaxed whitespace-pre-line relative z-10 font-medium",
-                      isLongVision ? "text-xs sm:text-sm" : "text-sm sm:text-base"
+                      isLongVision ? "text-sm sm:text-base" : "text-base sm:text-[18px]"
                     )}>
                       {village.vision}
                     </p>
@@ -671,33 +671,33 @@ export default function VillageDetail() {
                 {village.mission && village.mission.length > 0 && (
                   <div className={cn(
                     "bg-white/90 backdrop-blur-md text-gray-800 rounded-3xl border border-blue-100/50 shadow-sm flex flex-col justify-center relative overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300",
-                    isLongMission ? "p-4 sm:p-5" : "p-6 sm:p-8"
+                    isLongMission ? "p-5 sm:p-6" : "p-8 sm:p-10"
                   )}>
                     <div className="absolute -right-8 -bottom-8 text-blue-50 pointer-events-none transform -rotate-12">
                       <ListChecks className="w-48 h-48" />
                     </div>
                     <h3 className={cn(
                       "font-bold text-[#154D71] tracking-tight relative z-10",
-                      isLongMission ? "text-lg sm:text-xl mb-2" : "text-xl sm:text-2xl mb-4"
+                      isLongMission ? "text-xl sm:text-2xl mb-3" : "text-2xl sm:text-3xl mb-5"
                     )}>Misi</h3>
                     <ol className={cn(
                       "relative z-10",
-                      isLongMission ? "space-y-1.5" : "space-y-3"
+                      isLongMission ? "space-y-2" : "space-y-4"
                     )}>
                       {village.mission.map((m, idx) => (
                          <li key={idx} className={cn(
                            "flex items-start group/item",
-                           isLongMission ? "gap-2.5" : "gap-3.5"
+                           isLongMission ? "gap-3" : "gap-4"
                          )}>
                           <span className={cn(
                             "flex-shrink-0 flex items-center justify-center rounded-lg bg-gradient-to-br from-[#154D71] to-[#33A1E0] text-white font-black shadow-sm group-hover/item:scale-110 transition-transform duration-300 mt-0.5",
-                            isLongMission ? "w-5 h-5 text-[10px]" : "w-6 h-6 text-xs"
+                            isLongMission ? "w-6 h-6 text-xs" : "w-8 h-8 text-sm"
                           )}>
                              {idx + 1}
                           </span>
                           <span className={cn(
                             "text-gray-600 leading-relaxed font-medium",
-                            isLongMission ? "text-xs sm:text-[13px]" : "text-xs sm:text-sm"
+                            isLongMission ? "text-xs sm:text-sm" : "text-sm sm:text-base"
                           )}>
                             {m}
                           </span>
