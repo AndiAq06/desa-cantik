@@ -97,7 +97,7 @@ const getCategoryIconBg = (categoryName) => {
 const getBadgeColor = (subject) => {
   const sub = (subject || "").toLowerCase();
   if (sub.includes("pemerintah") || sub.includes("hukum") || sub.includes("regulasi") || sub.includes("laporan") || sub.includes("politik")) {
-    return "bg-purple-50 text-purple-700 border-purple-100/50 hover:bg-purple-100";
+    return "bg-orange-50 text-[#f37021] border-orange-100/40 hover:bg-orange-100";
   }
   if (sub.includes("ekonomi") || sub.includes("uang") || sub.includes("dana") || sub.includes("anggaran") || sub.includes("apb") || sub.includes("apblem") || sub.includes("kerja")) {
     return "bg-emerald-50 text-emerald-700 border-emerald-100/50 hover:bg-emerald-100";
