@@ -629,23 +629,24 @@ export default function VillageDetail() {
         </div>
       </section>
 
-      {/* VISI & MISI */}
-      {(village.vision || (village.mission && village.mission.length > 0)) && (
-        <section
-          id="visi-misi"
-          className="relative min-h-[calc(100vh-80px)] py-12 sm:py-16 bg-gray-50 border-t border-gray-100 flex items-center"
-        >
-          <div className="container mx-auto px-6 w-full">
+      {/* VISI, MISI & PUBLIKASI */}
+      <section
+        id="publikasi"
+        className="relative min-h-[calc(100vh-80px)] py-6 sm:py-8 bg-gray-50 border-t border-gray-100 flex items-center"
+      >
+        <div className="container mx-auto px-6 w-full">
+          {/* VISI & MISI CARDS */}
+          {(village.vision || (village.mission && village.mission.length > 0)) && (
             <ScrollReveal delay={150} duration={850}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-6">
                 {/* Visi Card */}
                 {village.vision && (
-                  <div className="bg-gradient-to-br from-[#114364]/95 via-[#154D71] to-[#1C6EA4] text-white rounded-3xl p-6 sm:p-8 border border-white/10 shadow-lg flex flex-col justify-center relative overflow-hidden hover:shadow-2xl hover:shadow-[#154D71]/20 hover:-translate-y-1 transition duration-300">
+                  <div className="bg-gradient-to-br from-[#114364]/95 via-[#154D71] to-[#1C6EA4] text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-lg flex flex-col justify-center relative overflow-hidden hover:shadow-2xl hover:shadow-[#154D71]/20 hover:-translate-y-1 transition duration-300">
                     <div className="absolute -right-8 -bottom-8 text-white/5 pointer-events-none transform -rotate-12">
                       <Eye className="w-48 h-48" />
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-3 tracking-tight relative z-10">Visi</h3>
-                    <p className="text-xs sm:text-base text-blue-50/90 leading-relaxed whitespace-pre-line relative z-10 font-medium">
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 tracking-tight relative z-10">Visi</h3>
+                    <p className="text-xs sm:text-sm text-blue-50/90 leading-relaxed whitespace-pre-line relative z-10 font-medium">
                       {village.vision}
                     </p>
                   </div>
@@ -653,18 +654,18 @@ export default function VillageDetail() {
 
                 {/* Misi Card */}
                 {village.mission && village.mission.length > 0 && (
-                  <div className="bg-white/90 backdrop-blur-md text-gray-800 rounded-3xl p-6 sm:p-8 border border-blue-100/50 shadow-sm flex flex-col justify-center relative overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                  <div className="bg-white/90 backdrop-blur-md text-gray-800 rounded-3xl p-4 sm:p-5 border border-blue-100/50 shadow-sm flex flex-col justify-center relative overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300">
                     <div className="absolute -right-8 -bottom-8 text-blue-50 pointer-events-none transform -rotate-12">
                       <ListChecks className="w-48 h-48" />
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-[#154D71] mb-4 tracking-tight relative z-10">Misi</h3>
-                    <ol className="space-y-3 relative z-10">
+                    <h3 className="text-lg sm:text-xl font-bold text-[#154D71] mb-2 tracking-tight relative z-10">Misi</h3>
+                    <ol className="space-y-1.5 relative z-10">
                       {village.mission.map((m, idx) => (
-                         <li key={idx} className="flex items-start gap-3.5 group/item">
-                          <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-lg bg-gradient-to-br from-[#154D71] to-[#33A1E0] text-white text-xs font-black shadow-sm group-hover/item:scale-110 transition-transform duration-300 mt-0.5">
+                         <li key={idx} className="flex items-start gap-2.5 group/item">
+                          <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-lg bg-gradient-to-br from-[#154D71] to-[#33A1E0] text-white text-[10px] font-black shadow-sm group-hover/item:scale-110 transition-transform duration-300 mt-0.5">
                              {idx + 1}
                           </span>
-                          <span className="text-xs sm:text-sm text-gray-600 leading-relaxed font-medium">
+                          <span className="text-xs sm:text-[13px] text-gray-650 leading-relaxed font-medium">
                             {m}
                           </span>
                         </li>
@@ -674,18 +675,11 @@ export default function VillageDetail() {
                 )}
               </div>
             </ScrollReveal>
-          </div>
-        </section>
-      )}
+          )}
 
-      {/* PUBLIKASI */}
-      <section
-        id="publikasi"
-        className="relative min-h-[calc(100vh-80px)] py-12 sm:py-16 bg-white border-t border-gray-100 flex items-center"
-      >
-        <div className="container mx-auto px-6 w-full">
+          {/* PUBLIKASI CONTENT */}
           <div>
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-4 gap-6">
               <ScrollReveal>
                 <div>
                   <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2">Publikasi Desa</h2>
@@ -723,8 +717,8 @@ export default function VillageDetail() {
             {currentPublications.length > 0 ? (
               <div className="grid md:grid-cols-2 gap-6">
                 {currentPublications.map((pub) => (
-                  <Link key={pub.id} to={`/publikasi/${pub.id}`} className="group bg-white border border-gray-150 rounded-3xl p-5 hover:shadow-2xl hover:border-blue-150 transition-all duration-500 flex gap-6 items-stretch cursor-pointer hover:-translate-y-0.5">
-                    <div className="w-24 h-32 shrink-0 bg-gray-150 rounded-r-md overflow-hidden relative shadow-[2px_4px_8px_rgba(0,0,0,0.15)] group-hover:shadow-[4px_8px_16px_rgba(0,0,0,0.2)] group-hover:scale-[1.04] group-hover:-rotate-1 transition-all duration-300">
+                  <Link key={pub.id} to={`/publikasi/${pub.id}`} className="group bg-white border border-gray-150 rounded-3xl p-3.5 hover:shadow-2xl hover:border-blue-150 transition-all duration-500 flex gap-4 items-stretch cursor-pointer hover:-translate-y-0.5">
+                    <div className="w-20 h-28 shrink-0 bg-gray-150 rounded-r-md overflow-hidden relative shadow-[2px_4px_8px_rgba(0,0,0,0.15)] group-hover:shadow-[4px_8px_16px_rgba(0,0,0,0.2)] group-hover:scale-[1.04] group-hover:-rotate-1 transition-all duration-300">
                       <PDFThumbnail pdfUrl={pub.fileUrl} title={pub.title} className="w-full h-full" />
                       {/* Book spine crease shadow */}
                       <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-r from-black/20 via-black/5 to-transparent z-10" />
@@ -734,17 +728,17 @@ export default function VillageDetail() {
                     </div>
                     <div className="flex-1 flex flex-col justify-between py-0.5">
                       <div>
-                        <div className="flex items-center gap-2 mb-2">
-                          <Badge variant="outline" className={cn("text-[9px] uppercase tracking-wider font-extrabold px-2 py-0.5 border shadow-[0_1px_2px_rgba(0,0,0,0.02)] transition-colors duration-300", getBadgeColor(pub.subject))}>
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <Badge variant="outline" className={cn("text-[9px] uppercase tracking-wider font-extrabold px-1.5 py-0.5 border shadow-[0_1px_2px_rgba(0,0,0,0.02)] transition-colors duration-300", getBadgeColor(pub.subject))}>
                             {pub.subject}
                           </Badge>
-                          <span className="text-xs text-gray-400 flex items-center gap-1 font-medium">
+                          <span className="text-[11px] text-gray-400 flex items-center gap-1 font-medium">
                             <CalendarDays className="w-3.5 h-3.5" /> {pub.date}
                           </span>
                         </div>
-                        <h3 className="font-bold text-[#154D71] text-base sm:text-lg leading-snug mb-3 line-clamp-2 group-hover:text-[#33A1E0] transition-colors duration-300">{pub.title}</h3>
+                        <h3 className="font-bold text-[#154D71] text-sm sm:text-base leading-snug mb-1.5 line-clamp-2 group-hover:text-[#33A1E0] transition-colors duration-300">{pub.title}</h3>
                       </div>
-                      <div className="inline-flex items-center text-xs font-bold text-[#33A1E0] group-hover:text-[#154D71] transition-colors duration-300 mt-2">
+                      <div className="inline-flex items-center text-xs font-bold text-[#33A1E0] group-hover:text-[#154D71] transition-colors duration-300 mt-1">
                         Lihat Detail <ArrowRight className="w-3.5 h-3.5 ml-1 transform group-hover:translate-x-1.5 transition-transform duration-300" />
                       </div>
                     </div>
