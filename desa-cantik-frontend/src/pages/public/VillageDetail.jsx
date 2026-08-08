@@ -497,6 +497,9 @@ export default function VillageDetail() {
   if (loading) return <div className="h-screen flex items-center justify-center text-[#154D71] font-medium animate-pulse">Memuat data desa...</div>;
   if (!village) return <div className="h-screen flex items-center justify-center text-red-500">Data desa tidak ditemukan.</div>;
 
+  const totalLengthScore = (village?.vision || "").length + (village?.mission || []).reduce((sum, m) => sum + (m || "").length, 0);
+  const isLongMode = totalLengthScore > 900 || (village?.mission || []).length >= 7;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <style>{`
@@ -638,15 +641,27 @@ export default function VillageDetail() {
           {/* VISI & MISI CARDS */}
           {(village.vision || (village.mission && village.mission.length > 0)) && (
             <ScrollReveal delay={150} duration={850}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-12">
+              <div className={cn(
+                "grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch",
+                isLongMode ? "mb-12" : "mb-20"
+              )}>
                 {/* Visi Card */}
                 {village.vision && (
-                  <div className="bg-gradient-to-br from-[#114364]/95 via-[#154D71] to-[#1C6EA4] text-white rounded-3xl p-4 sm:p-5 border border-white/10 shadow-lg flex flex-col justify-center relative overflow-hidden hover:shadow-2xl hover:shadow-[#154D71]/20 hover:-translate-y-1 transition duration-300">
+                  <div className={cn(
+                    "bg-gradient-to-br from-[#114364]/95 via-[#154D71] to-[#1C6EA4] text-white rounded-3xl border border-white/10 shadow-lg flex flex-col justify-center relative overflow-hidden hover:shadow-2xl hover:shadow-[#154D71]/20 hover:-translate-y-1 transition duration-300",
+                    isLongMode ? "p-4 sm:p-5" : "p-6 sm:p-8"
+                  )}>
                     <div className="absolute -right-8 -bottom-8 text-white/5 pointer-events-none transform -rotate-12">
                       <Eye className="w-48 h-48" />
                     </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 tracking-tight relative z-10">Visi</h3>
-                    <p className="text-xs sm:text-sm text-blue-50/90 leading-relaxed whitespace-pre-line relative z-10 font-medium">
+                    <h3 className={cn(
+                      "font-bold text-white tracking-tight relative z-10",
+                      isLongMode ? "text-lg sm:text-xl mb-2" : "text-xl sm:text-2xl mb-3"
+                    )}>Visi</h3>
+                    <p className={cn(
+                      "text-blue-50/90 leading-relaxed whitespace-pre-line relative z-10 font-medium",
+                      isLongMode ? "text-xs sm:text-sm" : "text-sm sm:text-base"
+                    )}>
                       {village.vision}
                     </p>
                   </div>
@@ -654,18 +669,36 @@ export default function VillageDetail() {
 
                 {/* Misi Card */}
                 {village.mission && village.mission.length > 0 && (
-                  <div className="bg-white/90 backdrop-blur-md text-gray-800 rounded-3xl p-4 sm:p-5 border border-blue-100/50 shadow-sm flex flex-col justify-center relative overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300">
+                  <div className={cn(
+                    "bg-white/90 backdrop-blur-md text-gray-800 rounded-3xl border border-blue-100/50 shadow-sm flex flex-col justify-center relative overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300",
+                    isLongMode ? "p-4 sm:p-5" : "p-6 sm:p-8"
+                  )}>
                     <div className="absolute -right-8 -bottom-8 text-blue-50 pointer-events-none transform -rotate-12">
                       <ListChecks className="w-48 h-48" />
                     </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-[#154D71] mb-2 tracking-tight relative z-10">Misi</h3>
-                    <ol className="space-y-1.5 relative z-10">
+                    <h3 className={cn(
+                      "font-bold text-[#154D71] tracking-tight relative z-10",
+                      isLongMode ? "text-lg sm:text-xl mb-2" : "text-xl sm:text-2xl mb-4"
+                    )}>Misi</h3>
+                    <ol className={cn(
+                      "relative z-10",
+                      isLongMode ? "space-y-1.5" : "space-y-3"
+                    )}>
                       {village.mission.map((m, idx) => (
-                         <li key={idx} className="flex items-start gap-2.5 group/item">
-                          <span className="flex-shrink-0 flex items-center justify-center w-5 h-5 rounded-lg bg-gradient-to-br from-[#154D71] to-[#33A1E0] text-white text-[10px] font-black shadow-sm group-hover/item:scale-110 transition-transform duration-300 mt-0.5">
+                         <li key={idx} className={cn(
+                           "flex items-start group/item",
+                           isLongMode ? "gap-2.5" : "gap-3.5"
+                         )}>
+                          <span className={cn(
+                            "flex-shrink-0 flex items-center justify-center rounded-lg bg-gradient-to-br from-[#154D71] to-[#33A1E0] text-white font-black shadow-sm group-hover/item:scale-110 transition-transform duration-300 mt-0.5",
+                            isLongMode ? "w-5 h-5 text-[10px]" : "w-6 h-6 text-xs"
+                          )}>
                              {idx + 1}
                           </span>
-                          <span className="text-xs sm:text-[13px] text-gray-650 leading-relaxed font-medium">
+                          <span className={cn(
+                            "text-gray-600 leading-relaxed font-medium",
+                            isLongMode ? "text-xs sm:text-[13px]" : "text-xs sm:text-sm"
+                          )}>
                             {m}
                           </span>
                         </li>
