@@ -497,8 +497,9 @@ export default function VillageDetail() {
   if (loading) return <div className="h-screen flex items-center justify-center text-[#154D71] font-medium animate-pulse">Memuat data desa...</div>;
   if (!village) return <div className="h-screen flex items-center justify-center text-red-500">Data desa tidak ditemukan.</div>;
 
-  const totalLengthScore = (village?.vision || "").length + (village?.mission || []).reduce((sum, m) => sum + (m || "").length, 0);
-  const isLongMode = totalLengthScore > 900 || (village?.mission || []).length >= 7;
+  const isLongVision = (village?.vision || "").length > 180;
+  const isLongMission = (village?.mission || []).length >= 7 || (village?.mission || []).reduce((sum, m) => sum + (m || "").length, 0) > 450;
+  const isAnyLong = isLongVision || isLongMission;
 
   return (
     <div className="min-h-screen bg-gray-50">
