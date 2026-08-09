@@ -834,8 +834,7 @@ export default function VillageDetail() {
         </div>
       </section>
 
-      {/* DATA STATISTIK */}
-      <section id="data" className="relative min-h-[calc(100vh-80px)] flex items-center bg-white py-12 sm:py-16">
+      <section id="data" className="relative min-h-[calc(100vh-80px)] pt-6 sm:pt-8 pb-20 sm:pb-24 bg-white flex flex-col justify-start">
         <div className="container mx-auto px-6 w-full">
           <ScrollReveal>
             <div className="text-center max-w-3xl mx-auto mb-12">
