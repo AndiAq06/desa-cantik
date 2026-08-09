@@ -1138,9 +1138,6 @@ export default function VillageDetail() {
                               alt={doc.description || doc.title || 'Dokumentasi'}
                               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
                             />
-                            <span className="absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-md text-[#154D71] border border-blue-100/50 text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full z-20 shadow-sm">
-                              {getBadgeText(doc)}
-                            </span>
                             <div className="absolute inset-0 bg-[#154D71]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
                           </div>
                           {/* Content Container */}
@@ -1166,9 +1163,6 @@ export default function VillageDetail() {
                         alt={documentation[0].description || documentation[0].title || 'Dokumentasi'}
                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
                       />
-                      <span className="absolute top-3.5 left-3.5 bg-white/90 backdrop-blur-md text-[#154D71] border border-blue-100/50 text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full z-20 shadow-sm">
-                        {getBadgeText(documentation[0])}
-                      </span>
                       <div className="absolute inset-0 bg-[#154D71]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
                     </div>
                     {/* Content Container */}

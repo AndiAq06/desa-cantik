@@ -7,8 +7,27 @@ import Footer from "@/components/shared/Footer";
 import VillageDetailNavbar from "@/components/shared/VillageDetailNavbar";
 
 export default function VillageGallery() {
-  const { slug } = useParams(); // URL path has slug (it could be id or slug, we map to ID in router)
-  const id = slug; // Router maps path="/desa/:slug/galeri"
+  const { slug: paramSlug } = useParams();
+
+  const getSubdomain = () => {
+    const hostname = window.location.hostname;
+    if (/^[0-9.]+$/.test(hostname)) {
+      return null;
+    }
+    const parts = hostname.split('.');
+    const isTwoPartTld = parts[parts.length - 2] === 'co' || parts[parts.length - 2] === 'web' || parts[parts.length - 2] === 'go';
+    const minPartsForSubdomain = isTwoPartTld ? 4 : 3;
+
+    if (parts.length < minPartsForSubdomain || parts[0] === 'www' || parts[0] === 'api') {
+      return null;
+    }
+    return parts[0];
+  };
+
+  const subdomain = getSubdomain();
+  const slug = paramSlug || subdomain;
+  const id = slug;
+
   const [village, setVillage] = useState(null);
   const [documentation, setDocumentation] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -94,7 +113,7 @@ export default function VillageGallery() {
           {/* Back Navigation Button */}
           <div className="mb-8">
             <Link
-              to={`/desa/${id}`}
+              to={subdomain ? "/" : `/desa/${id}`}
               className="inline-flex items-center gap-2 text-sm text-[#1C6EA4] hover:text-[#154D71] font-semibold transition-all hover:underline"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -131,9 +150,6 @@ export default function VillageGallery() {
                       alt={doc.description || doc.title || "Dokumentasi"}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <span className="absolute top-3 left-3 bg-slate-900/75 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-md z-20">
-                      {getBadgeText(doc)}
-                    </span>
                   </div>
                   {/* Content Container */}
                   <div className="p-4 sm:p-5 flex-1 flex flex-col justify-start">
