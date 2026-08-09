@@ -27,7 +27,7 @@ export default function PDFThumbnail({ pdfUrl, title, className = "" }) {
 
         const loadingTask = pdfjsLib.getDocument({
           url: pdfUrl,
-          withCredentials: true, // Allow cookies/credentials
+          withCredentials: false, // Disable credentials to allow Access-Control-Allow-Origin: *
         });
         const pdf = await loadingTask.promise;
 
