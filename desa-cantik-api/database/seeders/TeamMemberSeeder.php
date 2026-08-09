@@ -20,7 +20,7 @@ class TeamMemberSeeder extends Seeder
                 'display_order' => 1,
             ],
             [
-                'name' => 'Antonius Parupan',
+                'name' => 'Antonius Parupang',
                 'role' => 'BPS Toraja Utara',
                 'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=KT',
                 'display_order' => 2,

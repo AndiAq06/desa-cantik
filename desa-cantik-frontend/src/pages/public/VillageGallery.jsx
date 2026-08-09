@@ -51,10 +51,10 @@ export default function VillageGallery() {
 
   useEffect(() => {
     const loadDocs = async () => {
-      if (!id) return;
+      if (!village?.id) return;
       try {
         setLoadingDocs(true);
-        const docs = await documentationService.getDocumentationByVillage(id);
+        const docs = await documentationService.getVillageDocumentation(village.id);
         setDocumentation(docs || []);
       } catch (err) {
         console.error("Gagal memuat dokumentasi:", err);
@@ -63,7 +63,7 @@ export default function VillageGallery() {
       }
     };
     loadDocs();
-  }, [id]);
+  }, [village?.id]);
 
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
