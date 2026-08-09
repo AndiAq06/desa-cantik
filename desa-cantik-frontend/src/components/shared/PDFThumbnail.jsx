@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FileText, Loader2 } from "lucide-react";
 import * as pdfjsLib from "pdfjs-dist";
 
-// Import worker source as a local URL via Vite asset loader
-// This prevents cross-origin worker blocks and eliminates CDN dependency
-import pdfjsWorkerUrl from "pdfjs-dist/build/pdf.worker.min.mjs?url";
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerUrl;
+// Import and instantiate the worker inline to bypass Nginx static file routing and CORS issues
+import PDFWorker from "pdfjs-dist/build/pdf.worker.min.mjs?worker";
+try {
+  pdfjsLib.GlobalWorkerOptions.workerPort = new PDFWorker();
+} catch (e) {
+  console.warn("Failed to initialize PDFJS inline worker, falling back...", e);
+}
 
 export default function PDFThumbnail({ pdfUrl, title, className = "" }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
@@ -25,8 +28,14 @@ export default function PDFThumbnail({ pdfUrl, title, className = "" }) {
         setLoading(true);
         setError(false);
 
+        // Normalize insecure http URL to https on secure environments to prevent Mixed Content block
+        let targetUrl = pdfUrl;
+        if (targetUrl && targetUrl.startsWith("http://") && window.location.protocol === "https:") {
+          targetUrl = targetUrl.replace("http://", "https://");
+        }
+
         const loadingTask = pdfjsLib.getDocument({
-          url: pdfUrl,
+          url: targetUrl,
           withCredentials: false, // Disable credentials to allow Access-Control-Allow-Origin: *
         });
         const pdf = await loadingTask.promise;
