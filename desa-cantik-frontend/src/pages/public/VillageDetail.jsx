@@ -631,6 +631,17 @@ export default function VillageDetail() {
             </div>
           </div>
         </div>
+
+        {/* SCROLL DOWN INDICATOR */}
+        <div 
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity z-20"
+          onClick={() => scrollToSection('publikasi')}
+        >
+          <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400">Visi Misi & Publikasi</span>
+          <svg className="w-4 h-4 text-gray-400" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </div>
       </section>
 
       {/* VISI, MISI & PUBLIKASI */}
@@ -804,6 +815,17 @@ export default function VillageDetail() {
             )}
           </div>
         </div>
+
+        {/* SCROLL DOWN INDICATOR */}
+        <div 
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity z-20"
+          onClick={() => scrollToSection('data')}
+        >
+          <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400">Data Statistik</span>
+          <svg className="w-4 h-4 text-gray-400" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </div>
       </section>
 
       {/* DATA STATISTIK */}
@@ -930,6 +952,17 @@ export default function VillageDetail() {
               <p className="text-gray-500 max-w-md mx-auto">Data statistik untuk desa ini sedang dalam proses pengumpulan dan verifikasi.</p>
             </div>
           )}
+        </div>
+
+        {/* SCROLL DOWN INDICATOR */}
+        <div 
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity z-20"
+          onClick={() => scrollToSection('peta')}
+        >
+          <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400">Peta Tematik</span>
+          <svg className="w-4 h-4 text-gray-400" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
         </div>
       </section>
 
@@ -1070,6 +1103,17 @@ export default function VillageDetail() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* SCROLL DOWN INDICATOR */}
+        <div 
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity z-20"
+          onClick={() => scrollToSection('dokumentasi')}
+        >
+          <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400">Dokumentasi Kegiatan</span>
+          <svg className="w-4 h-4 text-gray-400" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
         </div>
       </section>
 
