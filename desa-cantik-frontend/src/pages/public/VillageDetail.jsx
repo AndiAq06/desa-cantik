@@ -975,16 +975,16 @@ export default function VillageDetail() {
       </section>
 
       {/* PETA TEMATIK */}
-      <section id="peta" className="relative min-h-[calc(100vh-80px)] flex items-center bg-gray-50 py-16 sm:py-24">
+      <section id="peta" className="relative min-h-[calc(100vh-80px)] flex items-center bg-gray-50 py-6 sm:py-10">
         <div className="container mx-auto px-6 w-full">
           <ScrollReveal>
-            <div className="mb-10">
+            <div className="mb-6">
               <h2 className="text-2xl sm:text-4xl font-bold text-[#154D71] mb-2 sm:mb-3">Peta Digital</h2>
               <p className="text-xs sm:text-sm text-gray-600 max-w-2xl">Eksplorasi data geospasial dan tematik wilayah desa.</p>
             </div>
           </ScrollReveal>
 
-          <div className="relative w-full rounded-2xl shadow-xl overflow-hidden border-4 border-white group h-[360px] sm:h-[420px] md:h-[520px] lg:h-[600px] max-h-[80vh]">
+          <div className="relative w-full rounded-2xl shadow-xl overflow-hidden border-4 border-white group h-[320px] sm:h-[380px] md:h-[460px] lg:h-[480px] xl:h-[520px] max-h-[60vh]">
             {/* FLOATING FILTER POPUP */}
             {id !== "nonongan-selatan" && (
               <div className="absolute top-4 right-4 z-[1000]">
