@@ -651,7 +651,7 @@ export default function VillageDetail() {
       {/* VISI, MISI & PUBLIKASI */}
       <section
         id="publikasi"
-        className="relative min-h-[calc(100vh-80px)] py-10 sm:py-14 bg-gray-50 border-t border-gray-100 flex items-center"
+        className="relative min-h-[calc(100vh-80px)] pt-6 sm:pt-8 pb-20 sm:pb-24 bg-gray-50 border-t border-gray-100 flex flex-col justify-start"
       >
         <div className="container mx-auto px-6 w-full">
           {(village.vision || (village.mission && village.mission.length > 0)) && (
