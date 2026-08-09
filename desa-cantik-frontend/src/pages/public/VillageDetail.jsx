@@ -984,7 +984,7 @@ export default function VillageDetail() {
             </div>
           </ScrollReveal>
 
-          <div className="relative w-full rounded-2xl shadow-xl overflow-hidden border-4 border-white group h-[320px] sm:h-[380px] md:h-[460px] lg:h-[480px] xl:h-[520px] max-h-[60vh]">
+          <div className="relative w-full rounded-2xl shadow-xl overflow-hidden border-4 border-white group h-[340px] sm:h-[400px] md:h-[480px] lg:h-[540px] xl:h-[580px] max-h-[70vh]">
             {/* FLOATING FILTER POPUP */}
             {id !== "nonongan-selatan" && (
               <div className="absolute top-4 right-4 z-[1000]">
