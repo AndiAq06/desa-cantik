@@ -642,7 +642,7 @@ export default function VillageDetail() {
           <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400 group-hover:text-[#154D71] transition-colors">
             Visi, Misi & Publikasi
           </span>
-          <svg className="w-4.5 h-4.5 text-gray-400 group-hover:text-[#154D71] group-hover:scale-115 transition-all" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5 text-gray-400 group-hover:text-[#154D71] group-hover:scale-115 transition-all" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
         </div>
@@ -828,7 +828,7 @@ export default function VillageDetail() {
           <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400 group-hover:text-[#154D71] transition-colors">
             Data Statistik
           </span>
-          <svg className="w-4.5 h-4.5 text-gray-400 group-hover:text-[#154D71] group-hover:scale-115 transition-all" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5 text-gray-400 group-hover:text-[#154D71] group-hover:scale-115 transition-all" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
         </div>
@@ -968,7 +968,7 @@ export default function VillageDetail() {
           <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400 group-hover:text-[#154D71] transition-colors">
             Peta Tematik
           </span>
-          <svg className="w-4.5 h-4.5 text-gray-400 group-hover:text-[#154D71] group-hover:scale-115 transition-all" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5 text-gray-400 group-hover:text-[#154D71] group-hover:scale-115 transition-all" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
         </div>
@@ -1121,7 +1121,7 @@ export default function VillageDetail() {
           <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400 group-hover:text-[#154D71] transition-colors">
             Dokumentasi Kegiatan
           </span>
-          <svg className="w-4.5 h-4.5 text-gray-400 group-hover:text-[#154D71] group-hover:scale-115 transition-all" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-5 h-5 text-gray-400 group-hover:text-[#154D71] group-hover:scale-115 transition-all" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
             <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
           </svg>
         </div>
