@@ -568,13 +568,17 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN INDICATOR */}
         <div 
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 animate-bounce cursor-pointer opacity-70 hover:opacity-100 transition-opacity z-20"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 cursor-pointer z-20 group"
           onClick={() => scrollToSection('tentang')}
         >
-          <span className="text-xs tracking-widest uppercase font-semibold text-white/80">Jelajahi</span>
-          <svg className="w-5 h-5 text-white" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
+          <span className="text-[10px] tracking-widest uppercase font-black text-white/50 group-hover:text-[#FFF9AF] transition-colors filter drop-shadow">
+            Jelajahi Tentang Desa
+          </span>
+          <div className="w-9 h-9 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-[#FFF9AF] group-hover:text-[#154D71] group-hover:border-[#FFF9AF] group-hover:scale-110 active:scale-95 transition-all duration-300 animate-bounce shadow-inner">
+            <svg className="w-4.5 h-4.5 text-white group-hover:text-[#154D71] transition-colors" fill="none" strokeWidth="3.5" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
         </div>
       </section>
 
@@ -634,13 +638,17 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN INDICATOR */}
         <div 
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity z-20"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 cursor-pointer z-20 group"
           onClick={() => scrollToSection('publikasi')}
         >
-          <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400">Visi Misi & Publikasi</span>
-          <svg className="w-4 h-4 text-gray-400" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
+          <span className="text-[9px] tracking-widest uppercase font-black text-[#154D71]/40 group-hover:text-[#154D71] transition-colors">
+            Visi, Misi & Publikasi
+          </span>
+          <div className="w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center group-hover:bg-[#154D71] group-hover:text-white group-hover:border-[#154D71] group-hover:scale-110 active:scale-95 transition-all duration-300 animate-bounce">
+            <svg className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" fill="none" strokeWidth="3.5" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
         </div>
       </section>
 
@@ -818,13 +826,17 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN INDICATOR */}
         <div 
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity z-20"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 cursor-pointer z-20 group"
           onClick={() => scrollToSection('data')}
         >
-          <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400">Data Statistik</span>
-          <svg className="w-4 h-4 text-gray-400" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
+          <span className="text-[9px] tracking-widest uppercase font-black text-[#154D71]/40 group-hover:text-[#154D71] transition-colors">
+            Data Statistik
+          </span>
+          <div className="w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center group-hover:bg-[#154D71] group-hover:text-white group-hover:border-[#154D71] group-hover:scale-110 active:scale-95 transition-all duration-300 animate-bounce">
+            <svg className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" fill="none" strokeWidth="3.5" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
         </div>
       </section>
 
@@ -956,13 +968,17 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN INDICATOR */}
         <div 
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity z-20"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 cursor-pointer z-20 group"
           onClick={() => scrollToSection('peta')}
         >
-          <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400">Peta Tematik</span>
-          <svg className="w-4 h-4 text-gray-400" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
+          <span className="text-[9px] tracking-widest uppercase font-black text-[#154D71]/40 group-hover:text-[#154D71] transition-colors">
+            Peta Tematik
+          </span>
+          <div className="w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center group-hover:bg-[#154D71] group-hover:text-white group-hover:border-[#154D71] group-hover:scale-110 active:scale-95 transition-all duration-300 animate-bounce">
+            <svg className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" fill="none" strokeWidth="3.5" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
         </div>
       </section>
 
@@ -1107,13 +1123,17 @@ export default function VillageDetail() {
 
         {/* SCROLL DOWN INDICATOR */}
         <div 
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 animate-bounce cursor-pointer opacity-50 hover:opacity-100 transition-opacity z-20"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1.5 cursor-pointer z-20 group"
           onClick={() => scrollToSection('dokumentasi')}
         >
-          <span className="text-[10px] tracking-widest uppercase font-bold text-gray-400">Dokumentasi Kegiatan</span>
-          <svg className="w-4 h-4 text-gray-400" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
+          <span className="text-[9px] tracking-widest uppercase font-black text-[#154D71]/40 group-hover:text-[#154D71] transition-colors">
+            Dokumentasi Kegiatan
+          </span>
+          <div className="w-8 h-8 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center group-hover:bg-[#154D71] group-hover:text-white group-hover:border-[#154D71] group-hover:scale-110 active:scale-95 transition-all duration-300 animate-bounce">
+            <svg className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" fill="none" strokeWidth="3.5" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
         </div>
       </section>
 
