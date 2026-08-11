@@ -14,36 +14,51 @@ class TeamMemberSeeder extends Seeder
     {
         $members = [
             [
+                'name' => 'Mansyur Madjang',
+                'role' => 'Kepala BPS Toraja Utara',
+                'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=MM',
+                'display_order' => 1,
+            ],
+            [
                 'name' => 'Dannar Kurniawan Ajie Prasetya',
                 'role' => 'BPS Toraja Utara',
                 'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=KD',
-                'display_order' => 1,
+                'display_order' => 2,
             ],
             [
                 'name' => 'Antonius Parupang',
                 'role' => 'BPS Toraja Utara',
                 'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=KT',
-                'display_order' => 2,
+                'display_order' => 3,
             ],
             [
                 'name' => 'Ainur Rahma',
                 'role' => 'BPS Toraja Utara',
                 'photo_url' => 'https://placehold.co/400x400/154D71/ffffff?text=KR',
-                'display_order' => 3,
-            ],
-            [
-                'name' => 'Rahma Fitriani Maradi Ibrahim',
-                'role' => 'BPS Toraja Utara',
-                'photo_url' => 'https://placehold.co/400x400/33A1E0/ffffff?text=RF',
                 'display_order' => 4,
             ],
             [
-                'name' => 'Teguh Christiawan',
-                'role' => 'Politeknik Statistika STIS',
-                'photo_url' => 'https://placehold.co/400x400/33A1E0/ffffff?text=TC',
+                'name' => 'A. Nabilah Ahmad',
+                'role' => 'BPS Toraja Utara',
+                'photo_url' => 'https://placehold.co/400x400/33A1E0/ffffff?text=NA',
                 'display_order' => 5,
             ],
+            [
+                'name' => 'Elias Patawaran',
+                'role' => 'BPS Toraja Utara',
+                'photo_url' => 'https://placehold.co/400x400/33A1E0/ffffff?text=EP',
+                'display_order' => 6,
+            ],
+            [
+                'name' => 'Andi Ardiansyah Nasir',
+                'role' => 'BPS Toraja Utara',
+                'photo_url' => 'https://placehold.co/400x400/33A1E0/ffffff?text=AN',
+                'display_order' => 7,
+            ],
         ];
+
+        // Clear existing members before seeding
+        TeamMember::truncate();
 
         foreach ($members as $member) {
             TeamMember::create(array_merge($member, [
