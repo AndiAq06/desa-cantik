@@ -335,7 +335,7 @@ class VillageController extends Controller
     public function storeDocumentation(Request $request, $villageId): JsonResponse
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:5120',
             'description' => 'nullable|string|max:255',
         ]);
 

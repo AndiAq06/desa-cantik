@@ -28,6 +28,20 @@ export default function DashboardLayout() {
 
   const [villages, setVillages] = useState([]);
 
+  // Auto-collapse sidebar on tablet screens (width >= 768px and < 1024px)
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && window.innerWidth < 1024) {
+        setIsCollapsed(true);
+      } else if (window.innerWidth >= 1024) {
+        setIsCollapsed(false);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     if (!isAdmin) return;
     const fetchVillages = async () => {

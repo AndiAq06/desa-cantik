@@ -165,9 +165,9 @@ export default function PublikasiDesa() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        // 2MB limit
-        toast.error("Ukuran file terlalu besar. Maksimal 2MB.");
+      if (file.size > 5 * 1024 * 1024) {
+        // 5MB limit
+        toast.error("Ukuran file terlalu besar. Maksimal 5MB.");
         e.target.value = null;
         return;
       }
@@ -610,7 +610,7 @@ export default function PublikasiDesa() {
                 />
               </div>
               <p className="text-[10px] text-slate-500">
-                Format wajib: .pdf (Maksimal 2MB)
+                Format wajib: .pdf (Maksimal 5MB)
               </p>
             </div>
           </div>

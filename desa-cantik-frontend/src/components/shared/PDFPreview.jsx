@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FileText, Loader2 } from "lucide-react";
 
 /**
@@ -12,6 +12,20 @@ import { FileText, Loader2 } from "lucide-react";
 export default function PDFPreview({ pdfUrl, title, className = "" }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isMobileUA = /android|iphone|ipad|ipod|iemobile|opera mini/i.test(userAgent);
+      const isSmallScreen = window.innerWidth < 1024; // tablet and mobile
+      setIsMobile(isMobileUA || isSmallScreen);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   React.useEffect(() => {
     if (!pdfUrl) return;
@@ -62,6 +76,32 @@ export default function PDFPreview({ pdfUrl, title, className = "" }) {
     );
   }
 
+  // Mobile/Tablet Fallback UI
+  if (isMobile) {
+    return (
+      <div className={`flex flex-col items-center justify-center p-6 bg-gradient-to-br from-[#154D71]/5 to-[#33A1E0]/5 rounded-xl border border-dashed border-[#154D71]/20 text-center ${className}`}>
+        <div className="p-4 bg-white rounded-full shadow-md mb-4 text-[#154D71]">
+          <FileText className="w-12 h-12" />
+        </div>
+        <h4 className="font-bold text-[#154D71] text-base mb-2 max-w-[280px] line-clamp-2">
+          {title || "Dokumen PDF"}
+        </h4>
+        <p className="text-xs text-gray-500 mb-5 max-w-[240px]">
+          Perangkat mobile tidak mendukung pratinjau PDF langsung. Klik tombol di bawah untuk membaca dokumen.
+        </p>
+        <a
+          href={pdfUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center px-6 py-3 bg-[#154D71] hover:bg-[#33A1E0] text-white font-semibold rounded-lg shadow-md transition-all gap-2 text-sm w-full max-w-[200px]"
+        >
+          <FileText className="w-4 h-4" />
+          Baca PDF
+        </a>
+      </div>
+    );
+  }
+
   // Append #page=1&zoom=fit to show first page and fit to container
   const embedUrl = `${pdfUrl}#page=1&view=FitH&toolbar=0&navpanes=0&scrollbar=0`;
 
@@ -98,3 +138,4 @@ export default function PDFPreview({ pdfUrl, title, className = "" }) {
     </div>
   );
 }
+

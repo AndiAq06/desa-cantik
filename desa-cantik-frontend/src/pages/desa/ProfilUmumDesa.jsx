@@ -121,9 +121,9 @@ export default function ProfilUmumDesa() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file size (max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      toast.error("Ukuran gambar terlalu besar. Maksimal 2MB.");
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Ukuran gambar terlalu besar. Maksimal 5MB.");
       return;
     }
 
@@ -431,8 +431,8 @@ export default function ProfilUmumDesa() {
                     </Button>
                   )}
                 </div>
-                <p className="text-xs text-gray-500">
-                  Format: JPEG, PNG, WebP. Maksimal 2MB
+                 <p className="text-xs text-gray-500">
+                  Format: JPEG, PNG, WebP. Maksimal 5MB
                 </p>
               </div>
 

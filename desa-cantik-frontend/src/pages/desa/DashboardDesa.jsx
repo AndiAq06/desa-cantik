@@ -257,34 +257,36 @@ export default function DashboardDesa() {
         </CardHeader>
         <CardContent>
           {dashboardData?.recentActivities?.length > 0 ? (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[50px]">No.</TableHead>
-                  <TableHead>User</TableHead>
-                  <TableHead>Aksi</TableHead>
-                  <TableHead>Deskripsi</TableHead>
-                  <TableHead>Waktu</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {dashboardData.recentActivities.map((activity, index) => (
-                  <TableRow key={activity.id} className="hover:bg-slate-50 transition-colors">
-                    <TableCell className="text-muted-foreground">{index + 1}</TableCell>
-                    <TableCell className="font-medium">{activity.user}</TableCell>
-                    <TableCell>
-                      <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800">
-                        {activity.action}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-sm">{activity.description}</TableCell>
-                    <TableCell className="text-muted-foreground text-sm">
-                      {new Date(activity.timestamp).toLocaleString('id-ID')}
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[50px]">No.</TableHead>
+                    <TableHead>User</TableHead>
+                    <TableHead>Aksi</TableHead>
+                    <TableHead>Deskripsi</TableHead>
+                    <TableHead>Waktu</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {dashboardData.recentActivities.map((activity, index) => (
+                    <TableRow key={activity.id} className="hover:bg-slate-50 transition-colors">
+                      <TableCell className="text-muted-foreground">{index + 1}</TableCell>
+                      <TableCell className="font-medium">{activity.user}</TableCell>
+                      <TableCell>
+                        <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800">
+                          {activity.action}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-sm">{activity.description}</TableCell>
+                      <TableCell className="text-muted-foreground text-sm">
+                        {new Date(activity.timestamp).toLocaleString('id-ID')}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           ) : (
             <div className="text-center text-gray-500 py-8">
               Belum ada aktivitas terkini

@@ -135,7 +135,7 @@ class VillageProfileController extends Controller
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email',
             'logo_url' => 'nullable|url',
-            'logo' => 'nullable|file|mimes:jpeg,jpg,png,webp|max:2048',
+            'logo' => 'nullable|file|mimes:jpeg,jpg,png,webp|max:5120',
             'district' => 'sometimes|nullable|string|max:255',
             'regency' => 'sometimes|nullable|string|max:255',
             'code' => 'sometimes|nullable|string|max:50',
@@ -243,7 +243,7 @@ class VillageProfileController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'logo' => 'required|file|mimes:jpeg,jpg,png|max:2048',
+            'logo' => 'required|file|mimes:jpeg,jpg,png|max:5120',
         ]);
 
         if ($validator->fails()) {

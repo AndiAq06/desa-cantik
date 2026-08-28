@@ -981,83 +981,85 @@ export default function PetaTematikDesa() {
               </Button>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nama / Deskripsi</TableHead>
-                    <TableHead>Tipe Geometri</TableHead>
-                    <TableHead>Sumber</TableHead>
-                    <TableHead className="text-center font-semibold text-slate-600 w-[150px]">
-                      Aksi
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {loading ? (
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
                     <TableRow>
-                      <TableCell
-                        colSpan={4}
-                        className="text-center text-slate-500 py-8 animate-pulse"
-                      >
-                        Memuat data...
-                      </TableCell>
+                      <TableHead>Nama / Deskripsi</TableHead>
+                      <TableHead>Tipe Geometri</TableHead>
+                      <TableHead>Sumber</TableHead>
+                      <TableHead className="text-center font-semibold text-slate-600 w-[150px]">
+                        Aksi
+                      </TableHead>
                     </TableRow>
-                  ) : geospatialData.length === 0 ? (
-                    <TableRow>
-                      <TableCell
-                        colSpan={4}
-                        className="text-center text-slate-500 py-8"
-                      >
-                        Belum ada data geospatial.
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    geospatialData.map((item) => (
-                      <TableRow key={item.id}>
-                        <TableCell className="font-medium">
-                          {item.data_name ||
-                            item.map_name ||
-                            `Item #${item.id}`}
-                        </TableCell>
-                        <TableCell>
-                          <span className="uppercase text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded border">
-                            {getGeometryType(item)}
-                          </span>
-                        </TableCell>
-                        <TableCell className="text-sm text-slate-500">
-                          {item.map_type === "manual_input"
-                            ? "Input Manual"
-                            : item.map_type === "geojson"
-                            ? "GeoJSON"
-                            : item.features
-                            ? "GeoJSON"
-                            : "-"}
-                        </TableCell>
-                        <TableCell className="text-center">
-                          <div className="flex items-center justify-center gap-2">
-                            <Button
-                              variant="default"
-                              size="sm"
-                              className="bg-[#1C6EA4] hover:bg-[#154D71] text-white h-8 px-3 text-xs"
-                              onClick={() => handleOpenModal("editGeo", item)}
-                            >
-                              Edit
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="flex items-center justify-center gap-2 rounded-full border border-rose-200 bg-rose-100 text-rose-700 hover:bg-rose-200 h-8 px-3 text-xs"
-                              onClick={() => handleDeleteClick("geo", item)}
-                            >
-                              Hapus
-                            </Button>
-                          </div>
+                  </TableHeader>
+                  <TableBody>
+                    {loading ? (
+                      <TableRow>
+                        <TableCell
+                          colSpan={4}
+                          className="text-center text-slate-500 py-8 animate-pulse"
+                        >
+                          Memuat data...
                         </TableCell>
                       </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
+                    ) : geospatialData.length === 0 ? (
+                      <TableRow>
+                        <TableCell
+                          colSpan={4}
+                          className="text-center text-slate-500 py-8"
+                        >
+                          Belum ada data geospatial.
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      geospatialData.map((item) => (
+                        <TableRow key={item.id}>
+                          <TableCell className="font-medium">
+                            {item.data_name ||
+                              item.map_name ||
+                              `Item #${item.id}`}
+                          </TableCell>
+                          <TableCell>
+                            <span className="uppercase text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded border">
+                              {getGeometryType(item)}
+                            </span>
+                          </TableCell>
+                          <TableCell className="text-sm text-slate-500">
+                            {item.map_type === "manual_input"
+                              ? "Input Manual"
+                              : item.map_type === "geojson"
+                              ? "GeoJSON"
+                              : item.features
+                              ? "GeoJSON"
+                              : "-"}
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <div className="flex items-center justify-center gap-2">
+                              <Button
+                                variant="default"
+                                size="sm"
+                                className="bg-[#1C6EA4] hover:bg-[#154D71] text-white h-8 px-3 text-xs"
+                                onClick={() => handleOpenModal("editGeo", item)}
+                              >
+                                Edit
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="flex items-center justify-center gap-2 rounded-full border border-rose-200 bg-rose-100 text-rose-700 hover:bg-rose-200 h-8 px-3 text-xs"
+                                onClick={() => handleDeleteClick("geo", item)}
+                              >
+                                Hapus
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -1080,123 +1082,125 @@ export default function PetaTematikDesa() {
               </Button>
             </CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[60px]">Urutan</TableHead>
-                    <TableHead>Nama Layer</TableHead>
-                    <TableHead>Nama Data</TableHead>
-                    <TableHead>Tipe Geometri</TableHead>
-                    <TableHead>Warna</TableHead>
-                    <TableHead className="text-center font-semibold text-slate-600">
-                      Aksi
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {loading ? (
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
                     <TableRow>
-                      <TableCell
-                        colSpan={4}
-                        className="text-center text-slate-500 py-8 animate-pulse"
-                      >
-                        Memuat layer...
-                      </TableCell>
+                      <TableHead className="w-[60px]">Urutan</TableHead>
+                      <TableHead>Nama Layer</TableHead>
+                      <TableHead>Nama Data</TableHead>
+                      <TableHead>Tipe Geometri</TableHead>
+                      <TableHead>Warna</TableHead>
+                      <TableHead className="text-center font-semibold text-slate-600">
+                        Aksi
+                      </TableHead>
                     </TableRow>
-                  ) : layerData.length === 0 ? (
-                    <TableRow>
-                      <TableCell
-                        colSpan={4}
-                        className="text-center text-slate-500 py-8"
-                      >
-                        Belum ada layer peta yang dibuat.
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    layerData.map((item, index) => (
-                      <TableRow key={item.id}>
-                        <TableCell>
-                          <div className="flex items-center gap-1">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="h-6 w-6 p-0"
-                              onClick={() => handleMoveLayer(index, "up")}
-                              disabled={index === 0}
-                            >
-                              <ChevronUp className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="h-6 w-6 p-0"
-                              onClick={() => handleMoveLayer(index, "down")}
-                              disabled={index === layerData.length - 1}
-                            >
-                              <ChevronDown className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          {item.layer_name ||
-                            item.name ||
-                            item.map_name ||
-                            "Layer Tanpa Nama"}
-                        </TableCell>
-                        <TableCell className="text-sm text-slate-600">
-                          {item.data_name || item.map_name || "-"}
-                        </TableCell>
-                        <TableCell>
-                          <span className="uppercase text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded border">
-                            {item.geometry_type || item.map_type || "-"}
-                          </span>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <div
-                              className="w-4 h-4 rounded-full shadow-sm border"
-                              style={{ backgroundColor: item.color }}
-                            ></div>
-                            <span className="text-xs mono">{item.color}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-center">
-                          <div className="flex items-center justify-center gap-3">
-                            <div className="flex items-center gap-2 bg-slate-50 px-2 py-1 rounded-md border">
-                              <Switch
-                                checked={item.isVisible}
-                                onCheckedChange={(c) =>
-                                  handleToggleLayer(item.id, c)
-                                }
-                                className="scale-75"
-                              />
-                              <span className="text-[10px] font-medium text-slate-600 uppercase">
-                                {item.isVisible ? "Aktif" : "Nonaktif"}
-                              </span>
-                            </div>
-                            <Button
-                              variant="default"
-                              size="sm"
-                              className="bg-[#1C6EA4] hover:bg-[#154D71] text-white h-8 px-3 text-xs"
-                              onClick={() => handleOpenModal("editLayer", item)}
-                            >
-                              Edit
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleDeleteClick("layer", item)}
-                              className="flex items-center justify-center gap-2 border border-rose-200 bg-rose-100 text-rose-700 hover:bg-rose-200 h-8 px-3 text-xs"
-                            >
-                              Hapus
-                            </Button>
-                          </div>
+                  </TableHeader>
+                  <TableBody>
+                    {loading ? (
+                      <TableRow>
+                        <TableCell
+                          colSpan={4}
+                          className="text-center text-slate-500 py-8 animate-pulse"
+                        >
+                          Memuat layer...
                         </TableCell>
                       </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
+                    ) : layerData.length === 0 ? (
+                      <TableRow>
+                        <TableCell
+                          colSpan={4}
+                          className="text-center text-slate-500 py-8"
+                        >
+                          Belum ada layer peta yang dibuat.
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      layerData.map((item, index) => (
+                        <TableRow key={item.id}>
+                          <TableCell>
+                            <div className="flex items-center gap-1">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-6 w-6 p-0"
+                                onClick={() => handleMoveLayer(index, "up")}
+                                disabled={index === 0}
+                              >
+                                <ChevronUp className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-6 w-6 p-0"
+                                onClick={() => handleMoveLayer(index, "down")}
+                                disabled={index === layerData.length - 1}
+                              >
+                                <ChevronDown className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                          <TableCell className="font-medium">
+                            {item.layer_name ||
+                              item.name ||
+                              item.map_name ||
+                              "Layer Tanpa Nama"}
+                          </TableCell>
+                          <TableCell className="text-sm text-slate-600">
+                            {item.data_name || item.map_name || "-"}
+                          </TableCell>
+                          <TableCell>
+                            <span className="uppercase text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded border">
+                              {item.geometry_type || item.map_type || "-"}
+                            </span>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <div
+                                className="w-4 h-4 rounded-full shadow-sm border"
+                                style={{ backgroundColor: item.color }}
+                              ></div>
+                              <span className="text-xs mono">{item.color}</span>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-center">
+                            <div className="flex items-center justify-center gap-3">
+                              <div className="flex items-center gap-2 bg-slate-50 px-2 py-1 rounded-md border">
+                                <Switch
+                                  checked={item.isVisible}
+                                  onCheckedChange={(c) =>
+                                    handleToggleLayer(item.id, c)
+                                  }
+                                  className="scale-75"
+                                />
+                                <span className="text-[10px] font-medium text-slate-600 uppercase">
+                                  {item.isVisible ? "Aktif" : "Nonaktif"}
+                                </span>
+                              </div>
+                              <Button
+                                variant="default"
+                                size="sm"
+                                className="bg-[#1C6EA4] hover:bg-[#154D71] text-white h-8 px-3 text-xs"
+                                onClick={() => handleOpenModal("editLayer", item)}
+                              >
+                                Edit
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleDeleteClick("layer", item)}
+                                className="flex items-center justify-center gap-2 border border-rose-200 bg-rose-100 text-rose-700 hover:bg-rose-200 h-8 px-3 text-xs"
+                              >
+                                Hapus
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

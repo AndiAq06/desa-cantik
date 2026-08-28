@@ -70,8 +70,8 @@ export default function DokumentasiDesa() {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            if (file.size > 2 * 1024 * 1024) { // 2MB limit
-                toast.error("Ukuran file maksimal 2MB");
+            if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                toast.error("Ukuran file maksimal 5MB");
                 return;
             }
             setSelectedFile(file);
@@ -223,7 +223,7 @@ export default function DokumentasiDesa() {
 
                         <div className="grid gap-4 py-4">
                             <div className="grid gap-2">
-                                <Label>File Gambar (Max 2MB)</Label>
+                                <Label>File Gambar (Max 5MB)</Label>
                                 <Input
                                     type="file"
                                     accept="image/png, image/jpeg, image/jpg"
