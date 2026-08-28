@@ -609,7 +609,7 @@ export default function VillageDetail() {
                 </div>
                 <p className="text-sm sm:text-lg text-gray-600 leading-relaxed mb-8">{village.description || "Belum ada deskripsi detail mengenai desa ini. Silakan hubungi admin untuk informasi lebih lanjut."}</p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                   <div className="bg-gradient-to-br from-white to-blue-50/20 p-5 rounded-2xl border border-blue-100/50 shadow-sm hover:shadow-md transition-all duration-300 flex items-center gap-4">
                     <div className="p-3 bg-blue-50/70 rounded-xl text-[#33A1E0] shrink-0">
                       <Layers className="w-5 h-5" />
@@ -625,7 +625,7 @@ export default function VillageDetail() {
                     </div>
                     <div>
                       <p className="text-xs text-gray-400 font-medium mb-0.5">Kode Wilayah</p>
-                      <p className="text-lg sm:text-2xl font-black bg-gradient-to-r from-[#154D71] to-[#1C6EA4] bg-clip-text text-transparent">{village.village_code || "-"}</p>
+                      <p className="text-lg sm:text-2xl font-black bg-gradient-to-r from-[#154D71] to-[#1C6EA4] bg-clip-text text-transparent break-all">{village.village_code || "-"}</p>
                     </div>
                   </div>
                 </div>
