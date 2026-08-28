@@ -974,7 +974,7 @@ export default function VillageDetail() {
       </section>
 
       {/* PETA TEMATIK */}
-      <section id="peta" className="relative min-h-[calc(100vh-80px)] flex flex-col justify-start bg-gray-50 pt-8 sm:pt-12 pb-16">
+      <section id="peta" className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center sm:justify-start bg-gray-50 py-8 sm:pt-12 sm:pb-16">
         <div className="container mx-auto px-6 w-full">
           <ScrollReveal>
             <div className="mb-6">
