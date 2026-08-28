@@ -134,7 +134,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
           {/* Left side: Hamburger (mobile only) + Logos & Brand */}
           <div className="flex items-center gap-3">
             {/* Mobile Hamburger Menu */}
-            <div className="md:hidden flex-shrink-0">
+            <div className="lg:hidden flex-shrink-0">
               <Sheet>
                 <SheetTrigger asChild>
                   <Button
@@ -256,7 +256,7 @@ export default function VillageDetailNavbar({ activeSection, scrollToSection, vi
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-1.5">
+          <div className="hidden lg:flex items-center gap-1.5">
             {scrollToSection ? (
               <Button
                 variant="ghost"

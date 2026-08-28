@@ -14,7 +14,7 @@ export default function Navbar({ scrollToVillages }) {
           {/* Left side: Hamburger (mobile only) + Logos & Brand */}
           <div className="flex items-center gap-3">
             {/* Mobile Hamburger menu */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 p-1 w-11 h-11">
@@ -83,7 +83,7 @@ export default function Navbar({ scrollToVillages }) {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1.5">
+          <div className="hidden lg:flex items-center gap-1.5">
             <Button asChild variant="ghost" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-white hover:text-[#FFF9AF] hover:bg-white/10 text-base px-4 py-1.5 transition-all">
               <Link to="/">Home</Link>
             </Button>
